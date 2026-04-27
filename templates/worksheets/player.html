@@ -1,0 +1,436 @@
+{% extends 'base.html' %}
+{% block title %}{{ worksheet.title }}{% endblock %}
+{% block main_class %}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4" x-data="worksheetPlayer()" x-init="init()">
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold">{{ worksheet.title }}</h1>
+        <p class="text-gray-500 text-sm mt-1">{{ worksheet.description }}</p>
+        <div class="flex items-center gap-4 mt-3 text-sm text-gray-400">
+            <span><i class="fas fa-user mr-1"></i>{{ worksheet.author.full_name }}</span>
+            {% if worksheet.subject %}<span><i class="fas fa-book mr-1"></i>{{ worksheet.subject.name }}</span>{% endif %}
+        </div>
+    </div>
+
+    <!-- Result Banner -->
+    <div x-show="submitted" x-cloak
+         class="mb-6 rounded-xl p-5 text-center"
+         :class="score >= 60 ? 'bg-green-50 border border-green-200' : 'bg-orange-50 border border-orange-200'">
+        <div class="text-4xl font-bold mb-1" :class="score >= 60 ? 'text-green-600' : 'text-orange-600'">
+            <span x-text="score"></span>%
+        </div>
+        <p class="text-gray-600 text-sm">
+            <span x-text="correctCount"></span> / <span x-text="totalCount"></span> doğru cevap
+        </p>
+        <p class="mt-2 font-semibold" x-text="score >= 60 ? '🎉 Harika iş!' : '📚 Biraz daha çalışmalısın'"></p>
+    </div>
+
+    <!-- Pages -->
+    {% for page in pages %}
+    <div class="mb-10">
+        <!-- Audio player -->
+        {% if page.audio_file or page.audio_url %}
+        <div class="mb-3 flex items-center gap-3 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">
+            <i class="fas fa-volume-up text-blue-500"></i>
+            <audio controls class="flex-1 h-8">
+                {% if page.audio_file %}<source src="{{ page.audio_file.url }}">{% endif %}
+                {% if page.audio_url %}<source src="{{ page.audio_url }}">{% endif %}
+            </audio>
+        </div>
+        {% endif %}
+
+        <!-- Text-to-speech -->
+        {% if page.text_to_speech_text %}
+        <div class="mb-3 flex items-center gap-3 bg-teal-50 border border-teal-200 rounded-xl px-4 py-3">
+            <button onclick="speakText(`{{ page.text_to_speech_text|escapejs }}`, '{{ page.text_to_speech_lang }}')"
+                    class="flex items-center gap-2 text-sm text-teal-700 font-medium hover:text-teal-900">
+                <i class="fas fa-play-circle text-xl"></i> Metni Dinle
+            </button>
+            <span class="text-sm text-teal-600">{{ page.text_to_speech_text|truncatechars:80 }}</span>
+        </div>
+        {% endif %}
+
+        <!-- Page canvas -->
+        <div class="relative bg-white shadow-lg overflow-hidden"
+             style="width:100%; padding-top: {{ page.page_height|floatformat:0 }}/{{ page.page_width|floatformat:0 }}*100%;">
+            <div class="absolute inset-0">
+                {% if page.background_image %}
+                <img src="{{ page.background_image.url }}" class="w-full h-full object-contain select-none" draggable="false">
+                {% endif %}
+
+                <!-- Video embeds -->
+                {% for embed in page.embeds.all %}
+                <div class="absolute"
+                     style="left:{{ embed.pos_x }}%; top:{{ embed.pos_y }}%; width:{{ embed.width }}%; height:{{ embed.height }}%;">
+                    <iframe src="{{ embed.embed_url }}" class="w-full h-full rounded shadow" frameborder="0" allowfullscreen></iframe>
+                </div>
+                {% endfor %}
+
+                <!-- Questions -->
+                {% for question in page.questions.all %}
+                <div class="absolute question-container"
+                     data-question-id="{{ question.id }}"
+                     data-type="{{ question.question_type }}"
+                     style="left:{{ question.pos_x }}%; top:{{ question.pos_y }}%; width:{{ question.width }}%;">
+
+                    <div class="question-box border-2 rounded px-2 py-1 transition-colors"
+                         id="qbox-{{ question.id }}"
+                         style="border-color:{{ question.border_color }}; background:{{ question.bg_color }}; font-size:{{ question.font_size }}px;">
+
+                        {% if question.label %}
+                        <div class="text-xs text-gray-500 mb-1">{{ question.label }}</div>
+                        {% endif %}
+
+                        {% if question.question_type == 'fill_blank' %}
+                        <input type="text" id="ans-{{ question.id }}"
+                               class="w-full bg-transparent outline-none border-b border-gray-300 focus:border-indigo-500 py-0.5 text-sm"
+                               placeholder="Cevabınız..."
+                               :disabled="submitted">
+
+                        {% elif question.question_type == 'multiple_choice' %}
+                        <div class="space-y-1">
+                            {% for opt in question.options.all %}
+                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                <input type="radio" name="q{{ question.id }}" value="{{ opt.text }}"
+                                       :disabled="submitted"
+                                       id="ans-{{ question.id }}-{{ opt.id }}"
+                                       class="text-indigo-600">
+                                <span>{{ opt.text }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+
+                        {% elif question.question_type == 'dropdown' %}
+                        <select id="ans-{{ question.id }}" :disabled="submitted"
+                                class="w-full bg-transparent border-b border-gray-300 text-sm py-0.5 focus:outline-none">
+                            <option value="">Seçin...</option>
+                            {% for opt in question.options.all %}
+                            <option value="{{ opt.text }}">{{ opt.text }}</option>
+                            {% endfor %}
+                        </select>
+
+                        {% elif question.question_type == 'drag_drop' %}
+                        <!-- Drag items bank -->
+                        <div class="drag-bank flex flex-wrap gap-1 mb-2 p-1 bg-gray-50 rounded border border-dashed border-gray-300 min-h-8"
+                             id="bank-{{ question.id }}">
+                            {% for item in question.drag_items.all %}
+                            <div class="drag-item bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs cursor-grab font-medium select-none"
+                                 draggable="true"
+                                 data-item-id="{{ item.id }}"
+                                 data-item-text="{{ item.text }}"
+                                 data-correct-target="{{ item.correct_target_id }}"
+                                 ondragstart="dragStart(event)"
+                                 id="item-{{ item.id }}">
+                                {{ item.text }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Drop targets -->
+                        {% for target in question.drop_targets.all %}
+                        <div class="drop-target border-2 border-dashed border-gray-300 rounded p-1 min-h-8 text-xs text-gray-400 text-center transition-colors"
+                             id="target-{{ target.target_id }}"
+                             data-target-id="{{ target.target_id }}"
+                             data-question-id="{{ question.id }}"
+                             ondragover="dragOver(event)"
+                             ondrop="drop(event)">
+                            {{ target.label|default:"Buraya bırakın" }}
+                        </div>
+                        {% endfor %}
+
+                        {% elif question.question_type == 'matching' %}
+                        <div class="matching-container" id="matching-{{ question.id }}">
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div class="space-y-1">
+                                    {% for pair in question.matching_pairs.all %}
+                                    <div class="bg-indigo-50 border border-indigo-200 rounded px-2 py-1.5 font-medium cursor-pointer matching-left"
+                                         data-pair="{{ forloop.counter0 }}"
+                                         data-question="{{ question.id }}"
+                                         onclick="selectLeft(this)">
+                                        {{ pair.left_text }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="space-y-1" id="right-{{ question.id }}">
+                                    {% for pair in question.matching_pairs.all %}
+                                    <div class="bg-gray-50 border border-gray-200 rounded px-2 py-1.5 cursor-pointer matching-right"
+                                         data-pair="{{ forloop.counter0 }}"
+                                         data-right-text="{{ pair.right_text }}"
+                                         data-question="{{ question.id }}"
+                                         onclick="selectRight(this)">
+                                        {{ pair.right_text }}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        {% elif question.question_type == 'speech' %}
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleRecording({{ question.id }}, this)"
+                                    class="flex items-center gap-2 bg-teal-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-teal-600 transition-colors"
+                                    data-recording="false">
+                                <i class="fas fa-microphone"></i> <span>Kayıt Başlat</span>
+                            </button>
+                            <span id="speech-status-{{ question.id }}" class="text-xs text-gray-400"></span>
+                        </div>
+
+                        {% elif question.question_type == 'checkboxes' %}
+                        <div class="space-y-1">
+                            {% for opt in question.options.all %}
+                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                                <input type="checkbox" name="q{{ question.id }}" value="{{ opt.text }}"
+                                       :disabled="submitted" class="text-green-600 rounded">
+                                <span>{{ opt.text }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+
+                        {% elif question.question_type == 'play_mp3' %}
+                        <div>
+                            {% if question.correct_answer %}
+                            <audio controls class="w-full h-8">
+                                <source src="{{ question.correct_answer }}">
+                            </audio>
+                            {% else %}
+                            <span class="text-xs text-gray-400"><i class="fas fa-music mr-1"></i>Ses dosyası ayarlanmamış</span>
+                            {% endif %}
+                        </div>
+
+                        {% elif question.question_type == 'open_answer' %}
+                        <textarea id="ans-{{ question.id }}" :disabled="submitted"
+                                  class="w-full bg-transparent outline-none border border-gray-300 rounded p-1.5 text-sm resize-none focus:border-indigo-500"
+                                  rows="3" placeholder="Cevabınızı buraya yazın..."></textarea>
+
+                        {% elif question.question_type == 'simple_text' %}
+                        <span class="font-medium">{{ question.label }}</span>
+
+                        {% endif %}
+                            <span id="speech-status-{{ question.id }}" class="text-xs text-gray-400"></span>
+                        </div>
+                        {% endif %}
+
+                        <!-- Result indicator -->
+                        <div id="result-{{ question.id }}" class="hidden mt-1 text-xs font-semibold"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Submit button -->
+    <div x-show="!submitted" class="flex justify-center mt-8">
+        <button @click="submitAnswers()"
+                class="btn-primary text-base px-8 py-3">
+            <i class="fas fa-paper-plane mr-2"></i>Gönder ve Puanla
+        </button>
+    </div>
+    <div x-show="submitted" x-cloak class="flex justify-center gap-3 mt-8">
+        <a href="{% url 'worksheet_play' worksheet.pk %}" class="btn-secondary">
+            <i class="fas fa-redo mr-1"></i>Tekrar Dene
+        </a>
+        <a href="{% url 'library_index' %}" class="btn-primary">
+            <i class="fas fa-globe mr-1"></i>Diğer Kağıtlar
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const CSRF = '{{ csrf_token }}';
+const WORKSHEET_ID = '{{ worksheet.pk }}';
+let selectedLeft = null;
+const matchingAnswers = {};
+const dragAnswers = {};
+let mediaRecorders = {};
+let speechAnswers = {};
+
+function worksheetPlayer() {
+    return {
+        submitted: false,
+        score: 0,
+        correctCount: 0,
+        totalCount: 0,
+        init() {},
+        async submitAnswers() {
+            const answers = collectAnswers();
+            const resp = await fetch(`/submissions/worksheet/${WORKSHEET_ID}/submit/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answers })
+            });
+            const data = await resp.json();
+            this.score = data.score;
+            this.correctCount = data.correct;
+            this.totalCount = data.total;
+            this.submitted = true;
+            // Show per-question feedback
+            data.answers.forEach(a => {
+                const box = document.getElementById('qbox-' + a.question_id);
+                const result = document.getElementById('result-' + a.question_id);
+                if (!box || !result) return;
+                if (a.is_correct === true) {
+                    box.style.borderColor = '#22c55e';
+                    box.style.backgroundColor = '#f0fdf4';
+                    result.textContent = '✓ Doğru';
+                    result.className = 'mt-1 text-xs font-semibold text-green-600';
+                } else if (a.is_correct === false) {
+                    box.style.borderColor = '#ef4444';
+                    box.style.backgroundColor = '#fef2f2';
+                    result.textContent = `✗ Yanlış — Doğru: ${a.correct_answer}`;
+                    result.className = 'mt-1 text-xs font-semibold text-red-600';
+                } else {
+                    result.textContent = '⏳ Manuel değerlendirme bekleniyor';
+                    result.className = 'mt-1 text-xs font-semibold text-yellow-600';
+                }
+                result.classList.remove('hidden');
+            });
+        }
+    };
+}
+
+function collectAnswers() {
+    const answers = {};
+    document.querySelectorAll('.question-container').forEach(container => {
+        const qId = container.dataset.questionId;
+        const type = container.dataset.type;
+        let ans = '';
+        if (type === 'fill_blank') {
+            ans = document.getElementById('ans-' + qId)?.value || '';
+        } else if (type === 'multiple_choice') {
+            const checked = container.querySelector(`input[name="q${qId}"]:checked`);
+            ans = checked ? checked.value : '';
+        } else if (type === 'dropdown') {
+            ans = document.getElementById('ans-' + qId)?.value || '';
+        } else if (type === 'drag_drop') {
+            ans = JSON.stringify(dragAnswers[qId] || []);
+        } else if (type === 'matching') {
+            ans = JSON.stringify(matchingAnswers[qId] || {});
+        } else if (type === 'speech') {
+            ans = speechAnswers[qId] || '';
+        } else if (type === 'checkboxes') {
+            const checked = [...container.querySelectorAll(`input[name="q${qId}"]:checked`)];
+            ans = JSON.stringify(checked.map(c => c.value));
+        } else if (type === 'open_answer') {
+            ans = document.getElementById('ans-' + qId)?.value || '';
+        }
+        // play_mp3 ve simple_text için cevap gerekmez
+        answers[qId] = ans;
+    });
+    return answers;
+}
+
+// ---- Drag & Drop ----
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', JSON.stringify({
+        id: e.target.dataset.itemId,
+        text: e.target.dataset.itemText,
+        correct: e.target.dataset.correctTarget,
+    }));
+    e.target.classList.add('opacity-50');
+}
+
+function dragOver(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('bg-indigo-50', 'border-indigo-400');
+}
+
+function drop(e) {
+    e.preventDefault();
+    const target = e.currentTarget;
+    target.classList.remove('bg-indigo-50', 'border-indigo-400');
+    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+    const qId = target.dataset.questionId;
+    const targetId = target.dataset.targetId;
+
+    // Move item to target
+    const item = document.getElementById('item-' + data.id);
+    if (item) {
+        item.classList.remove('opacity-50');
+        target.innerHTML = '';
+        target.appendChild(item);
+        target.classList.remove('text-gray-400');
+    }
+
+    // Record answer
+    if (!dragAnswers[qId]) dragAnswers[qId] = [];
+    const existing = dragAnswers[qId].findIndex(a => a.item_id == data.id);
+    const entry = { item_id: data.id, text: data.text, target: targetId, expected: data.correct };
+    if (existing >= 0) dragAnswers[qId][existing] = entry;
+    else dragAnswers[qId].push(entry);
+}
+
+// ---- Matching ----
+function selectLeft(el) {
+    document.querySelectorAll('.matching-left').forEach(e => e.classList.remove('ring-2', 'ring-indigo-500'));
+    el.classList.add('ring-2', 'ring-indigo-500');
+    selectedLeft = el;
+}
+
+function selectRight(el) {
+    if (!selectedLeft) { alert('Önce sol taraftan bir öğe seçin.'); return; }
+    const qId = el.dataset.question;
+    if (!matchingAnswers[qId]) matchingAnswers[qId] = {};
+    matchingAnswers[qId][selectedLeft.textContent.trim()] = el.dataset.rightText;
+
+    // Visual feedback
+    el.classList.add('bg-indigo-100', 'border-indigo-400');
+    selectedLeft.classList.remove('ring-2', 'ring-indigo-500');
+    selectedLeft.classList.add('bg-indigo-200');
+    selectedLeft = null;
+}
+
+// ---- Text-to-Speech ----
+function speakText(text, lang) {
+    if (!window.speechSynthesis) return;
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = lang === 'tr' ? 'tr-TR' : lang;
+    window.speechSynthesis.speak(utt);
+}
+
+// ---- Speech recording ----
+async function toggleRecording(qId, btn) {
+    const isRecording = btn.dataset.recording === 'true';
+    const status = document.getElementById('speech-status-' + qId);
+    if (!isRecording) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mr = new MediaRecorder(stream);
+            const chunks = [];
+            mr.ondataavailable = e => chunks.push(e.data);
+            mr.onstop = () => {
+                const blob = new Blob(chunks, { type: 'audio/webm' });
+                speechAnswers[qId] = '[audio_recorded]';
+                status.textContent = '✓ Ses kaydedildi';
+                status.className = 'text-xs text-green-600';
+                stream.getTracks().forEach(t => t.stop());
+            };
+            mr.start();
+            mediaRecorders[qId] = mr;
+            btn.dataset.recording = 'true';
+            btn.innerHTML = '<i class="fas fa-stop-circle mr-1 text-red-200"></i><span>Kaydı Durdur</span>';
+            btn.classList.replace('bg-teal-500', 'bg-red-500');
+            status.textContent = '● Kaydediliyor...';
+            status.className = 'text-xs text-red-500 animate-pulse';
+        } catch (err) {
+            status.textContent = 'Mikrofon erişimi reddedildi.';
+        }
+    } else {
+        mediaRecorders[qId]?.stop();
+        btn.dataset.recording = 'false';
+        btn.innerHTML = '<i class="fas fa-microphone mr-1"></i><span>Kayıt Başlat</span>';
+        btn.classList.replace('bg-red-500', 'bg-teal-500');
+    }
+}
+
+// Ensure page canvas aspect ratio is applied correctly
+document.querySelectorAll('.absolute.inset-0').forEach(el => {
+    const parent = el.parentElement;
+    const ws = {{ pages|length }};
+});
+</script>
+{% endblock %}

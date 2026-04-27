@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}{{ assignment.title }}{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <a href="{% url 'assignment_list' %}" class="text-sm text-gray-500 hover:text-indigo-600"><i class="fas fa-arrow-left mr-1"></i>Geri</a>
+    <h1 class="text-2xl font-bold mt-2">{{ assignment.title }}</h1>
+    {% if assignment.due_date %}
+    <p class="text-sm text-gray-400 mt-1">
+        Son teslim: <span class="{% if assignment.is_overdue %}text-red-500 font-medium{% endif %}">{{ assignment.due_date|date:"d M Y H:i" }}</span>
+    </p>
+    {% endif %}
+</div>
+
+{% if user.is_teacher %}
+<!-- Teacher view: submission list -->
+<div class="card overflow-hidden">
+    <div class="px-5 py-3 border-b bg-gray-50 flex items-center justify-between">
+        <h2 class="font-semibold">Öğrenci Gönderimler ({{ submissions.count }})</h2>
+        {% if assignment.worksheet %}
+        <a href="{% url 'worksheet_play' assignment.worksheet.pk %}" target="_blank" class="btn-secondary text-xs">
+            <i class="fas fa-eye mr-1"></i>Önizle
+        </a>
+        {% endif %}
+    </div>
+    {% if submissions %}
+    <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-left">
+            <tr>
+                <th class="px-5 py-3 font-medium text-gray-500">Öğrenci</th>
+                <th class="px-5 py-3 font-medium text-gray-500">Puan</th>
+                <th class="px-5 py-3 font-medium text-gray-500">Doğru/Toplam</th>
+                <th class="px-5 py-3 font-medium text-gray-500">Tarih</th>
+                <th class="px-5 py-3 font-medium text-gray-500"></th>
+            </tr>
+        </thead>
+        <tbody class="divide-y">
+            {% for sub in submissions %}
+            <tr class="hover:bg-gray-50">
+                <td class="px-5 py-3">{{ sub.student.full_name }}</td>
+                <td class="px-5 py-3">
+                    <span class="font-bold {% if sub.score >= 60 %}text-green-600{% else %}text-orange-500{% endif %}">
+                        {{ sub.score|floatformat:0 }}%
+                    </span>
+                </td>
+                <td class="px-5 py-3">{{ sub.correct_count }}/{{ sub.total_questions }}</td>
+                <td class="px-5 py-3 text-gray-400">{{ sub.submitted_at|date:"d M Y H:i" }}</td>
+                <td class="px-5 py-3">
+                    <a href="{% url 'submission_detail' sub.pk %}" class="text-indigo-600 hover:underline text-xs">Detay</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="p-8 text-center text-gray-400 text-sm">Henüz gönderim yok.</div>
+    {% endif %}
+</div>
+
+{% else %}
+<!-- Student view -->
+{% if submissions %}
+<div class="card p-5 mb-6">
+    <h2 class="font-semibold mb-3">Son Sonucunuz</h2>
+    {% with sub=submissions.first %}
+    <div class="flex items-center gap-6">
+        <div class="text-4xl font-bold {% if sub.score >= 60 %}text-green-600{% else %}text-orange-500{% endif %}">{{ sub.score|floatformat:0 }}%</div>
+        <div>
+            <div class="text-sm">{{ sub.correct_count }}/{{ sub.total_questions }} doğru</div>
+            <div class="text-xs text-gray-400">{{ sub.submitted_at|date:"d M H:i" }}</div>
+        </div>
+        <a href="{% url 'submission_detail' sub.pk %}" class="btn-secondary text-xs ml-auto">Detayları Gör</a>
+    </div>
+    {% endwith %}
+</div>
+{% endif %}
+
+{% if assignment.worksheet %}
+<a href="{% url 'worksheet_play' assignment.worksheet.pk %}?assignment={{ assignment.pk }}"
+   class="btn-primary text-base px-8 py-3">
+    <i class="fas fa-play mr-2"></i>Ödevi Başlat
+</a>
+{% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Dijital Defterlerim{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">Dijital Defterlerim</h1>
+    <a href="{% url 'workbook_create' %}" class="btn-primary">
+        <i class="fas fa-plus"></i> Yeni Defter
+    </a>
+</div>
+{% if workbooks %}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for wb in workbooks %}
+    <a href="{% url 'workbook_detail' wb.pk %}" class="card p-5 hover:shadow-md transition-shadow block">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-3">
+            <i class="fas fa-book text-indigo-600 text-xl"></i>
+        </div>
+        <h3 class="font-semibold">{{ wb.title }}</h3>
+        <p class="text-sm text-gray-400 mt-1">{{ wb.pages.count }} sayfa · {{ wb.created_at|date:"d M Y" }}</p>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card p-16 text-center text-gray-400">
+    <i class="fas fa-book text-5xl mb-4"></i>
+    <h2 class="text-lg font-semibold text-gray-500 mb-2">Henüz defter yok</h2>
+    <a href="{% url 'workbook_create' %}" class="btn-primary mt-3">Defter Oluştur</a>
+</div>
+{% endif %}
+{% endblock %}

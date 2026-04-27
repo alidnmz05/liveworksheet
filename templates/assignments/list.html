@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Ödevlerim{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">{% if user.is_teacher %}Ödevler{% else %}Ödevlerim{% endif %}</h1>
+    {% if user.is_teacher %}
+    <a href="{% url 'assignment_create' %}" class="btn-primary">
+        <i class="fas fa-plus"></i> Yeni Ödev
+    </a>
+    {% endif %}
+</div>
+
+{% if assignments %}
+<div class="space-y-3">
+    {% for assignment in assignments %}
+    <div class="card p-5 flex items-center gap-5">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0
+            {% if assignment.is_overdue %}bg-red-100{% else %}bg-indigo-100{% endif %}">
+            <i class="fas fa-tasks {% if assignment.is_overdue %}text-red-500{% else %}text-indigo-500{% endif %} text-xl"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+            <h3 class="font-semibold truncate">{{ assignment.title }}</h3>
+            <div class="flex items-center gap-4 text-xs text-gray-400 mt-1">
+                {% if assignment.due_date %}
+                <span class="{% if assignment.is_overdue %}text-red-500{% endif %}">
+                    <i class="fas fa-clock mr-1"></i>{{ assignment.due_date|date:"d M Y H:i" }}
+                    {% if assignment.is_overdue %} (Süresi doldu){% endif %}
+                </span>
+                {% endif %}
+                {% if assignment.worksheet %}
+                <span><i class="fas fa-file-alt mr-1"></i>{{ assignment.worksheet.title }}</span>
+                {% elif assignment.workbook %}
+                <span><i class="fas fa-book mr-1"></i>{{ assignment.workbook.title }}</span>
+                {% endif %}
+            </div>
+        </div>
+        <a href="{% url 'assignment_detail' assignment.pk %}" class="btn-primary text-xs">
+            {% if user.is_teacher %}Detay{% else %}Başla{% endif %}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card p-16 text-center text-gray-400">
+    <i class="fas fa-inbox text-5xl mb-4"></i>
+    <h2 class="text-lg font-semibold text-gray-500 mb-2">Henüz ödev yok</h2>
+    {% if user.is_teacher %}
+    <a href="{% url 'assignment_create' %}" class="btn-primary mt-3">Ödev Oluştur</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

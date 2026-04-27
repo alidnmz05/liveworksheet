@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}Kütüphane{% endblock %}
+{% block content %}
+<!-- Search header -->
+<div class="mb-6">
+    <h1 class="text-2xl font-bold mb-4">Etkileşimli Çalışma Kütüphanesi</h1>
+    <form method="get" class="flex flex-col sm:flex-row gap-3">
+        <div class="relative flex-1">
+            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input type="text" name="q" value="{{ query }}"
+                   class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                   placeholder="Konu, etiket veya öğretmen adı...">
+        </div>
+        <select name="subject" class="px-3 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <option value="">Tüm Dersler</option>
+            {% for s in subjects %}<option value="{{ s.pk }}">{{ s.name }}</option>{% endfor %}
+        </select>
+        <select name="level" class="px-3 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <option value="">Tüm Seviyeler</option>
+            {% for val, lbl in level_choices %}<option value="{{ val }}">{{ lbl }}</option>{% endfor %}
+        </select>
+        <select name="language" class="px-3 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <option value="">Tüm Diller</option>
+            {% for val, lbl in language_choices %}<option value="{{ val }}">{{ lbl }}</option>{% endfor %}
+        </select>
+        <button type="submit" class="btn-primary">
+            <i class="fas fa-search"></i> Ara
+        </button>
+    </form>
+</div>
+
+<!-- Results -->
+{% if items %}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    {% for item in items %}
+    <div class="card hover:shadow-md transition-shadow group">
+        <div class="relative aspect-[4/3] bg-gradient-to-br from-indigo-50 to-purple-100 flex items-center justify-center overflow-hidden">
+            {% if item.worksheet.thumbnail %}
+            <img src="{{ item.worksheet.thumbnail.url }}" class="w-full h-full object-cover">
+            {% else %}
+            <i class="fas fa-file-alt text-5xl text-indigo-200"></i>
+            {% endif %}
+            {% if item.featured %}
+            <div class="absolute top-2 left-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-0.5 rounded-full">
+                <i class="fas fa-star mr-1"></i>Öne Çıkan
+            </div>
+            {% endif %}
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <a href="{% url 'worksheet_play' item.worksheet.pk %}" class="bg-indigo-600 text-white rounded-lg px-4 py-2 text-sm font-medium">
+                    <i class="fas fa-play mr-1"></i>Çöz
+                </a>
+            </div>
+        </div>
+        <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 truncate">{{ item.worksheet.title }}</h3>
+            <p class="text-xs text-gray-500 mb-2">{{ item.worksheet.author.full_name }}</p>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3 text-xs text-gray-400">
+                    <span><i class="fas fa-eye mr-1"></i>{{ item.worksheet.view_count }}</span>
+                    <button onclick="likeItem({{ item.pk }}, this)"
+                            class="flex items-center gap-1 hover:text-red-500 transition-colors like-btn"
+                            data-item="{{ item.pk }}">
+                        <i class="fas fa-heart"></i><span>{{ item.like_count }}</span>
+                    </button>
+                </div>
+                {% if item.worksheet.subject %}
+                <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">{{ item.worksheet.subject.name }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card p-16 text-center text-gray-400">
+    <i class="fas fa-search text-5xl mb-4"></i>
+    <h2 class="text-xl font-semibold mb-2 text-gray-500">Sonuç bulunamadı</h2>
+    <p class="text-sm">Farklı anahtar kelimeler deneyin.</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const CSRF = '{{ csrf_token }}';
+async function likeItem(itemId, btn) {
+    const resp = await fetch(`/library/${itemId}/like/`, {
+        method: 'POST', headers: { 'X-CSRFToken': CSRF }
+    });
+    const data = await resp.json();
+    const span = btn.querySelector('span');
+    if (span) span.textContent = data.count;
+    if (data.liked) btn.querySelector('i').classList.add('text-red-500');
+    else btn.querySelector('i').classList.remove('text-red-500');
+}
+</script>
+{% endblock %}
