@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+<<<<<<< HEAD
 {% load l10n %}
 
+=======
+>>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
 {% block title %}{{ worksheet.title }}{% endblock %}
 {% block main_class %}{% endblock %}
 
@@ -30,9 +33,13 @@
     </div>
 
     <!-- Pages -->
+<<<<<<< HEAD
     {% localize off %}
     {% for page in pages %}
 
+=======
+    {% for page in pages %}
+>>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
     <div class="mb-10">
         <!-- Audio player -->
         {% if page.audio_file or page.audio_url %}
@@ -211,6 +218,12 @@
                         <span class="font-medium">{{ question.label }}</span>
 
                         {% endif %}
+<<<<<<< HEAD
+=======
+                            <span id="speech-status-{{ question.id }}" class="text-xs text-gray-400"></span>
+                        </div>
+                        {% endif %}
+>>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
 
                         <!-- Result indicator -->
                         <div id="result-{{ question.id }}" class="hidden mt-1 text-xs font-semibold"></div>
@@ -221,8 +234,11 @@
         </div>
     </div>
     {% endfor %}
+<<<<<<< HEAD
     {% endlocalize %}
 
+=======
+>>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
 
     <!-- Submit button -->
     <div x-show="!submitted" class="flex justify-center mt-8">
