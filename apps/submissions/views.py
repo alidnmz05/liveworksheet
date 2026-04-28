@@ -15,12 +15,12 @@ from apps.worksheets.models import Worksheet, Question
 def submit_worksheet(request, worksheet_pk):
     """Öğrencinin gönderdiği yanıtları kaydeder ve puanlar."""
     worksheet = get_object_or_404(Worksheet, pk=worksheet_pk)
-    assignment_id = request.POST.get('assignment_id') or None
-
     try:
         data = json.loads(request.body)
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Geçersiz veri formatı.'}, status=400)
+
+    assignment_id = data.get('assignment_id') or None
 
     with transaction.atomic():
         submission = Submission.objects.create(

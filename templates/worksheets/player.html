@@ -246,6 +246,9 @@
 <script>
 const CSRF = '{{ csrf_token }}';
 const WORKSHEET_ID = '{{ worksheet.pk }}';
+const urlParams = new URLSearchParams(window.location.search);
+const ASSIGNMENT_ID = urlParams.get('assignment');
+
 let selectedLeft = null;
 const matchingAnswers = {};
 const dragAnswers = {};
@@ -264,7 +267,10 @@ function worksheetPlayer() {
             const resp = await fetch(`/submissions/worksheet/${WORKSHEET_ID}/submit/`, {
                 method: 'POST',
                 headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answers })
+                body: JSON.stringify({ 
+                    answers,
+                    assignment_id: ASSIGNMENT_ID 
+                })
             });
             const data = await resp.json();
             this.score = data.score;
