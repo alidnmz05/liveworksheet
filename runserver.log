@@ -1435,3 +1435,131 @@ System check identified 1 issue (0 silenced).
 [28/Apr/2026 22:33:35] "GET /dashboard/ HTTP/1.1" 200 12345
 [28/Apr/2026 22:33:38] "GET /workbooks/ HTTP/1.1" 200 7395
 [28/Apr/2026 22:33:40] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 200 8191
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 22:37:02] "GET / HTTP/1.1" 200 7708
+[28/Apr/2026 22:37:09] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 22:37:09] "GET /dashboard/ HTTP/1.1" 200 12345
+[28/Apr/2026 22:37:12] "GET /workbooks/ HTTP/1.1" 200 7928
+[28/Apr/2026 22:37:15] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 200 8365
+[28/Apr/2026 22:37:19] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/delete/ HTTP/1.1" 200 7774
+[28/Apr/2026 22:37:20] "POST /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:37:20] "GET /workbooks/ HTTP/1.1" 200 7631
+[28/Apr/2026 22:37:21] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 22:37:21] "GET /dashboard/ HTTP/1.1" 200 12345
+[28/Apr/2026 22:39:04] "GET /worksheets/ HTTP/1.1" 200 10854
+[28/Apr/2026 22:39:07] "GET /worksheets/f47ec166-ad15-4f47-baf4-f0c8875fa270/editor/ HTTP/1.1" 200 117503
+[28/Apr/2026 22:39:07] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p1.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:07] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p2.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p3.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p4.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p5.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p6.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p7.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p8.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p10.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p9.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p11.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p13.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p12.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p14.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p17.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p15.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p16.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p18.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p20.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p19.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p21.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p22.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p23.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p24.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p27.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p25.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p26.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p28.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p29.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p30.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p31.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:08] "GET /media/backgrounds/bg_f47ec166ad154f47baf4f0c8875fa270_p32.png HTTP/1.1" 304 0
+[28/Apr/2026 22:39:12] "GET /worksheets/eda09821-9e90-4e9d-a0fd-35adb4fa6af9/editor/ HTTP/1.1" 200 57334
+[28/Apr/2026 22:39:18] "GET /worksheets/ HTTP/1.1" 200 10854
+[28/Apr/2026 22:39:23] "GET /worksheets/create/ HTTP/1.1" 200 17362
+[28/Apr/2026 22:39:34] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 22:39:34] "GET /worksheets/0a545fc0-7d1c-457e-90ff-86251118047b/editor/ HTTP/1.1" 200 51111
+[28/Apr/2026 22:39:42] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 421
+[28/Apr/2026 22:39:44] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 421
+[28/Apr/2026 22:39:46] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 421
+[28/Apr/2026 22:40:01] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 331
+[28/Apr/2026 22:40:10] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 353
+[28/Apr/2026 22:40:16] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 352
+[28/Apr/2026 22:40:18] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 351
+[28/Apr/2026 22:40:21] "POST /worksheets/pages/86/questions/save/ HTTP/1.1" 200 377
+[28/Apr/2026 22:40:46] "POST /worksheets/pages/86/embed/ HTTP/1.1" 200 135
+[28/Apr/2026 22:40:46] "GET /worksheets/0a545fc0-7d1c-457e-90ff-86251118047b/editor/ HTTP/1.1" 200 54922
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py changed, reloading.
+Performing system checks...
+
+April 28, 2026 - 22:37:02
+Django version 5.0.6, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\urls.py changed, reloading.
+Performing system checks...
+
+April 28, 2026 - 22:42:03
+Django version 5.0.6, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py changed, reloading.
+Performing system checks...
+
+April 28, 2026 - 22:42:10
+Django version 5.0.6, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 22:43:45] "GET / HTTP/1.1" 200 7708
+[28/Apr/2026 22:43:53] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 22:43:53] "GET /dashboard/ HTTP/1.1" 200 13641
+[28/Apr/2026 22:43:55] "GET /worksheets/0a545fc0-7d1c-457e-90ff-86251118047b/editor/ HTTP/1.1" 200 59246
+[28/Apr/2026 22:43:58] "POST /worksheets/pages/86/embed/ HTTP/1.1" 200 171
+[28/Apr/2026 22:43:59] "POST /worksheets/pages/86/embed/ HTTP/1.1" 200 170
+[28/Apr/2026 22:44:01] "POST /worksheets/pages/86/embed/ HTTP/1.1" 200 172
+[28/Apr/2026 22:44:06] "POST /worksheets/embeds/4/delete/ HTTP/1.1" 200 17
+[28/Apr/2026 22:44:10] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 22:44:10] "GET /dashboard/ HTTP/1.1" 200 13641

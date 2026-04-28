@@ -16,4 +16,5 @@ urlpatterns = [
     path('questions/<int:question_pk>/delete/', views.api_question_delete, name='api_question_delete'),
     # Media API
     path('pages/<int:page_pk>/embed/', views.api_media_embed_save, name='api_media_embed_save'),
+    path('embeds/<int:embed_pk>/delete/', views.api_media_embed_delete, name='api_media_embed_delete'),
 ]

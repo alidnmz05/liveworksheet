@@ -158,7 +158,23 @@ def worksheet_editor(request, pk):
                     for pair in q.matching_pairs.all()
                 ],
             })
-        pages_data[page.id] = {'questions': page_questions}
+        pages_data[page.id] = {
+            'questions': page_questions,
+            'embeds': [
+                {
+                    'id': emb.id,
+                    'type': 'embed',
+                    'embed_type': emb.embed_type,
+                    'video_url': emb.video_url,
+                    'embed_url': emb.embed_url,
+                    'pos_x': emb.pos_x,
+                    'pos_y': emb.pos_y,
+                    'width': emb.width,
+                    'height': emb.height,
+                }
+                for emb in page.embeds.all()
+            ]
+        }
 
     subjects = Subject.objects.all()
     return render(request, 'worksheets/editor.html', {
@@ -314,15 +330,28 @@ def api_media_embed_save(request, page_pk):
     from .models import MediaEmbed
     page = get_object_or_404(WorksheetPage, pk=page_pk, worksheet__author=request.user)
     data = json.loads(request.body)
-    embed = MediaEmbed.objects.create(
-        page=page,
-        embed_type=data['embed_type'],
-        video_url=data['video_url'],
-        pos_x=data.get('pos_x', 5),
-        pos_y=data.get('pos_y', 5),
-        width=data.get('width', 40),
-        height=data.get('height', 25),
-    )
+    
+    embed_id = data.get('id')
+    if embed_id:
+        embed = get_object_or_404(MediaEmbed, pk=embed_id, page__worksheet__author=request.user)
+        if 'video_url' in data: embed.video_url = data['video_url']
+        if 'embed_type' in data: embed.embed_type = data['embed_type']
+        if 'pos_x' in data: embed.pos_x = _to_float(data['pos_x'], embed.pos_x)
+        if 'pos_y' in data: embed.pos_y = _to_float(data['pos_y'], embed.pos_y)
+        if 'width' in data: embed.width = _to_float(data['width'], embed.width)
+        if 'height' in data: embed.height = _to_float(data['height'], embed.height)
+        embed.save()
+    else:
+        embed = MediaEmbed.objects.create(
+            page=page,
+            embed_type=data.get('embed_type', 'youtube'),
+            video_url=data.get('video_url', ''),
+            pos_x=_to_float(data.get('pos_x', 5), 5),
+            pos_y=_to_float(data.get('pos_y', 5), 5),
+            width=_to_float(data.get('width', 40), 40),
+            height=_to_float(data.get('height', 25), 25),
+        )
+        
     return JsonResponse({
         'success': True,
         'id': embed.id,
@@ -332,3 +361,12 @@ def api_media_embed_save(request, page_pk):
         'width': embed.width,
         'height': embed.height,
     })
+
+
+@login_required
+@require_POST
+def api_media_embed_delete(request, embed_pk):
+    from .models import MediaEmbed
+    embed = get_object_or_404(MediaEmbed, pk=embed_pk, page__worksheet__author=request.user)
+    embed.delete()
+    return JsonResponse({'success': True})

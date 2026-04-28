@@ -200,9 +200,27 @@
 
             <!-- Video embeds -->
             {% for embed in page.embeds.all %}
-            <div class="absolute"
-                 style="left:{{ embed.pos_x }}%; top:{{ embed.pos_y }}%; width:{{ embed.width }}%; height:{{ embed.height }}%;">
-                <iframe src="{{ embed.embed_url }}" class="w-full h-full rounded" frameborder="0" allowfullscreen></iframe>
+            <div class="embed-widget absolute cursor-move group"
+                 data-embed-id="{{ embed.id }}"
+                 style="left:{{ embed.pos_x }}%; top:{{ embed.pos_y }}%; width:{{ embed.width }}%; height:{{ embed.height }}%;"
+                 onmousedown="startDrag(event, this, 'embed')">
+                <div class="relative w-full h-full">
+                    <iframe src="{{ embed.embed_url }}" class="w-full h-full rounded border-2 border-transparent group-hover:border-indigo-400 transition-colors" frameborder="0" allowfullscreen></iframe>
+                    <!-- Overlay to capture drag events -->
+                    <div class="absolute inset-0 z-10 bg-transparent"></div>
+                </div>
+                <!-- Widget controls -->
+                <div class="embed-controls absolute -top-3 -right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                    <button onclick="editEmbed({{ embed.id }}, {{ page.id }})" class="w-5 h-5 bg-indigo-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-indigo-700">
+                        <i class="fas fa-pen" style="font-size:8px"></i>
+                    </button>
+                    <button onclick="deleteEmbed({{ embed.id }}, this)" class="w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700">
+                        <i class="fas fa-times" style="font-size:8px"></i>
+                    </button>
+                </div>
+                <!-- Resize handle -->
+                <div class="resize-handle absolute bottom-0 right-0 w-3 h-3 bg-indigo-400 cursor-se-resize rounded-tl z-20"
+                     onmousedown="startResize(event, this.parentElement, 'embed')"></div>
             </div>
             {% endfor %}
 
@@ -326,13 +344,15 @@ async function uploadBackground(input, pageId) {
 }
 
 // ---- Drag to Move widgets ----
-let isDragging = false, dragEl = null, dragOffX = 0, dragOffY = 0;
+let isDragging = false, dragEl = null, dragOffX = 0, dragOffY = 0, dragType = 'question';
 
-function startDrag(e, el) {
-    if (e.target.closest('.question-controls') || e.target.closest('.resize-handle')) return;
+function startDrag(e, el, type = 'question') {
+    if (e.target.closest('.question-controls') || e.target.closest('.embed-controls') || e.target.closest('.resize-handle')) return;
     e.preventDefault();
     isDragging = true;
     dragEl = el;
+    dragType = type;
+
     const page = el.closest('.worksheet-page');
     const rect = page.getBoundingClientRect();
     const elRect = el.getBoundingClientRect();
@@ -357,27 +377,36 @@ function onDragMove(e) {
 
 async function onDragEnd() {
     if (!dragEl) return;
-    const qId = parseInt(dragEl.dataset.questionId);
+    const qId = dragType === 'question' ? parseInt(dragEl.dataset.questionId) : parseInt(dragEl.dataset.embedId);
     const page = dragEl.closest('.worksheet-page');
     const rect = page.getBoundingClientRect();
     const elRect = dragEl.getBoundingClientRect();
     const x = ((elRect.left - rect.left) / rect.width) * 100;
     const y = ((elRect.top - rect.top) / rect.height) * 100;
-    await updateQuestionPosition(qId, x, y);
+    
+    if (dragType === 'question') {
+        await updateQuestionPosition(qId, x, y);
+    } else {
+        await updateEmbedPosition(qId, x, y);
+    }
+    
     isDragging = false;
     dragEl = null;
     document.removeEventListener('mousemove', onDragMove);
     document.removeEventListener('mouseup', onDragEnd);
 }
 
-// ---- Resize ----
-let isResizing = false, resizeEl = null, resizeStartX, resizeStartY, resizeStartW, resizeStartH;
 
-function startResize(e, el) {
+// ---- Resize ----
+let isResizing = false, resizeEl = null, resizeStartX, resizeStartY, resizeStartW, resizeStartH, resizeType = 'question';
+
+function startResize(e, el, type = 'question') {
     e.preventDefault();
     e.stopPropagation();
     isResizing = true;
     resizeEl = el;
+    resizeType = type;
+
     resizeStartX = e.clientX;
     resizeStartY = e.clientY;
     const page = el.closest('.worksheet-page');
@@ -401,18 +430,25 @@ function onResizeMove(e) {
 
 async function onResizeEnd() {
     if (!resizeEl) return;
-    const qId = parseInt(resizeEl.dataset.questionId);
+    const qId = resizeType === 'question' ? parseInt(resizeEl.dataset.questionId) : parseInt(resizeEl.dataset.embedId);
     const page = resizeEl.closest('.worksheet-page');
     const rect = page.getBoundingClientRect();
     const elRect = resizeEl.getBoundingClientRect();
     const w = (elRect.width / rect.width) * 100;
     const h = (elRect.height / rect.height) * 100;
-    await updateQuestionSize(qId, w, h);
+    
+    if (resizeType === 'question') {
+        await updateQuestionSize(qId, w, h);
+    } else {
+        await updateEmbedSize(qId, w, h);
+    }
+    
     isResizing = false;
     resizeEl = null;
     document.removeEventListener('mousemove', onResizeMove);
     document.removeEventListener('mouseup', onResizeEnd);
 }
+
 
 // Show/hide controls on hover
 document.querySelectorAll('.question-widget').forEach(w => {
@@ -994,18 +1030,81 @@ function openEmbedDialog() {
 async function saveEmbed() {
     const url = document.getElementById('embed-url').value;
     const type = document.getElementById('embed-type').value;
+    const editingId = document.getElementById('embed-modal').dataset.editingId;
     if (!url) return;
+    
+    const payload = { video_url: url, embed_type: type };
+    if (editingId) payload.id = editingId;
+
     const resp = await fetch(`/worksheets/pages/${currentPageId}/embed/`, {
         method: 'POST',
         headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ video_url: url, embed_type: type })
+        body: JSON.stringify(payload)
     });
     const data = await resp.json();
     if (data.success) {
         document.getElementById('embed-modal').classList.add('hidden');
+        delete document.getElementById('embed-modal').dataset.editingId;
         location.reload();
     }
 }
+
+function findEmbedContext(eId) {
+    const eNum = Number(eId);
+    for (const [pid, pd] of Object.entries(pagesData)) {
+        if (!pd.embeds) continue;
+        const e = pd.embeds.find(emb => Number(emb.id) === eNum);
+        if (e) {
+            return { pageId: parseInt(pid, 10), embed: e };
+        }
+    }
+    return null;
+}
+
+async function updateEmbedPosition(eId, x, y) {
+    const ctx = findEmbedContext(eId);
+    if (!ctx) return;
+    const e = ctx.embed;
+    e.pos_x = x; e.pos_y = y;
+    const resp = await fetch(`/worksheets/pages/${ctx.pageId}/embed/`, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: eId, pos_x: x, pos_y: y })
+    });
+    if (!resp.ok) location.reload();
+}
+
+async function updateEmbedSize(eId, w, h) {
+    const ctx = findEmbedContext(eId);
+    if (!ctx) return;
+    const e = ctx.embed;
+    e.width = w; e.height = h;
+    const resp = await fetch(`/worksheets/pages/${ctx.pageId}/embed/`, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: eId, width: w, height: h })
+    });
+    if (!resp.ok) location.reload();
+}
+
+async function deleteEmbed(eId, btn) {
+    if (!confirm('Bu videoyu silmek istediğinizden emin misiniz?')) return;
+    await fetch(`/worksheets/embeds/${eId}/delete/`, {
+        method: 'POST', headers: { 'X-CSRFToken': CSRF }
+    });
+    btn.closest('.embed-widget').remove();
+}
+
+function editEmbed(eId, pageId) {
+    const ctx = findEmbedContext(eId);
+    if (!ctx) return;
+    const e = ctx.embed;
+    document.getElementById('embed-url').value = e.video_url;
+    document.getElementById('embed-type').value = e.embed_type;
+    document.getElementById('embed-modal').dataset.editingId = eId;
+    document.getElementById('embed-modal').classList.remove('hidden');
+}
+
 
 function saveAll() {
     const btn = document.getElementById('save-btn');
