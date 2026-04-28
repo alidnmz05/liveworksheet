@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block title %}Panel{% endblock %}
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-2xl font-bold text-gray-900">
+        Merhaba, {{ user.first_name|default:user.email }} 👋
+    </h1>
+    <p class="text-gray-500 text-sm mt-1">
+        {% if user.is_teacher %}Öğretmen paneli{% else %}Öğrenci paneli{% endif %}
+    </p>
+</div>
+
+{% if user.is_teacher %}
+<!-- Teacher Dashboard -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div class="card p-5 flex items-center gap-4">
+        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+            <i class="fas fa-file-alt text-indigo-600 text-xl"></i>
+        </div>
+        <div>
+            <div class="text-2xl font-bold">{{ my_worksheets.count }}</div>
+            <div class="text-gray-500 text-sm">Çalışma Kağıdı</div>
+        </div>
+    </div>
+    <div class="card p-5 flex items-center gap-4">
+        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+            <i class="fas fa-users text-green-600 text-xl"></i>
+        </div>
+        <div>
+            <div class="text-2xl font-bold">{{ total_students }}</div>
+            <div class="text-gray-500 text-sm">Toplam Öğrenci</div>
+        </div>
+    </div>
+    <div class="card p-5 flex items-center gap-4">
+        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+            <i class="fas fa-tasks text-orange-600 text-xl"></i>
+        </div>
+        <div>
+            <div class="text-2xl font-bold">{{ my_assignments.count }}</div>
+            <div class="text-gray-500 text-sm">Aktif Ödev</div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Recent Worksheets -->
+    <div class="lg:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold">Son Çalışma Kağıtları</h2>
+            <a href="{% url 'worksheet_create' %}" class="btn-primary text-xs">
+                <i class="fas fa-plus"></i> Yeni Oluştur
+            </a>
+        </div>
+        {% if my_worksheets %}
+        <div class="space-y-3">
+            {% for ws in my_worksheets %}
+            <div class="card p-4 flex items-center gap-4">
+                <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-file-alt text-indigo-400"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-medium text-sm truncate">{{ ws.title }}</div>
+                    <div class="text-gray-400 text-xs">{{ ws.created_at|date:"d M Y" }} · {{ ws.view_count }} görüntülenme</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="{% url 'worksheet_editor' ws.pk %}" class="text-indigo-600 hover:text-indigo-800 text-sm" title="Düzenle">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <a href="{% url 'worksheet_detail' ws.pk %}" class="text-gray-400 hover:text-gray-600 text-sm" title="Görüntüle">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'worksheet_list' %}" class="block text-center text-sm text-indigo-600 mt-3 hover:underline">Tümünü gör →</a>
+        {% else %}
+        <div class="card p-8 text-center text-gray-400">
+            <i class="fas fa-file-circle-plus text-4xl mb-3"></i>
+            <p class="text-sm">Henüz çalışma kağıdı oluşturmadınız.</p>
+            <a href="{% url 'worksheet_create' %}" class="btn-primary mt-4 text-xs">İlk kağıdınızı oluşturun</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Classrooms -->
+    <div>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold">Sınıflarım</h2>
+            <a href="{% url 'classroom_create' %}" class="btn-secondary text-xs">
+                <i class="fas fa-plus"></i> Yeni
+            </a>
+        </div>
+        {% if my_classrooms %}
+        <div class="space-y-3">
+            {% for cls in my_classrooms %}
+            <a href="{% url 'classroom_detail' cls.pk %}" class="card p-4 flex items-center gap-3 hover:shadow-md transition-shadow block">
+                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-chalkboard text-green-600"></i>
+                </div>
+                <div>
+                    <div class="font-medium text-sm">{{ cls.name }}</div>
+                    <div class="text-xs text-gray-400">Kod: <span class="font-mono font-bold text-indigo-600">{{ cls.code }}</span> · {{ cls.students.count }} öğrenci</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card p-6 text-center text-gray-400 text-sm">
+            <i class="fas fa-chalkboard text-3xl mb-2"></i>
+            <p>Henüz sınıf oluşturmadınız.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% else %}
+<!-- Student Dashboard -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2">
+        <h2 class="text-lg font-semibold mb-4">Ödevlerim</h2>
+        {% if my_assignments %}
+        <div class="space-y-3">
+            {% for assignment in my_assignments %}
+            <div class="card p-4 flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0
+                    {% if assignment.is_overdue %}bg-red-100{% else %}bg-indigo-100{% endif %}">
+                    <i class="fas fa-tasks {% if assignment.is_overdue %}text-red-500{% else %}text-indigo-500{% endif %}"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-medium text-sm">{{ assignment.title }}</div>
+                    <div class="text-xs text-gray-400">
+                        {% if assignment.due_date %}Son teslim: {{ assignment.due_date|date:"d M Y H:i" }}{% endif %}
+                    </div>
+                </div>
+                <a href="{% url 'assignment_detail' assignment.pk %}" class="btn-primary text-xs">Başla</a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card p-8 text-center text-gray-400 text-sm">
+            <i class="fas fa-inbox text-4xl mb-3"></i>
+            <p>Bekleyen ödeviniz yok.</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div>
+        <h2 class="text-lg font-semibold mb-4">Sınıflarım</h2>
+        {% if enrolled_classrooms %}
+        <div class="space-y-3">
+            {% for cls in enrolled_classrooms %}
+            <div class="card p-4">
+                <div class="font-medium text-sm">{{ cls.name }}</div>
+                <div class="text-xs text-gray-400">{{ cls.teacher.full_name }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- Join Classroom -->
+        <form method="post" action="{% url 'join_classroom' %}" class="mt-4">
+            {% csrf_token %}
+            <div class="flex gap-2">
+                <input type="text" name="code" maxlength="10"
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 font-mono uppercase"
+                       placeholder="SINIF KODU">
+                <button type="submit" class="btn-primary text-xs">Katıl</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

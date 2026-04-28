@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Sonuç Detayı{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="mb-6">
+        <a href="{% url 'my_submissions' %}" class="text-sm text-gray-500 hover:text-indigo-600">
+            <i class="fas fa-arrow-left mr-1"></i>Sonuçlarıma Dön
+        </a>
+        <h1 class="text-2xl font-bold mt-2">{{ submission.worksheet.title }}</h1>
+        <p class="text-sm text-gray-400">{{ submission.submitted_at|date:"d M Y H:i" }}</p>
+    </div>
+
+    <!-- Score card -->
+    <div class="card p-6 text-center mb-6
+        {% if submission.score >= 60 %}bg-green-50 border-green-200{% else %}bg-orange-50 border-orange-200{% endif %}">
+        <div class="text-5xl font-bold {% if submission.score >= 60 %}text-green-600{% else %}text-orange-500{% endif %}">
+            {{ submission.score|floatformat:0 }}%
+        </div>
+        <p class="text-gray-600 mt-2">{{ submission.correct_count }} / {{ submission.total_questions }} doğru cevap</p>
+    </div>
+
+    <!-- Answers -->
+    <div class="card overflow-hidden">
+        <div class="px-5 py-3 border-b bg-gray-50">
+            <h2 class="font-semibold">Cevap Detayları</h2>
+        </div>
+        <div class="divide-y">
+            {% for answer in answers %}
+            <div class="px-5 py-4 flex items-start gap-4">
+                <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold mt-0.5
+                    {% if answer.is_correct == True %}bg-green-100 text-green-600
+                    {% elif answer.is_correct == False %}bg-red-100 text-red-600
+                    {% else %}bg-yellow-100 text-yellow-600{% endif %}">
+                    {% if answer.is_correct == True %}✓{% elif answer.is_correct == False %}✗{% else %}?{% endif %}
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-medium text-gray-700">
+                        {{ answer.question.get_question_type_display }}
+                        {% if answer.question.label %} — {{ answer.question.label }}{% endif %}
+                    </div>
+                    <div class="mt-1 text-sm">
+                        <span class="text-gray-500">Cevabınız: </span>
+                        <span class="font-medium {% if answer.is_correct == True %}text-green-700{% elif answer.is_correct == False %}text-red-600{% endif %}">
+                            {{ answer.given_answer|default:"—" }}
+                        </span>
+                    </div>
+                    {% if answer.is_correct == False %}
+                    <div class="text-sm mt-0.5">
+                        <span class="text-gray-500">Doğru cevap: </span>
+                        <span class="font-medium text-green-700">{{ answer.question.correct_answer }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

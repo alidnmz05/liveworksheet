@@ -1,0 +1,916 @@
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[27/Apr/2026 23:22:15] "GET / HTTP/1.1" 200 6934
+[27/Apr/2026 23:26:34] "GET / HTTP/1.1" 200 6934
+[27/Apr/2026 23:26:58] "GET / HTTP/1.1" 200 6934
+Not Found: /favicon.ico
+[27/Apr/2026 23:26:59] "GET /favicon.ico HTTP/1.1" 404 4591
+[27/Apr/2026 23:27:06] "GET /register/ HTTP/1.1" 200 7563
+[27/Apr/2026 23:34:25] "GET /register/ HTTP/1.1" 200 7563
+[27/Apr/2026 23:34:55] "POST /register/ HTTP/1.1" 200 7848
+[27/Apr/2026 23:35:47] "POST /register/ HTTP/1.1" 200 7810
+[27/Apr/2026 23:35:56] "POST /register/ HTTP/1.1" 302 0
+[27/Apr/2026 23:35:56] "GET /dashboard/ HTTP/1.1" 200 9109
+[27/Apr/2026 23:36:03] "GET /classrooms/create/ HTTP/1.1" 200 6968
+[27/Apr/2026 23:36:18] "POST /classrooms/create/ HTTP/1.1" 302 0
+[27/Apr/2026 23:36:18] "GET /classrooms/1/ HTTP/1.1" 200 7222
+[27/Apr/2026 23:36:22] "GET /dashboard/ HTTP/1.1" 200 9098
+[27/Apr/2026 23:36:24] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[27/Apr/2026 23:36:55] "POST /worksheets/create/ HTTP/1.1" 302 0
+[27/Apr/2026 23:36:55] "GET /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/editor/ HTTP/1.1" 200 43676
+[27/Apr/2026 23:38:53] "POST /worksheets/create/ HTTP/1.1" 302 0
+[27/Apr/2026 23:38:53] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/editor/ HTTP/1.1" 200 108808
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p1.png HTTP/1.1" 200 1902545
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p3.png HTTP/1.1" 200 1825034
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p2.png HTTP/1.1" 200 3324639
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p4.png HTTP/1.1" 200 2232016
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p5.png HTTP/1.1" 200 1511381
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p6.png HTTP/1.1" 200 1047556
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p8.png HTTP/1.1" 200 1084824
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p7.png HTTP/1.1" 200 2181060
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p9.png HTTP/1.1" 200 395954
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p10.png HTTP/1.1" 200 399208
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p13.png HTTP/1.1" 200 875640
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p11.png HTTP/1.1" 200 720821
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p12.png HTTP/1.1" 200 453249
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p14.png HTTP/1.1" 200 517801
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p16.png HTTP/1.1" 200 818238
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p15.png HTTP/1.1" 200 828003
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p17.png HTTP/1.1" 200 623330
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p19.png HTTP/1.1" 200 563645
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p18.png HTTP/1.1" 200 736447
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p20.png HTTP/1.1" 200 885435
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p21.png HTTP/1.1" 200 631583
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p22.png HTTP/1.1" 200 858971
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p23.png HTTP/1.1" 200 830940
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p24.png HTTP/1.1" 200 418289
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p26.png HTTP/1.1" 200 897444
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p25.png HTTP/1.1" 200 1014805
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p27.png HTTP/1.1" 200 526172
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p29.png HTTP/1.1" 200 312811
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p28.png HTTP/1.1" 200 1104964
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p30.png HTTP/1.1" 200 316434
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p31.png HTTP/1.1" 200 303907
+[27/Apr/2026 23:38:53] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p32.png HTTP/1.1" 200 323184
+[27/Apr/2026 23:39:02] "POST /worksheets/pages/2/questions/save/ HTTP/1.1" 200 353
+[27/Apr/2026 23:39:04] "POST /worksheets/pages/2/questions/save/ HTTP/1.1" 200 353
+Internal Server Error: /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/play/
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 128, in worksheet_play
+    return render(request, 'worksheets/player.html', {
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 212: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[27/Apr/2026 23:40:45] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/play/ HTTP/1.1" 500 255196
+[27/Apr/2026 23:45:33] "POST /worksheets/pages/2/questions/save/ HTTP/1.1" 200 353
+[27/Apr/2026 23:45:39] "POST /worksheets/pages/2/questions/save/ HTTP/1.1" 200 357
+[27/Apr/2026 23:45:39] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/editor/ HTTP/1.1" 200 110483
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p1.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p2.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p4.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p3.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p5.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p6.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p10.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p7.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p11.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p9.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p8.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p12.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p13.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p15.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p14.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p17.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p18.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p16.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p19.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p20.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p21.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p24.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p23.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p25.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p22.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p26.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p27.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p31.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p32.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p30.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p28.png HTTP/1.1" 304 0
+[27/Apr/2026 23:45:39] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p29.png HTTP/1.1" 304 0
+[27/Apr/2026 23:46:13] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/editor/ HTTP/1.1" 200 110483
+[27/Apr/2026 23:46:16] "GET /worksheets/ HTTP/1.1" 200 9727
+[27/Apr/2026 23:46:19] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/editor/ HTTP/1.1" 200 110483
+Internal Server Error: /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/play/
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 128, in worksheet_play
+    return render(request, 'worksheets/player.html', {
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 212: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[27/Apr/2026 23:46:21] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/play/ HTTP/1.1" 500 255152
+[27/Apr/2026 23:46:24] "GET /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/editor/ HTTP/1.1" 200 43159
+[27/Apr/2026 23:46:41] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 358
+[27/Apr/2026 23:46:45] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 386
+[27/Apr/2026 23:46:46] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 385
+[27/Apr/2026 23:46:48] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 386
+[27/Apr/2026 23:47:05] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 471
+[27/Apr/2026 23:47:08] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 472
+[27/Apr/2026 23:47:28] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 466
+[27/Apr/2026 23:47:30] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 466
+[27/Apr/2026 23:48:14] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 483
+[27/Apr/2026 23:48:15] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 482
+[27/Apr/2026 23:48:19] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 483
+[27/Apr/2026 23:49:41] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 407
+[27/Apr/2026 23:49:43] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 408
+[27/Apr/2026 23:49:44] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 408
+[27/Apr/2026 23:49:45] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 407
+[27/Apr/2026 23:49:53] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 437
+[27/Apr/2026 23:50:01] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 329
+[27/Apr/2026 23:50:07] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 355
+[27/Apr/2026 23:50:12] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 464
+[27/Apr/2026 23:50:13] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 464
+[27/Apr/2026 23:50:23] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 334
+[27/Apr/2026 23:50:27] "POST /worksheets/pages/1/questions/save/ HTTP/1.1" 200 361
+[27/Apr/2026 23:50:38] "POST /worksheets/pages/1/embed/ HTTP/1.1" 200 124
+[27/Apr/2026 23:50:38] "GET /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/editor/ HTTP/1.1" 200 62250
+[27/Apr/2026 23:50:45] "GET /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/editor/ HTTP/1.1" 200 62250
+[27/Apr/2026 23:50:55] "GET /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/editor/ HTTP/1.1" 200 62250
+Internal Server Error: /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/play/
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 128, in worksheet_play
+    return render(request, 'worksheets/player.html', {
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 212: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[27/Apr/2026 23:50:56] "GET /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/play/ HTTP/1.1" 500 251251
+[27/Apr/2026 23:51:08] "GET /dashboard/ HTTP/1.1" 200 11142
+[27/Apr/2026 23:51:11] "GET /classrooms/1/ HTTP/1.1" 200 6709
+[27/Apr/2026 23:51:16] "GET /classrooms/create/ HTTP/1.1" 200 6968
+[27/Apr/2026 23:51:18] "GET /logout/ HTTP/1.1" 302 0
+[27/Apr/2026 23:51:18] "GET / HTTP/1.1" 200 6934
+[27/Apr/2026 23:51:20] "GET /login/ HTTP/1.1" 200 5094
+[27/Apr/2026 23:51:22] "GET /register/ HTTP/1.1" 200 7563
+[27/Apr/2026 23:51:42] "POST /register/ HTTP/1.1" 302 0
+[27/Apr/2026 23:51:43] "GET /dashboard/ HTTP/1.1" 200 7221
+[27/Apr/2026 23:52:17] "POST /classrooms/join/ HTTP/1.1" 302 0
+[27/Apr/2026 23:52:17] "GET /dashboard/ HTTP/1.1" 200 7207
+[27/Apr/2026 23:52:30] "POST /classrooms/join/ HTTP/1.1" 302 0
+[27/Apr/2026 23:52:30] "GET /dashboard/ HTTP/1.1" 200 7207
+[27/Apr/2026 23:52:33] "GET /logout/ HTTP/1.1" 302 0
+[27/Apr/2026 23:52:33] "GET / HTTP/1.1" 200 6934
+[27/Apr/2026 23:52:35] "GET /login/ HTTP/1.1" 200 5094
+[27/Apr/2026 23:52:38] "POST /login/ HTTP/1.1" 302 0
+[27/Apr/2026 23:52:38] "GET /dashboard/ HTTP/1.1" 200 11142
+[27/Apr/2026 23:52:43] "GET /classrooms/1/ HTTP/1.1" 200 6709
+[27/Apr/2026 23:53:07] "GET /logout/ HTTP/1.1" 302 0
+[27/Apr/2026 23:53:07] "GET / HTTP/1.1" 200 6934
+[27/Apr/2026 23:53:09] "GET /login/ HTTP/1.1" 200 5094
+[27/Apr/2026 23:53:13] "POST /login/ HTTP/1.1" 302 0
+[27/Apr/2026 23:53:13] "GET /dashboard/ HTTP/1.1" 200 6737
+[27/Apr/2026 23:53:16] "POST /classrooms/join/ HTTP/1.1" 302 0
+[27/Apr/2026 23:53:16] "GET /dashboard/ HTTP/1.1" 200 7520
+[27/Apr/2026 23:53:21] "GET /logout/ HTTP/1.1" 302 0
+[27/Apr/2026 23:53:21] "GET / HTTP/1.1" 200 6934
+[27/Apr/2026 23:53:22] "GET /login/ HTTP/1.1" 200 5094
+[27/Apr/2026 23:53:25] "POST /login/ HTTP/1.1" 302 0
+[27/Apr/2026 23:53:25] "GET /dashboard/ HTTP/1.1" 200 11142
+[27/Apr/2026 23:53:27] "GET /classrooms/1/ HTTP/1.1" 200 7133
+[27/Apr/2026 23:53:31] "GET /workbooks/ HTTP/1.1" 200 6374
+[27/Apr/2026 23:53:32] "GET /worksheets/ HTTP/1.1" 200 9727
+[27/Apr/2026 23:53:33] "GET /assignments/ HTTP/1.1" 200 6377
+[27/Apr/2026 23:53:35] "GET /library/ HTTP/1.1" 200 8999
+[27/Apr/2026 23:53:38] "GET /worksheets/ HTTP/1.1" 200 9727
+[27/Apr/2026 23:53:41] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/editor/ HTTP/1.1" 200 110483
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p1.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p2.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p3.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p4.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p5.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p6.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p7.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p8.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p9.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p10.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p11.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p13.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p12.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p14.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p15.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p16.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p17.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p19.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p20.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p18.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p21.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p22.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p25.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p24.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p27.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p26.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p23.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p28.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p29.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p30.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p31.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:41] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p32.png HTTP/1.1" 304 0
+[27/Apr/2026 23:53:51] "GET /worksheets/ HTTP/1.1" 200 9727
+[27/Apr/2026 23:53:52] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/editor/ HTTP/1.1" 200 110483
+[27/Apr/2026 23:54:00] "GET /worksheets/ HTTP/1.1" 200 9727
+[27/Apr/2026 23:54:07] "GET /worksheets/ HTTP/1.1" 200 9727
+[27/Apr/2026 23:54:08] "GET /workbooks/ HTTP/1.1" 200 6374
+[27/Apr/2026 23:54:09] "GET /assignments/ HTTP/1.1" 200 6377
+[27/Apr/2026 23:54:10] "GET /library/ HTTP/1.1" 200 8999
+[27/Apr/2026 23:54:12] "GET /dashboard/ HTTP/1.1" 200 11142
+[27/Apr/2026 23:54:17] "GET /assignments/ HTTP/1.1" 200 6377
+[27/Apr/2026 23:54:18] "GET /assignments/create/ HTTP/1.1" 200 8950
+c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\db\models\fields\__init__.py:1659: RuntimeWarning: DateTimeField Assignment.due_date received a naive datetime (2025-04-29 23:59:00) while time zone support is active.
+  warnings.warn(
+[27/Apr/2026 23:54:38] "POST /assignments/create/ HTTP/1.1" 302 0
+[27/Apr/2026 23:54:38] "GET /assignments/1/ HTTP/1.1" 200 7285
+[27/Apr/2026 23:54:41] "GET /logout/ HTTP/1.1" 302 0
+[27/Apr/2026 23:54:41] "GET / HTTP/1.1" 200 6934
+[27/Apr/2026 23:54:43] "GET /login/ HTTP/1.1" 200 5094
+[27/Apr/2026 23:54:46] "POST /login/ HTTP/1.1" 302 0
+[27/Apr/2026 23:54:46] "GET /dashboard/ HTTP/1.1" 200 7571
+[27/Apr/2026 23:54:47] "GET /assignments/1/ HTTP/1.1" 200 5979
+Internal Server Error: /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/play/
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 128, in worksheet_play
+    return render(request, 'worksheets/player.html', {
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 212: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[27/Apr/2026 23:54:49] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/play/?assignment=1 HTTP/1.1" 500 255558
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 20:41:16] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 20:43:00] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 20:43:00] "GET /dashboard/ HTTP/1.1" 200 7571
+Not Found: /favicon.ico
+[28/Apr/2026 20:43:01] "GET /favicon.ico HTTP/1.1" 404 4591
+[28/Apr/2026 20:43:58] "GET /logout/ HTTP/1.1" 302 0
+[28/Apr/2026 20:43:58] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 20:44:00] "GET /login/ HTTP/1.1" 200 5094
+[28/Apr/2026 20:44:03] "POST /login/ HTTP/1.1" 302 0
+[28/Apr/2026 20:44:03] "GET /dashboard/ HTTP/1.1" 200 11142
+[28/Apr/2026 20:44:05] "GET /worksheets/ HTTP/1.1" 200 9727
+[28/Apr/2026 20:44:10] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 20:45:11] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 20:45:11] "GET /worksheets/84e6e819-adb1-4243-8852-576607591bbe/editor/ HTTP/1.1" 200 43661
+[28/Apr/2026 20:45:22] "POST /worksheets/pages/34/embed/ HTTP/1.1" 200 124
+[28/Apr/2026 20:45:22] "GET /worksheets/84e6e819-adb1-4243-8852-576607591bbe/editor/ HTTP/1.1" 200 43417
+[28/Apr/2026 20:45:38] "POST /worksheets/pages/34/questions/save/ HTTP/1.1" 200 350
+[28/Apr/2026 20:45:59] "POST /worksheets/questions/10/delete/ HTTP/1.1" 200 17
+[28/Apr/2026 20:46:10] "GET /worksheets/ HTTP/1.1" 200 11469
+[28/Apr/2026 20:46:48] "GET /worksheets/ HTTP/1.1" 200 11469
+[28/Apr/2026 20:46:50] "GET /workbooks/ HTTP/1.1" 200 6374
+[28/Apr/2026 20:46:51] "GET /workbooks/create/ HTTP/1.1" 200 6959
+[28/Apr/2026 20:46:56] "POST /workbooks/create/ HTTP/1.1" 302 0
+[28/Apr/2026 20:46:56] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 200 8044
+[28/Apr/2026 20:47:02] "POST /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 302 0
+[28/Apr/2026 20:47:02] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 200 8925
+[28/Apr/2026 20:47:06] "POST /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 302 0
+[28/Apr/2026 20:47:06] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 200 9867
+[28/Apr/2026 20:47:08] "GET /workbooks/ HTTP/1.1" 200 6621
+[28/Apr/2026 20:47:09] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 200 9406
+Internal Server Error: /worksheets/84e6e819-adb1-4243-8852-576607591bbe/play/
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 128, in worksheet_play
+    return render(request, 'worksheets/player.html', {
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 212: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Apr/2026 20:47:12] "GET /worksheets/84e6e819-adb1-4243-8852-576607591bbe/play/ HTTP/1.1" 500 251177
+[28/Apr/2026 20:47:16] "GET /dashboard/ HTTP/1.1" 200 12226
+[28/Apr/2026 20:47:19] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/editor/ HTTP/1.1" 200 110483
+[28/Apr/2026 20:47:19] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p1.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:19] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p2.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:19] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p3.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:19] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p4.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:19] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p5.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:19] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p6.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:19] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p7.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p8.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p9.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p10.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p11.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p12.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p13.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p14.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p15.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p16.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p17.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p18.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p20.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p21.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p19.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p22.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p23.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p24.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p26.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p29.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p27.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p25.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p28.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p30.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p31.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:20] "GET /media/backgrounds/bg_5d6aae2fed354d41b9996e5034b5cc89_p32.png HTTP/1.1" 304 0
+[28/Apr/2026 20:47:26] "GET /worksheets/ HTTP/1.1" 200 11469
+[28/Apr/2026 20:47:28] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 20:47:43] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 20:47:43] "GET /worksheets/d95ce6d6-0239-49e5-8533-511a162045eb/editor/ HTTP/1.1" 200 43671
+[28/Apr/2026 20:48:03] "POST /worksheets/pages/35/questions/save/ HTTP/1.1" 200 417
+[28/Apr/2026 20:48:05] "POST /worksheets/pages/35/questions/save/ HTTP/1.1" 200 420
+[28/Apr/2026 20:48:07] "POST /worksheets/pages/35/questions/save/ HTTP/1.1" 200 448
+[28/Apr/2026 20:48:16] "POST /worksheets/pages/35/questions/save/ HTTP/1.1" 200 417
+[28/Apr/2026 20:48:16] "GET /worksheets/d95ce6d6-0239-49e5-8533-511a162045eb/editor/ HTTP/1.1" 200 45334
+Internal Server Error: /worksheets/d95ce6d6-0239-49e5-8533-511a162045eb/play/
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 128, in worksheet_play
+    return render(request, 'worksheets/player.html', {
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 212: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Apr/2026 20:49:09] "GET /worksheets/d95ce6d6-0239-49e5-8533-511a162045eb/play/ HTTP/1.1" 500 251215
+[28/Apr/2026 20:49:17] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 20:49:17] "GET /worksheets/5fc5fed8-b690-4c73-81e7-d86d0d9b0a5b/editor/ HTTP/1.1" 200 43671
+[28/Apr/2026 20:49:29] "POST /worksheets/pages/36/questions/save/ HTTP/1.1" 200 349
+[28/Apr/2026 20:49:37] "POST /worksheets/pages/36/questions/save/ HTTP/1.1" 200 349
+[28/Apr/2026 20:49:37] "GET /worksheets/5fc5fed8-b690-4c73-81e7-d86d0d9b0a5b/editor/ HTTP/1.1" 200 45342
+[28/Apr/2026 20:50:14] "GET /worksheets/5fc5fed8-b690-4c73-81e7-d86d0d9b0a5b/editor/ HTTP/1.1" 200 45342
+Internal Server Error: /worksheets/5fc5fed8-b690-4c73-81e7-d86d0d9b0a5b/play/
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 128, in worksheet_play
+    return render(request, 'worksheets/player.html', {
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 295, in do_extends
+    nodelist = parser.parse()
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 510, in parse
+    raise self.error(token, e)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 508, in parse
+    compiled_result = compile_func(self, token)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\defaulttags.py", line 861, in do_for
+    nodelist_loop = parser.parse(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\template\base.py", line 555, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 212: 'endif', expected 'empty' or 'endfor'. Did you forget to register or load this tag?
+[28/Apr/2026 20:50:16] "GET /worksheets/5fc5fed8-b690-4c73-81e7-d86d0d9b0a5b/play/ HTTP/1.1" 500 251215
+[28/Apr/2026 20:50:19] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 20:50:19] "GET /dashboard/ HTTP/1.1" 200 14404
+[28/Apr/2026 20:50:21] "GET /worksheets/5fc5fed8-b690-4c73-81e7-d86d0d9b0a5b/editor/ HTTP/1.1" 200 45342
+[28/Apr/2026 20:50:28] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 20:50:33] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 20:50:33] "GET /worksheets/37115c06-24d3-4592-bde5-6e0cb742df73/editor/ HTTP/1.1" 200 43625
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 20:54:26] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 20:54:46] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 20:54:46] "GET /dashboard/ HTTP/1.1" 200 15470
+[28/Apr/2026 20:54:53] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 20:55:03] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 20:55:03] "GET /worksheets/052b1f2e-0361-4a3a-9fee-5f9056486457/editor/ HTTP/1.1" 200 43637
+[28/Apr/2026 20:55:13] "POST /worksheets/pages/38/questions/save/ HTTP/1.1" 200 418
+[28/Apr/2026 20:55:14] "POST /worksheets/pages/38/questions/save/ HTTP/1.1" 200 418
+[28/Apr/2026 20:55:16] "POST /worksheets/pages/38/questions/save/ HTTP/1.1" 200 446
+[28/Apr/2026 20:55:23] "POST /worksheets/pages/38/questions/save/ HTTP/1.1" 200 418
+[28/Apr/2026 20:55:23] "GET /worksheets/052b1f2e-0361-4a3a-9fee-5f9056486457/editor/ HTTP/1.1" 200 45302
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py changed, reloading.
+Performing system checks...
+
+April 28, 2026 - 20:54:25
+Django version 5.0.6, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 21:30:09] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 21:30:28] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:30:28] "GET /dashboard/ HTTP/1.1" 200 15365
+Not Found: /favicon.ico
+[28/Apr/2026 21:30:28] "GET /favicon.ico HTTP/1.1" 404 4591
+[28/Apr/2026 21:30:30] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 21:30:37] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 21:30:37] "GET /worksheets/54f0c29d-ec48-4659-9db5-88c8bf777652/editor/ HTTP/1.1" 200 47517
+[28/Apr/2026 21:30:42] "POST /worksheets/pages/47/questions/save/ HTTP/1.1" 200 419
+[28/Apr/2026 21:30:43] "POST /worksheets/pages/47/questions/save/ HTTP/1.1" 200 418
+[28/Apr/2026 21:30:44] "POST /worksheets/pages/47/questions/save/ HTTP/1.1" 200 445
+[28/Apr/2026 21:30:45] "POST /worksheets/pages/47/questions/save/ HTTP/1.1" 200 445
+[28/Apr/2026 21:30:50] "POST /worksheets/pages/47/questions/save/ HTTP/1.1" 200 405
+[28/Apr/2026 21:30:50] "GET /worksheets/54f0c29d-ec48-4659-9db5-88c8bf777652/editor/ HTTP/1.1" 200 48973
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 21:34:01] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 21:34:17] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:34:17] "GET /dashboard/ HTTP/1.1" 200 15379
+Not Found: /favicon.ico
+[28/Apr/2026 21:34:17] "GET /favicon.ico HTTP/1.1" 404 4591
+[28/Apr/2026 21:34:19] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 21:34:26] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 21:34:26] "GET /worksheets/90475265-3d3e-40c8-85e7-13ce2b67f3ff/editor/ HTTP/1.1" 200 47788
+[28/Apr/2026 21:34:30] "POST /worksheets/pages/48/questions/save/ HTTP/1.1" 200 355
+[28/Apr/2026 21:34:31] "POST /worksheets/pages/48/questions/save/ HTTP/1.1" 200 354
+[28/Apr/2026 21:34:37] "POST /worksheets/pages/48/questions/save/ HTTP/1.1" 200 368
+[28/Apr/2026 21:34:37] "GET /worksheets/90475265-3d3e-40c8-85e7-13ce2b67f3ff/editor/ HTTP/1.1" 200 49202
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 21:38:30] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 21:39:08] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:39:08] "GET /dashboard/ HTTP/1.1" 200 15377
+Not Found: /favicon.ico
+[28/Apr/2026 21:39:09] "GET /favicon.ico HTTP/1.1" 404 4591
+[28/Apr/2026 21:39:11] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 21:39:15] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 21:39:15] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/editor/ HTTP/1.1" 200 50327
+[28/Apr/2026 21:39:20] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 422
+[28/Apr/2026 21:39:21] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 422
+[28/Apr/2026 21:39:23] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 450
+[28/Apr/2026 21:39:28] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 409
+[28/Apr/2026 21:39:34] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 409
+[28/Apr/2026 21:39:44] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 409
+[28/Apr/2026 21:39:46] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 430
+[28/Apr/2026 21:39:49] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/play/ HTTP/1.1" 200 16756
+[28/Apr/2026 21:39:54] "POST /worksheets/edf57705-eeae-462d-a414-666b53126d96/pages/add/ HTTP/1.1" 200 22
+[28/Apr/2026 21:39:54] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/editor/ HTTP/1.1" 200 53848
+[28/Apr/2026 21:40:01] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:40:01] "GET /dashboard/ HTTP/1.1" 200 15380
+[28/Apr/2026 21:40:03] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/editor/ HTTP/1.1" 200 53848
+[28/Apr/2026 21:40:06] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/ HTTP/1.1" 200 6723
+[28/Apr/2026 21:40:08] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/play/ HTTP/1.1" 200 17237
+[28/Apr/2026 21:40:09] "POST /submissions/worksheet/edf57705-eeae-462d-a414-666b53126d96/submit/ HTTP/1.1" 200 136
+[28/Apr/2026 21:40:11] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:40:11] "GET /dashboard/ HTTP/1.1" 200 15380
+[28/Apr/2026 21:40:12] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/editor/ HTTP/1.1" 200 53848
+[28/Apr/2026 21:40:14] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 429
+[28/Apr/2026 21:40:15] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 429
+[28/Apr/2026 21:40:15] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/play/ HTTP/1.1" 200 17236
+[28/Apr/2026 21:40:20] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 430
+[28/Apr/2026 21:40:21] "POST /worksheets/pages/49/questions/save/ HTTP/1.1" 200 430
+[28/Apr/2026 21:40:24] "GET /worksheets/ HTTP/1.1" 200 29875
+[28/Apr/2026 21:40:26] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/editor/ HTTP/1.1" 200 53848
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 21:46:37] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 21:46:49] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:46:49] "GET /dashboard/ HTTP/1.1" 200 15380
+Not Found: /favicon.ico
+[28/Apr/2026 21:46:50] "GET /favicon.ico HTTP/1.1" 404 4591
+[28/Apr/2026 21:46:52] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 21:47:09] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 21:47:09] "GET /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/editor/ HTTP/1.1" 200 50349
+[28/Apr/2026 21:47:16] "POST /worksheets/pages/51/questions/save/ HTTP/1.1" 200 359
+[28/Apr/2026 21:47:18] "POST /worksheets/pages/51/questions/save/ HTTP/1.1" 200 359
+[28/Apr/2026 21:47:20] "POST /worksheets/pages/51/questions/save/ HTTP/1.1" 200 385
+[28/Apr/2026 21:47:24] "POST /worksheets/pages/51/questions/save/ HTTP/1.1" 200 344
+[28/Apr/2026 21:47:29] "POST /worksheets/pages/51/questions/save/ HTTP/1.1" 200 344
+[28/Apr/2026 21:47:36] "GET /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/play/ HTTP/1.1" 200 16731
+[28/Apr/2026 21:47:42] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:47:42] "GET /dashboard/ HTTP/1.1" 200 15388
+[28/Apr/2026 21:47:44] "GET /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/ HTTP/1.1" 200 6787
+[28/Apr/2026 21:47:46] "GET /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/editor/ HTTP/1.1" 200 51711

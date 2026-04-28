@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Çalışma Kağıtlarım{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">Çalışma Kağıtlarım</h1>
+    <a href="{% url 'worksheet_create' %}" class="btn-primary">
+        <i class="fas fa-plus"></i> Yeni Oluştur
+    </a>
+</div>
+
+{% if worksheets %}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    {% for ws in worksheets %}
+    <div class="card hover:shadow-md transition-shadow group">
+        <!-- Thumbnail -->
+        <div class="relative aspect-[4/3] bg-gradient-to-br from-indigo-50 to-indigo-100 flex items-center justify-center overflow-hidden">
+            {% if ws.thumbnail %}
+            <img src="{{ ws.thumbnail.url }}" alt="{{ ws.title }}" class="w-full h-full object-cover">
+            {% else %}
+            <i class="fas fa-file-alt text-5xl text-indigo-300"></i>
+            {% endif %}
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                <a href="{% url 'worksheet_editor' ws.pk %}" class="bg-white text-indigo-600 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-indigo-50">
+                    <i class="fas fa-pen mr-1"></i>Düzenle
+                </a>
+                <a href="{% url 'worksheet_play' ws.pk %}" class="bg-indigo-600 text-white rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-indigo-700">
+                    <i class="fas fa-play mr-1"></i>Önizle
+                </a>
+            </div>
+        </div>
+        <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 truncate">{{ ws.title }}</h3>
+            <div class="flex items-center justify-between text-xs text-gray-400">
+                <span>{{ ws.created_at|date:"d M Y" }}</span>
+                <span><i class="fas fa-eye mr-1"></i>{{ ws.view_count }}</span>
+            </div>
+            <div class="flex items-center gap-2 mt-3">
+                <span class="text-xs px-2 py-0.5 rounded-full {% if ws.is_public %}bg-green-100 text-green-700{% else %}bg-gray-100 text-gray-500{% endif %}">
+                    {% if ws.is_public %}Herkese Açık{% else %}Özel{% endif %}
+                </span>
+                {% if ws.subject %}
+                <span class="text-xs px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">{{ ws.subject.name }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="card p-16 text-center text-gray-400">
+    <i class="fas fa-file-circle-plus text-6xl mb-4"></i>
+    <h2 class="text-xl font-semibold mb-2 text-gray-500">Henüz çalışma kağıdınız yok</h2>
+    <p class="text-sm mb-6">PDF veya görselden etkileşimli çalışma kağıtları oluşturun.</p>
+    <a href="{% url 'worksheet_create' %}" class="btn-primary">
+        <i class="fas fa-plus"></i> İlk Kağıdınızı Oluşturun
+    </a>
+</div>
+{% endif %}
+{% endblock %}

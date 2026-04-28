@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}{{ workbook.title }}{% endblock %}
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+    <div>
+        <a href="{% url 'workbook_list' %}" class="text-sm text-gray-400 hover:text-indigo-600"><i class="fas fa-arrow-left mr-1"></i>Geri</a>
+        <h1 class="text-2xl font-bold mt-1">{{ workbook.title }}</h1>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Sayfalar -->
+    <div class="lg:col-span-2">
+        <h2 class="font-semibold mb-3">Sayfalar ({{ workbook.pages.count }})</h2>
+        {% if workbook.pages.all %}
+        <div class="space-y-3">
+            {% for page in workbook.pages.all %}
+            <div class="card p-4 flex items-center gap-4">
+                <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">{{ page.order }}</div>
+                <div class="flex-1">
+                    <div class="font-medium text-sm">{{ page.worksheet.title }}</div>
+                </div>
+                <a href="{% url 'worksheet_play' page.worksheet.pk %}" class="text-indigo-600 hover:text-indigo-800 text-sm mr-2" title="Çöz">
+                    <i class="fas fa-play"></i>
+                </a>
+                <form method="post" action="{% url 'workbook_remove_page' workbook.pk page.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="text-red-400 hover:text-red-600 text-sm" title="Kaldır">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card p-8 text-center text-gray-400 text-sm">Henüz sayfa eklenmedi.</div>
+        {% endif %}
+    </div>
+
+    <!-- Kağıt ekle -->
+    <div>
+        <h2 class="font-semibold mb-3">Çalışma Kağıdı Ekle</h2>
+        <form method="post" class="card p-4 space-y-3">
+            {% csrf_token %}
+            <select name="worksheet_id" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                <option value="">Seçin...</option>
+                {% for ws in my_worksheets %}
+                <option value="{{ ws.pk }}">{{ ws.title }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn-primary w-full justify-center text-sm">
+                <i class="fas fa-plus mr-1"></i>Ekle
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
