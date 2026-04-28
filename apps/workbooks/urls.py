@@ -6,4 +6,5 @@ urlpatterns = [
     path('create/', views.workbook_create, name='workbook_create'),
     path('<uuid:pk>/', views.workbook_detail, name='workbook_detail'),
     path('<uuid:pk>/pages/<int:page_pk>/remove/', views.workbook_remove_page, name='workbook_remove_page'),
+    path('<uuid:pk>/delete/', views.workbook_delete, name='workbook_delete'),
 ]

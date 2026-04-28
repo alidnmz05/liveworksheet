@@ -1401,3 +1401,37 @@ WARNINGS:
 ?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
 
 System check identified 1 issue (0 silenced).
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 22:31:27] "GET / HTTP/1.1" 200 7708
+[28/Apr/2026 22:31:44] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 22:31:44] "GET /dashboard/ HTTP/1.1" 200 12345
+[28/Apr/2026 22:31:50] "GET /assignments/ HTTP/1.1" 200 8612
+[28/Apr/2026 22:31:52] "GET /assignments/2/ HTTP/1.1" 200 7547
+[28/Apr/2026 22:31:55] "GET /logout/ HTTP/1.1" 302 0
+[28/Apr/2026 22:31:55] "GET / HTTP/1.1" 200 7708
+[28/Apr/2026 22:31:56] "GET /login/ HTTP/1.1" 200 5868
+[28/Apr/2026 22:32:00] "POST /login/ HTTP/1.1" 302 0
+[28/Apr/2026 22:32:00] "GET /dashboard/ HTTP/1.1" 200 9010
+[28/Apr/2026 22:32:03] "GET /assignments/1/ HTTP/1.1" 200 6574
+[28/Apr/2026 22:32:06] "GET /assignments/2/ HTTP/1.1" 200 6741
+[28/Apr/2026 22:32:07] "GET /worksheets/eda09821-9e90-4e9d-a0fd-35adb4fa6af9/play/?assignment=2 HTTP/1.1" 200 21148
+[28/Apr/2026 22:32:13] "POST /submissions/worksheet/eda09821-9e90-4e9d-a0fd-35adb4fa6af9/submit/ HTTP/1.1" 200 264
+[28/Apr/2026 22:32:18] "GET /library/ HTTP/1.1" 200 9299
+[28/Apr/2026 22:32:20] "GET /logout/ HTTP/1.1" 302 0
+[28/Apr/2026 22:32:20] "GET / HTTP/1.1" 200 7708
+[28/Apr/2026 22:32:21] "GET /login/ HTTP/1.1" 200 5868
+[28/Apr/2026 22:32:24] "POST /login/ HTTP/1.1" 302 0
+[28/Apr/2026 22:32:24] "GET /dashboard/ HTTP/1.1" 200 12345
+[28/Apr/2026 22:32:28] "GET /assignments/ HTTP/1.1" 200 8612
+[28/Apr/2026 22:32:30] "GET /assignments/2/ HTTP/1.1" 200 8647
+[28/Apr/2026 22:32:32] "GET /submissions/4/ HTTP/1.1" 200 10134
+[28/Apr/2026 22:33:35] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 22:33:35] "GET /dashboard/ HTTP/1.1" 200 12345
+[28/Apr/2026 22:33:38] "GET /workbooks/ HTTP/1.1" 200 7395
+[28/Apr/2026 22:33:40] "GET /workbooks/17fd277c-a8b6-480f-b13a-17132c9cb9be/ HTTP/1.1" 200 8191

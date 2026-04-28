@@ -6,6 +6,9 @@
         <a href="{% url 'workbook_list' %}" class="text-sm text-gray-400 hover:text-indigo-600"><i class="fas fa-arrow-left mr-1"></i>Geri</a>
         <h1 class="text-2xl font-bold mt-1">{{ workbook.title }}</h1>
     </div>
+    <a href="{% url 'workbook_delete' workbook.pk %}" class="btn-danger text-xs px-3 py-2">
+        <i class="fas fa-trash-alt mr-1"></i>Defteri Sil
+    </a>
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">

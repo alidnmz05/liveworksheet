@@ -49,3 +49,14 @@ def workbook_remove_page(request, pk, page_pk):
     page.delete()
     messages.success(request, 'Sayfa kaldırıldı.')
     return redirect('workbook_detail', pk=pk)
+
+
+@login_required
+def workbook_delete(request, pk):
+    workbook = get_object_or_404(Workbook, pk=pk, teacher=request.user)
+    if request.method == 'POST':
+        title = workbook.title
+        workbook.delete()
+        messages.success(request, f'"{title}" defteri silindi.')
+        return redirect('workbook_list')
+    return render(request, 'workbooks/confirm_delete.html', {'workbook': workbook})
