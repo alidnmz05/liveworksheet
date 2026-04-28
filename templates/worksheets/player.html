@@ -58,7 +58,7 @@
 
         <!-- Page canvas -->
         <div class="relative bg-white shadow-lg overflow-hidden"
-             style="width:100%; padding-top: {{ page.page_height|floatformat:0 }}/{{ page.page_width|floatformat:0 }}*100%;">
+             style="width:100%; padding-top: calc(({{ page.page_height }} / {{ page.page_width }}) * 100%);">
             <div class="absolute inset-0">
                 {% if page.background_image %}
                 <img src="{{ page.background_image.url }}" class="w-full h-full object-contain select-none" draggable="false">
