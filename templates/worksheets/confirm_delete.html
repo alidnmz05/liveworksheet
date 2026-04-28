@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 {% block title %}Sil: {{ worksheet.title }}{% endblock %}
 {% block content %}
-<div class="max-w-lg mx-auto mt-10">
-    <div class="card p-6 text-center">
-        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i class="fas fa-trash text-red-600 text-2xl"></i>
+<div class="max-w-md mx-auto mt-20">
+    <div class="card p-8 text-center shadow-xl shadow-gray-200/50 border-gray-200/50">
+        <div class="w-20 h-20 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-6 ring-4 ring-red-50/50">
+            <i class="fas fa-trash-alt text-red-500 text-3xl"></i>
         </div>
-        <h2 class="text-xl font-bold mb-2">Silmek istiyor musunuz?</h2>
-        <p class="text-gray-500 text-sm mb-6">"{{ worksheet.title }}" çalışma kağıdı kalıcı olarak silinecek.</p>
-        <div class="flex gap-3 justify-center">
-            <form method="post">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Silmek istiyor musunuz?</h2>
+        <p class="text-gray-500 text-sm mb-8 px-4">
+            <span class="font-semibold text-gray-700">"{{ worksheet.title }}"</span> çalışma kağıdı ve tüm verileri kalıcı olarak silinecek. Bu işlem geri alınamaz.
+        </p>
+        <div class="flex flex-col gap-3">
+            <form method="post" class="w-full">
                 {% csrf_token %}
-                <button type="submit" class="btn-danger">Evet, Sil</button>
+                <button type="submit" class="btn-danger w-full py-3">
+                    <i class="fas fa-trash-alt mr-2"></i>Evet, Kalıcı Olarak Sil
+                </button>
             </form>
-            <a href="{% url 'worksheet_list' %}" class="btn-secondary">İptal</a>
+            <a href="{% url 'worksheet_list' %}" class="btn-secondary w-full py-3">
+                İptal
+            </a>
         </div>
     </div>
 </div>

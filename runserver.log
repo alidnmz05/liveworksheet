@@ -914,3 +914,137 @@ Not Found: /favicon.ico
 [28/Apr/2026 21:47:42] "GET /dashboard/ HTTP/1.1" 200 15388
 [28/Apr/2026 21:47:44] "GET /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/ HTTP/1.1" 200 6787
 [28/Apr/2026 21:47:46] "GET /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/editor/ HTTP/1.1" 200 51711
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py changed, reloading.
+Performing system checks...
+
+April 28, 2026 - 21:46:37
+Django version 5.0.6, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "C:\Users\ismail\AppData\Local\Programs\Python\Python310\lib\threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "C:\Users\ismail\AppData\Local\Programs\Python\Python310\lib\threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\utils\autoreload.py", line 64, in wrapper
+    fn(*args, **kwargs)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\management\commands\runserver.py", line 133, in inner_run
+    self.check(display_num_errors=True)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\management\base.py", line 486, in check
+    all_issues = checks.run_checks(
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\checks\registry.py", line 88, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\checks\urls.py", line 42, in check_url_namespaces_unique
+    all_namespaces = _load_all_namespaces(resolver)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\core\checks\urls.py", line 61, in _load_all_namespaces
+    url_patterns = getattr(resolver, "url_patterns", [])
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\urls\resolvers.py", line 738, in url_patterns
+    patterns = getattr(self.urlconf_module, "urlpatterns", self.urlconf_module)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\urls\resolvers.py", line 731, in urlconf_module
+    return import_module(self.urlconf_name)
+  File "C:\Users\ismail\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "c:\Users\ismail\Downloads\liveworksheet-main\config\urls.py", line 15, in <module>
+    path('worksheets/', include('apps.worksheets.urls')),
+  File "c:\Users\ismail\Downloads\liveworksheet-main\venv\lib\site-packages\django\urls\conf.py", line 39, in include
+    urlconf_module = import_module(urlconf_module)
+  File "C:\Users\ismail\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\urls.py", line 2, in <module>
+    from . import views
+  File "c:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py", line 13
+    >>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
+               ^
+SyntaxError: invalid decimal literal
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py changed, reloading.
+Performing system checks...
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 21:58:27] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 21:58:40] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:58:40] "GET /dashboard/ HTTP/1.1" 200 15388
+[28/Apr/2026 21:58:45] "GET /worksheets/create/ HTTP/1.1" 200 16588
+[28/Apr/2026 21:58:48] "POST /worksheets/create/ HTTP/1.1" 302 0
+[28/Apr/2026 21:58:48] "GET /worksheets/321675a4-dd28-4e2f-9975-6a02450ce8ae/editor/ HTTP/1.1" 200 50337
+[28/Apr/2026 21:58:54] "POST /worksheets/pages/52/questions/save/ HTTP/1.1" 200 352
+[28/Apr/2026 21:58:56] "GET /worksheets/321675a4-dd28-4e2f-9975-6a02450ce8ae/play/ HTTP/1.1" 200 16930
+[28/Apr/2026 21:59:08] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 21:59:08] "GET /dashboard/ HTTP/1.1" 200 15388
+[28/Apr/2026 21:59:57] "GET /worksheets/ HTTP/1.1" 200 33208
+[28/Apr/2026 22:02:57,248] - Broken pipe from ('127.0.0.1', 51465)
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[28/Apr/2026 22:02:59] "GET / HTTP/1.1" 200 6934
+[28/Apr/2026 22:03:12] "GET / HTTP/1.1" 302 0
+[28/Apr/2026 22:03:12] "GET /dashboard/ HTTP/1.1" 200 16744
+[28/Apr/2026 22:03:15] "GET /worksheets/321675a4-dd28-4e2f-9975-6a02450ce8ae/delete/ HTTP/1.1" 200 6723
+[28/Apr/2026 22:03:17] "POST /worksheets/321675a4-dd28-4e2f-9975-6a02450ce8ae/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:03:17] "GET /worksheets/ HTTP/1.1" 200 35864
+[28/Apr/2026 22:03:20] "GET /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/delete/ HTTP/1.1" 200 6773
+[28/Apr/2026 22:03:21] "POST /worksheets/3cf9fb12-7abc-4bc3-8c65-b7b6c79028e2/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:03:21] "GET /worksheets/ HTTP/1.1" 200 33859
+[28/Apr/2026 22:03:23] "GET /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/delete/ HTTP/1.1" 200 6773
+[28/Apr/2026 22:03:58] "POST /worksheets/5d6aae2f-ed35-4d41-b999-6e5034b5cc89/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:03:58] "GET /worksheets/ HTTP/1.1" 200 31854
+[28/Apr/2026 22:04:00] "GET /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/delete/ HTTP/1.1" 200 6735
+[28/Apr/2026 22:04:01] "POST /worksheets/692ac464-2d51-4e6f-8f29-8aea96b4c480/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:04:01] "GET /worksheets/ HTTP/1.1" 200 29869
+[28/Apr/2026 22:04:03] "GET /worksheets/edf57705-eeae-462d-a414-666b53126d96/delete/ HTTP/1.1" 200 6725
+[28/Apr/2026 22:04:04] "POST /worksheets/edf57705-eeae-462d-a414-666b53126d96/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:04:04] "GET /worksheets/ HTTP/1.1" 200 28016
+[28/Apr/2026 22:04:05] "GET /worksheets/90475265-3d3e-40c8-85e7-13ce2b67f3ff/delete/ HTTP/1.1" 200 6723
+[28/Apr/2026 22:04:05] "POST /worksheets/90475265-3d3e-40c8-85e7-13ce2b67f3ff/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:04:06] "GET /worksheets/ HTTP/1.1" 200 26036
+[28/Apr/2026 22:04:07] "GET /worksheets/54f0c29d-ec48-4659-9db5-88c8bf777652/delete/ HTTP/1.1" 200 6743
+[28/Apr/2026 22:04:08] "POST /worksheets/54f0c29d-ec48-4659-9db5-88c8bf777652/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:04:08] "GET /worksheets/ HTTP/1.1" 200 24174
+[28/Apr/2026 22:04:11] "GET /worksheets/84e6e819-adb1-4243-8852-576607591bbe/delete/ HTTP/1.1" 200 6751
+[28/Apr/2026 22:04:12] "POST /worksheets/84e6e819-adb1-4243-8852-576607591bbe/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:04:12] "GET /worksheets/ HTTP/1.1" 200 22180
+[28/Apr/2026 22:04:54] "GET /worksheets/d1c7be96-853c-46bd-a11d-a179d837c8ac/delete/ HTTP/1.1" 200 7471
+[28/Apr/2026 22:04:55] "POST /worksheets/d1c7be96-853c-46bd-a11d-a179d837c8ac/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:04:55] "GET /worksheets/ HTTP/1.1" 200 21079
+[28/Apr/2026 22:04:57] "GET /worksheets/97ce5d97-4fb4-4226-afdd-1bc297a1287a/delete/ HTTP/1.1" 200 7473
+[28/Apr/2026 22:04:58] "POST /worksheets/97ce5d97-4fb4-4226-afdd-1bc297a1287a/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:04:58] "GET /worksheets/ HTTP/1.1" 200 19099
+[28/Apr/2026 22:04:59] "GET /worksheets/6565077d-fca1-4ac8-a880-7a82dda32c50/delete/ HTTP/1.1" 200 7469
+[28/Apr/2026 22:05:00] "POST /worksheets/6565077d-fca1-4ac8-a880-7a82dda32c50/delete/ HTTP/1.1" 302 0
+[28/Apr/2026 22:05:00] "GET /worksheets/ HTTP/1.1" 200 17249
+[28/Apr/2026 22:05:01] "GET /worksheets/bb6587c2-6df5-4476-ad4e-ffb104811d73/delete/ HTTP/1.1" 200 7829

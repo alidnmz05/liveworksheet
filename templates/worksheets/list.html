@@ -26,6 +26,9 @@
                 <a href="{% url 'worksheet_play' ws.pk %}" class="bg-indigo-600 text-white rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-indigo-700">
                     <i class="fas fa-play mr-1"></i>Önizle
                 </a>
+                <a href="{% url 'worksheet_delete' ws.pk %}" class="bg-red-500 text-white rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-red-600">
+                    <i class="fas fa-trash mr-1"></i>Sil
+                </a>
             </div>
         </div>
         <div class="p-4">

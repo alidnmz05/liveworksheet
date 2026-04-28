@@ -7,16 +7,12 @@ from django.db import transaction
 from django.core.files.base import ContentFile
 import json
 import os
-<<<<<<< HEAD
 import re
-=======
->>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
 
 from .models import Worksheet, WorksheetPage, Question, Subject
 from .forms import WorksheetForm, WorksheetPageForm
 
 
-<<<<<<< HEAD
 HEX_COLOR_RE = re.compile(r'^#[0-9a-fA-F]{6}$')
 
 
@@ -40,8 +36,6 @@ def _normalize_hex_color(value, default):
     return default
 
 
-=======
->>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
 def _pdf_to_pages(worksheet, pdf_file):
     """
     PDF dosyasını sayfa sayfa PNG'ye çevirip her biri için WorksheetPage oluşturur.
@@ -127,7 +121,6 @@ def worksheet_editor(request, pk):
         'questions__drop_targets', 'questions__matching_pairs',
         'embeds'
     )
-<<<<<<< HEAD
     pages_data = {}
     for page in pages:
         page_questions = []
@@ -167,16 +160,11 @@ def worksheet_editor(request, pk):
             })
         pages_data[page.id] = {'questions': page_questions}
 
-=======
->>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
     subjects = Subject.objects.all()
     return render(request, 'worksheets/editor.html', {
         'worksheet': worksheet,
         'pages': pages,
-<<<<<<< HEAD
         'pages_data': pages_data,
-=======
->>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
         'subjects': subjects,
         'question_types': Question.TYPE_CHOICES,
     })
@@ -246,17 +234,12 @@ def api_question_save(request, page_pk):
     with transaction.atomic():
         q_id = data.get('id')
         if q_id:
-<<<<<<< HEAD
             question = get_object_or_404(Question, pk=q_id, page__worksheet__author=request.user)
             page = question.page
-=======
-            question = get_object_or_404(Question, pk=q_id, page=page)
->>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
         else:
             question = Question(page=page)
 
         question.question_type = data['question_type']
-<<<<<<< HEAD
         question.pos_x = _to_float(data.get('pos_x', 10), 10)
         question.pos_y = _to_float(data.get('pos_y', 10), 10)
         question.width = _to_float(data.get('width', 20), 20)
@@ -266,17 +249,6 @@ def api_question_save(request, page_pk):
         question.font_size = max(8, min(36, _to_int(data.get('font_size', 14), 14)))
         question.bg_color = _normalize_hex_color(data.get('bg_color', '#ffffff'), '#ffffff')
         question.border_color = _normalize_hex_color(data.get('border_color', '#cccccc'), '#cccccc')
-=======
-        question.pos_x = data.get('pos_x', 10)
-        question.pos_y = data.get('pos_y', 10)
-        question.width = data.get('width', 20)
-        question.height = data.get('height', 5)
-        question.label = data.get('label', '')
-        question.correct_answer = data.get('correct_answer', '')
-        question.font_size = data.get('font_size', 14)
-        question.bg_color = data.get('bg_color', '#ffffff')
-        question.border_color = data.get('border_color', '#cccccc')
->>>>>>> 7770ffe167c904d7b6910d141eeaeca9600e565c
         question.order = data.get('order', 1)
         question.save()
 
