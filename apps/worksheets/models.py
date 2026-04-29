@@ -122,6 +122,8 @@ class Question(models.Model):
     TYPE_CHECKBOXES = 'checkboxes'
     TYPE_DROPDOWN = 'dropdown'
     TYPE_DRAG_DROP = 'drag_drop'
+    TYPE_DRAG_WORD = 'drag_word'
+    TYPE_DROP_ZONE = 'drop_zone'
     TYPE_MATCHING = 'matching'
     TYPE_SPEECH = 'speech'
     TYPE_OPEN_ANSWER = 'open_answer'
@@ -133,7 +135,9 @@ class Question(models.Model):
         (TYPE_MULTIPLE_CHOICE, 'Single Choice'),
         (TYPE_CHECKBOXES, 'Checkboxes'),
         (TYPE_DROPDOWN, 'Select'),
-        (TYPE_DRAG_DROP, 'Drag & Drop'),
+        (TYPE_DRAG_DROP, 'Drag & Drop (eski)'),
+        (TYPE_DRAG_WORD, 'Drag Word'),
+        (TYPE_DROP_ZONE, 'Drop Zone'),
         (TYPE_MATCHING, 'Join'),
         (TYPE_SPEECH, 'Speak'),
         (TYPE_OPEN_ANSWER, 'Open Answer'),
