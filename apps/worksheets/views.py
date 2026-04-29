@@ -326,6 +326,44 @@ def api_question_delete(request, question_pk):
 
 @login_required
 @require_POST
+def api_question_duplicate(request, question_pk):
+    original = get_object_or_404(Question, pk=question_pk, page__worksheet__author=request.user)
+    
+    with transaction.atomic():
+        # Duplicate the main question object
+        options = original.options.all()
+        drag_items = original.drag_items.all()
+        matching_pairs = original.matching_pairs.all()
+        
+        # New question
+        new_q = Question.objects.get(pk=question_pk)
+        new_q.pk = None
+        # Shift slightly so it's visible that it's a copy
+        new_q.pos_x = min(95.0, float(new_q.pos_x) + 2.0)
+        new_q.pos_y = min(95.0, float(new_q.pos_y) + 2.0)
+        new_q.save()
+        
+        # Duplicate related sets
+        for opt in options:
+            opt.pk = None
+            opt.question = new_q
+            opt.save()
+        for item in drag_items:
+            item.pk = None
+            item.question = new_q
+            item.save()
+        for pair in matching_pairs:
+            pair.pk = None
+            pair.question = new_q
+            pair.save()
+            
+    from .serializers import QuestionSerializer
+    serializer = QuestionSerializer(new_q)
+    return JsonResponse({'success': True, 'question': serializer.data})
+
+
+@login_required
+@require_POST
 def api_media_embed_save(request, page_pk):
     from .models import MediaEmbed
     page = get_object_or_404(WorksheetPage, pk=page_pk, worksheet__author=request.user)
@@ -370,3 +408,26 @@ def api_media_embed_delete(request, embed_pk):
     embed = get_object_or_404(MediaEmbed, pk=embed_pk, page__worksheet__author=request.user)
     embed.delete()
     return JsonResponse({'success': True})
+
+
+@login_required
+@require_POST
+def api_media_embed_duplicate(request, embed_pk):
+    from .models import MediaEmbed
+    original = get_object_or_404(MediaEmbed, pk=embed_pk, page__worksheet__author=request.user)
+    
+    new_embed = MediaEmbed.objects.get(pk=embed_pk)
+    new_embed.pk = None
+    new_embed.pos_x = min(90.0, float(new_embed.pos_x) + 3.0)
+    new_embed.pos_y = min(90.0, float(new_embed.pos_y) + 3.0)
+    new_embed.save()
+    
+    return JsonResponse({
+        'success': True,
+        'id': new_embed.id,
+        'embed_url': new_embed.embed_url,
+        'pos_x': new_embed.pos_x,
+        'pos_y': new_embed.pos_y,
+        'width': new_embed.width,
+        'height': new_embed.height,
+    })

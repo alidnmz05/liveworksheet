@@ -14,7 +14,9 @@ urlpatterns = [
     # Question API
     path('pages/<int:page_pk>/questions/save/', views.api_question_save, name='api_question_save'),
     path('questions/<int:question_pk>/delete/', views.api_question_delete, name='api_question_delete'),
+    path('questions/<int:question_pk>/duplicate/', views.api_question_duplicate, name='api_question_duplicate'),
     # Media API
     path('pages/<int:page_pk>/embed/', views.api_media_embed_save, name='api_media_embed_save'),
     path('embeds/<int:embed_pk>/delete/', views.api_media_embed_delete, name='api_media_embed_delete'),
+    path('embeds/<int:embed_pk>/duplicate/', views.api_media_embed_duplicate, name='api_media_embed_duplicate'),
 ]

@@ -56,6 +56,44 @@
 }
 .elem-btn:active { cursor: grabbing; }
 .worksheet-page.drag-over { outline: 3px dashed #6366f1 !important; outline-offset: -4px; }
+
+/* Widget inner content: her şey font-size'a göreli büyüsün */
+.question-inner {
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.question-inner input[type="checkbox"],
+.question-inner input[type="radio"] {
+    width: 1em;
+    height: 1em;
+    min-width: 1em;
+    min-height: 1em;
+    flex-shrink: 0;
+    cursor: default;
+    accent-color: #6366f1;
+}
+.question-inner input[type="text"],
+.question-inner select,
+.question-inner textarea {
+    font-size: inherit;
+    line-height: 1.4;
+}
+.question-inner label {
+    font-size: inherit;
+    line-height: 1.5;
+    gap: 0.4em;
+}
+.question-inner .space-y-1 > * + * {
+    margin-top: 0.3em;
+}
+.question-inner textarea.auto-height {
+    flex: 1;
+    width: 100%;
+    resize: none;
+    background: transparent;
+    outline: none;
+    overflow: auto;
+}
 </style>
 
 <div class="flex flex-1 overflow-hidden">
@@ -151,44 +189,47 @@
             <div class="question-widget absolute cursor-move"
                  data-question-id="{{ question.id }}"
                  data-type="{{ question.question_type }}"
-                 style="left:{{ question.pos_x }}%; top:{{ question.pos_y }}%; width:{{ question.width }}%; min-height:{{ question.height }}%;"
+                 style="left:{{ question.pos_x }}%; top:{{ question.pos_y }}%; width:{{ question.width }}%; height:{{ question.height }}%; min-height:{{ question.height }}%;"
                  onmousedown="startDrag(event, this)">
-                <div class="question-inner border-2 rounded px-2 py-1 text-xs bg-white/90 backdrop-blur-sm"
+                <div class="question-inner border-2 rounded px-2 py-1 bg-white/90 backdrop-blur-sm w-full h-full flex flex-col justify-center"
                      style="border-color:{{ question.border_color }}; font-size:{{ question.font_size }}px; background:{{ question.bg_color }};">
                     {% if question.question_type == 'fill_blank' %}
-                    <input type="text" disabled class="w-full bg-transparent outline-none" placeholder="Yanıt...">
+                    <input type="text" disabled class="w-full bg-transparent outline-none border-b border-current" placeholder="Yanıt...">
                     {% elif question.question_type == 'multiple_choice' %}
                     <div class="space-y-1">{% for opt in question.options.all %}
-                        <label class="flex items-center gap-1"><input type="radio" disabled><span>{{ opt.text }}</span></label>
+                        <label class="flex items-center"><input type="radio" disabled><span class="ml-1">{{ opt.text }}</span></label>
                     {% endfor %}</div>
                     {% elif question.question_type == 'checkboxes' %}
                     <div class="space-y-1">{% for opt in question.options.all %}
-                        <label class="flex items-center gap-1"><input type="checkbox" disabled><span>{{ opt.text }}</span></label>
-                    {% empty %}<span class="text-gray-400 text-xs">Checkboxes</span>{% endfor %}</div>
+                        <label class="flex items-center"><input type="checkbox" disabled><span class="ml-1">{{ opt.text }}</span></label>
+                    {% empty %}<span class="text-gray-400">Checkboxes</span>{% endfor %}</div>
                     {% elif question.question_type == 'dropdown' %}
-                    <select disabled class="w-full bg-transparent text-xs">
+                    <select disabled class="w-full bg-transparent">
                         {% for opt in question.options.all %}<option>{{ opt.text }}</option>{% endfor %}
                     </select>
                     {% elif question.question_type == 'drag_drop' %}
-                    <div class="flex items-center gap-1 text-xs text-amber-600"><i class="fas fa-hand-rock"></i><span>Drag &amp; Drop</span></div>
+                    <div class="flex items-center text-amber-600"><i class="fas fa-hand-rock mr-1"></i><span>Drag &amp; Drop</span></div>
                     {% elif question.question_type == 'matching' %}
-                    <div class="flex items-center gap-1 text-xs text-pink-600"><i class="fas fa-exchange-alt"></i><span>Join</span></div>
+                    <div class="flex items-center text-pink-600"><i class="fas fa-exchange-alt mr-1"></i><span>Join</span></div>
                     {% elif question.question_type == 'speech' %}
-                    <div class="flex items-center gap-1 text-xs text-teal-600"><i class="fas fa-microphone"></i><span>Speak</span></div>
+                    <div class="flex items-center text-teal-600"><i class="fas fa-microphone mr-1"></i><span>Speak</span></div>
                     {% elif question.question_type == 'play_mp3' %}
-                    <div class="flex items-center gap-1 text-xs text-indigo-600"><i class="fas fa-music"></i><span>{{ question.label|default:"Play MP3" }}</span></div>
+                    <div class="flex items-center text-indigo-600"><i class="fas fa-music mr-1"></i><span>{{ question.label|default:"Play MP3" }}</span></div>
                     {% elif question.question_type == 'open_answer' %}
-                    <textarea disabled class="w-full bg-transparent outline-none resize-none text-xs" rows="2" placeholder="Açık yanıt..."></textarea>
+                    <textarea disabled class="auto-height" placeholder="Açık yanıt..."></textarea>
                     {% elif question.question_type == 'simple_text' %}
                     <span>{{ question.label|default:"Metin buraya..." }}</span>
                     {% endif %}
                 </div>
                 <!-- Widget controls -->
                 <div class="question-controls absolute -top-3 -right-3 flex gap-1 opacity-0 transition-opacity">
-                    <button onclick="editQuestion({{ question.id }}, {{ page.id }}, '{{ question.question_type }}')" class="w-5 h-5 bg-indigo-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-indigo-700">
+                    <button onclick="editQuestion({{ question.id }}, {{ page.id }}, '{{ question.question_type }}')" class="w-5 h-5 bg-indigo-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-indigo-700" title="Düzenle">
                         <i class="fas fa-pen" style="font-size:8px"></i>
                     </button>
-                    <button onclick="deleteQuestion({{ question.id }}, this)" class="w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700">
+                    <button onclick="duplicateQuestion({{ question.id }}, {{ page.id }})" class="w-5 h-5 bg-green-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-green-700" title="Kopyala">
+                        <i class="fas fa-copy" style="font-size:8px"></i>
+                    </button>
+                    <button onclick="deleteQuestion({{ question.id }}, this)" class="w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700" title="Sil">
                         <i class="fas fa-times" style="font-size:8px"></i>
                     </button>
                 </div>
@@ -211,10 +252,13 @@
                 </div>
                 <!-- Widget controls -->
                 <div class="embed-controls absolute -top-3 -right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-20">
-                    <button onclick="editEmbed({{ embed.id }}, {{ page.id }})" class="w-5 h-5 bg-indigo-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-indigo-700">
+                    <button onclick="editEmbed({{ embed.id }}, {{ page.id }})" class="w-5 h-5 bg-indigo-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-indigo-700" title="Düzenle">
                         <i class="fas fa-pen" style="font-size:8px"></i>
                     </button>
-                    <button onclick="deleteEmbed({{ embed.id }}, this)" class="w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700">
+                    <button onclick="duplicateEmbed({{ embed.id }}, {{ page.id }})" class="w-5 h-5 bg-green-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-green-700" title="Kopyala">
+                        <i class="fas fa-copy" style="font-size:8px"></i>
+                    </button>
+                    <button onclick="deleteEmbed({{ embed.id }}, this)" class="w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-700" title="Sil">
                         <i class="fas fa-times" style="font-size:8px"></i>
                     </button>
                 </div>
@@ -398,7 +442,7 @@ async function onDragEnd() {
 
 
 // ---- Resize ----
-let isResizing = false, resizeEl = null, resizeStartX, resizeStartY, resizeStartW, resizeStartH, resizeType = 'question';
+let isResizing = false, resizeEl = null, resizeStartX, resizeStartY, resizeStartW, resizeStartH, resizeStartFontSize = 14, resizeType = 'question';
 
 function startResize(e, el, type = 'question') {
     e.preventDefault();
@@ -414,6 +458,13 @@ function startResize(e, el, type = 'question') {
     const elRect = el.getBoundingClientRect();
     resizeStartW = (elRect.width / rect.width) * 100;
     resizeStartH = (elRect.height / rect.height) * 100;
+
+    // Capture current font-size so we can scale it during resize
+    if (type === 'question') {
+        const inner = el.querySelector('.question-inner');
+        resizeStartFontSize = inner ? (parseFloat(inner.style.fontSize) || 14) : 14;
+    }
+
     document.addEventListener('mousemove', onResizeMove);
     document.addEventListener('mouseup', onResizeEnd);
 }
@@ -424,8 +475,22 @@ function onResizeMove(e) {
     const rect = page.getBoundingClientRect();
     const dw = ((e.clientX - resizeStartX) / rect.width) * 100;
     const dh = ((e.clientY - resizeStartY) / rect.height) * 100;
-    resizeEl.style.width = Math.max(5, resizeStartW + dw) + '%';
-    resizeEl.style.minHeight = Math.max(3, resizeStartH + dh) + '%';
+
+    const newW = Math.max(2, resizeStartW + dw);
+    const newH = Math.max(1, resizeStartH + dh);
+    resizeEl.style.width = newW + '%';
+    resizeEl.style.height = newH + '%';
+    resizeEl.style.minHeight = newH + '%';
+
+    // Scale font-size proportionally with height for question widgets
+    if (resizeType === 'question') {
+        const inner = resizeEl.querySelector('.question-inner');
+        if (inner && resizeStartH > 0) {
+            const scale = newH / resizeStartH;
+            const newFontSize = Math.max(6, Math.min(72, Math.round(resizeStartFontSize * scale)));
+            inner.style.fontSize = newFontSize + 'px';
+        }
+    }
 }
 
 async function onResizeEnd() {
@@ -436,13 +501,16 @@ async function onResizeEnd() {
     const elRect = resizeEl.getBoundingClientRect();
     const w = (elRect.width / rect.width) * 100;
     const h = (elRect.height / rect.height) * 100;
-    
+
     if (resizeType === 'question') {
-        await updateQuestionSize(qId, w, h);
+        // Also persist the scaled font-size
+        const inner = resizeEl.querySelector('.question-inner');
+        const newFontSize = inner ? (parseFloat(inner.style.fontSize) || 14) : 14;
+        await updateQuestionSize(qId, w, h, newFontSize);
     } else {
         await updateEmbedSize(qId, w, h);
     }
-    
+
     isResizing = false;
     resizeEl = null;
     document.removeEventListener('mousemove', onResizeMove);
@@ -746,29 +814,29 @@ function buildWidgetInnerHTML(q) {
     const opts = q.options || [];
     const lbl = q.label ? `<div class="mb-0.5 font-semibold">${escHtml(q.label)}</div>` : '';
     if (type === 'fill_blank') {
-        return lbl + `<input type="text" disabled class="w-full bg-transparent outline-none border-b border-gray-300" placeholder="Yanıt...">`;
+        return lbl + `<input type="text" disabled class="w-full bg-transparent outline-none border-b border-current" placeholder="Yanıt...">`;
     } else if (type === 'multiple_choice') {
         const list = opts.length ? opts : [{text:'Seçenek 1'},{text:'Seçenek 2'}];
-        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center gap-1"><input type="radio" disabled><span>${escHtml(o.text)}</span></label>`).join('')}</div>`;
+        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center"><input type="radio" disabled><span class="ml-1">${escHtml(o.text)}</span></label>`).join('')}</div>`;
     } else if (type === 'checkboxes') {
         const list = opts.length ? opts : [{text:'Seçenek 1'},{text:'Seçenek 2'}];
-        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center gap-1"><input type="checkbox" disabled><span>${escHtml(o.text)}</span></label>`).join('')}</div>`;
+        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center"><input type="checkbox" disabled><span class="ml-1">${escHtml(o.text)}</span></label>`).join('')}</div>`;
     } else if (type === 'dropdown') {
-        return lbl + `<select disabled class="w-full bg-transparent text-xs">${opts.map(o=>`<option>${escHtml(o.text)}</option>`).join('')}</select>`;
+        return lbl + `<select disabled class="w-full bg-transparent">${opts.map(o=>`<option>${escHtml(o.text)}</option>`).join('')}</select>`;
     } else if (type === 'drag_drop') {
-        return lbl + `<div class="flex items-center gap-1 text-xs text-amber-600"><i class="fas fa-hand-rock"></i><span>Drag &amp; Drop</span></div>`;
+        return lbl + `<div class="flex items-center text-amber-600"><i class="fas fa-hand-rock mr-1"></i><span>Drag &amp; Drop</span></div>`;
     } else if (type === 'matching') {
-        return lbl + `<div class="flex items-center gap-1 text-xs text-pink-600"><i class="fas fa-exchange-alt"></i><span>Join</span></div>`;
+        return lbl + `<div class="flex items-center text-pink-600"><i class="fas fa-exchange-alt mr-1"></i><span>Join</span></div>`;
     } else if (type === 'speech') {
-        return lbl + `<div class="flex items-center gap-1 text-xs text-teal-600"><i class="fas fa-microphone"></i><span>Speak</span></div>`;
+        return lbl + `<div class="flex items-center text-teal-600"><i class="fas fa-microphone mr-1"></i><span>Speak</span></div>`;
     } else if (type === 'play_mp3') {
-        return `<div class="flex items-center gap-1 text-xs text-indigo-600"><i class="fas fa-music"></i><span>${escHtml(q.label||'Play MP3')}</span></div>`;
+        return `<div class="flex items-center text-indigo-600"><i class="fas fa-music mr-1"></i><span>${escHtml(q.label||'Play MP3')}</span></div>`;
     } else if (type === 'open_answer') {
-        return lbl + `<textarea disabled class="w-full bg-transparent outline-none resize-none text-xs" rows="2" placeholder="Açık yanıt..."></textarea>`;
+        return lbl + `<textarea disabled class="auto-height" placeholder="Açık yanıt..."></textarea>`;
     } else if (type === 'simple_text') {
         return `<span>${escHtml(q.label||'Metin buraya...')}</span>`;
     }
-    return `<span class="text-gray-400 text-xs">${type}</span>`;
+    return `<span class="text-gray-400">${type}</span>`;
 }
 
 function injectWidget(q) {
@@ -783,7 +851,7 @@ function injectWidget(q) {
     div.setAttribute('onmousedown', 'startDrag(event, this)');
 
     const inner = document.createElement('div');
-    inner.className = 'question-inner border-2 rounded px-2 py-1 text-xs bg-white/90 backdrop-blur-sm';
+    inner.className = 'question-inner border-2 rounded px-2 py-1 bg-white/90 backdrop-blur-sm w-full h-full flex flex-col justify-center';
     inner.style.cssText = `border-color:${q.border_color}; font-size:${q.font_size}px; background:${q.bg_color};`;
     inner.innerHTML = buildWidgetInnerHTML(q);
 
@@ -876,11 +944,11 @@ async function saveQuestion() {
         const styleLeft = parseFloat(widget.style.left);
         const styleTop = parseFloat(widget.style.top);
         const styleWidth = parseFloat(widget.style.width);
-        const styleMinH = parseFloat(widget.style.minHeight);
+        const styleHeight = parseFloat(widget.style.height || widget.style.minHeight);
         if (Number.isFinite(styleLeft)) currentPosX = styleLeft;
         if (Number.isFinite(styleTop)) currentPosY = styleTop;
         if (Number.isFinite(styleWidth)) currentWidth = styleWidth;
-        if (Number.isFinite(styleMinH)) currentHeight = styleMinH;
+        if (Number.isFinite(styleHeight)) currentHeight = styleHeight;
     }
     const defaultWidth = (type === 'open_answer') ? 30 : (type === 'simple_text') ? 25 : 20;
     const defaultHeight = (type === 'open_answer') ? 10 : (type === 'simple_text') ? 4 : 6;
@@ -979,6 +1047,20 @@ async function deleteQuestion(qId, btn) {
     btn.closest('.question-widget').remove();
 }
 
+async function duplicateQuestion(qId, pageId) {
+    const resp = await fetch(`/worksheets/questions/${qId}/duplicate/`, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF }
+    });
+    const data = await resp.json();
+    if (data.success) {
+        currentPageId = pageId;
+        injectWidget(data.question);
+    } else {
+        alert('Kopyalama başarısız oldu.');
+    }
+}
+
 async function updateQuestionPosition(qId, x, y) {
     const ctx = findQuestionContext(qId);
     if (!ctx) return;
@@ -998,12 +1080,13 @@ async function updateQuestionPosition(qId, x, y) {
     }
 }
 
-async function updateQuestionSize(qId, w, h) {
+async function updateQuestionSize(qId, w, h, fontSizeOverride = null) {
     const ctx = findQuestionContext(qId);
     if (!ctx) return;
     const q = ctx.question;
     q.width = w;
     q.height = h;
+    if (fontSizeOverride !== null) q.font_size = fontSizeOverride;
     const resp = await fetch(`/worksheets/pages/${ctx.pageId}/questions/save/`, {
         method: 'POST',
         headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
@@ -1093,6 +1176,21 @@ async function deleteEmbed(eId, btn) {
         method: 'POST', headers: { 'X-CSRFToken': CSRF }
     });
     btn.closest('.embed-widget').remove();
+}
+
+async function duplicateEmbed(eId, pageId) {
+    const resp = await fetch(`/worksheets/embeds/${eId}/duplicate/`, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF }
+    });
+    const data = await resp.json();
+    if (data.success) {
+        // Enjekte et (Basit haliyle, Video için özel bir injectEmbed fonksiyonu da eklenebilir veya reload yapılabilir)
+        // Şimdilik videolarda reload daha güvenli çünkü iframe yönetimi karmaşık
+        location.reload();
+    } else {
+        alert('Kopyalama başarısız oldu.');
+    }
 }
 
 function editEmbed(eId, pageId) {
