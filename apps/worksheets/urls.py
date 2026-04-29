@@ -11,6 +11,7 @@ urlpatterns = [
     # Page API
     path('<uuid:worksheet_pk>/pages/add/', views.api_page_add, name='api_page_add'),
     path('pages/<int:page_pk>/upload/', views.api_page_upload_bg, name='api_page_upload_bg'),
+    path('pages/<int:page_pk>/delete_bg/', views.api_page_delete_bg, name='api_page_delete_bg'),
     # Question API
     path('pages/<int:page_pk>/questions/save/', views.api_question_save, name='api_question_save'),
     path('questions/<int:question_pk>/delete/', views.api_question_delete, name='api_question_delete'),

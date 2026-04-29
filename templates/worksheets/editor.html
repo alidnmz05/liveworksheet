@@ -148,7 +148,7 @@
     <div class="flex-1 overflow-auto bg-gray-200 flex items-start justify-center p-6" id="canvas-container">
         {% for page in pages %}
 
-        <div class="worksheet-page hidden relative bg-white shadow-lg select-none"
+        <div class="worksheet-page hidden relative bg-white shadow-lg select-none group"
              data-page-id="{{ page.id }}"
              ondragover="onCanvasDragOver(event)"
              ondragleave="onCanvasDragLeave(event)"
@@ -176,11 +176,14 @@
 
             <!-- Upload button (when bg exists) -->
             {% if page.background_image %}
-            <div class="absolute top-2 right-2 z-30 opacity-0 hover:opacity-100 group-hover:opacity-100">
-                <label class="bg-white border border-gray-200 shadow text-xs text-gray-600 px-2 py-1 rounded cursor-pointer hover:bg-gray-50">
-                    <i class="fas fa-image mr-1"></i>Arka Planı Değiştir
-                    <input type="file" class="hidden" accept="image/*" onchange="uploadBackground(this, {{ page.id }})">
+            <div class="absolute top-2 right-2 z-30 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+                <label class="bg-white border border-gray-200 shadow text-xs text-gray-600 px-3 py-1.5 rounded cursor-pointer hover:bg-gray-50 flex items-center gap-1">
+                    <i class="fas fa-image"></i> Değiştir
+                    <input type="file" class="hidden" accept="image/*,.pdf" onchange="uploadBackground(this, {{ page.id }})">
                 </label>
+                <button onclick="deleteBackground({{ page.id }})" class="bg-red-50 border border-red-200 shadow text-xs text-red-600 px-3 py-1.5 rounded hover:bg-red-100 flex items-center gap-1">
+                    <i class="fas fa-trash-alt"></i> Sil
+                </button>
             </div>
             {% endif %}
 
@@ -386,6 +389,16 @@ async function uploadBackground(input, pageId) {
     const data = await resp.json();
     if (data.url) location.reload();
 }
+
+async function deleteBackground(pageId) {
+    if (!confirm('Arka planı silmek istediğinize emin misiniz?')) return;
+    const resp = await fetch(`/worksheets/pages/${pageId}/delete_bg/`, {
+        method: 'POST', headers: { 'X-CSRFToken': CSRF }
+    });
+    const data = await resp.json();
+    if (data.success) location.reload();
+}
+
 
 // ---- Drag to Move widgets ----
 let isDragging = false, dragEl = null, dragOffX = 0, dragOffY = 0, dragType = 'question';

@@ -236,9 +236,88 @@ def api_page_add(request, worksheet_pk):
 def api_page_upload_bg(request, page_pk):
     page = get_object_or_404(WorksheetPage, pk=page_pk, worksheet__author=request.user)
     if 'background_image' in request.FILES:
-        page.background_image = request.FILES['background_image']
-        page.save()
+        uploaded_file = request.FILES['background_image']
+        
+        # Eğer yüklenen dosya bir PDF ise
+        if uploaded_file.name.lower().endswith('.pdf'):
+            import fitz
+            import io as _io
+            
+            uploaded_file.seek(0)
+            pdf_bytes = uploaded_file.read()
+            doc = fitz.open(stream=_io.BytesIO(pdf_bytes), filetype="pdf")
+            
+            if len(doc) > 0:
+                # İlk sayfayı mevcut sayfaya arka plan olarak ayarla
+                pdf_page = doc[0]
+                mat = fitz.Matrix(2, 2)
+                pix = pdf_page.get_pixmap(matrix=mat, alpha=False)
+                img_bytes = pix.tobytes("png")
+                
+                safe_pk = str(page.worksheet.pk).replace('-', '')
+                filename = f"bg_{safe_pk}_p{page.order}.png"
+                
+                page.page_width = pix.width
+                page.page_height = pix.height
+                page.background_image.save(filename, ContentFile(img_bytes), save=True)
+                
+                # Eğer PDF birden fazla sayfaysa, kalan sayfalar için yeni WorksheetPage oluştur
+                if len(doc) > 1:
+                    worksheet = page.worksheet
+                    current_order = worksheet.pages.count()
+                    for i in range(1, len(doc)):
+                        current_order += 1
+                        pdf_page = doc[i]
+                        pix = pdf_page.get_pixmap(matrix=mat, alpha=False)
+                        img_bytes = pix.tobytes("png")
+                        
+                        wp = WorksheetPage.objects.create(
+                            worksheet=worksheet,
+                            order=current_order,
+                            page_width=pix.width,
+                            page_height=pix.height,
+                        )
+                        filename = f"bg_{safe_pk}_p{current_order}.png"
+                        wp.background_image.save(filename, ContentFile(img_bytes), save=True)
+            doc.close()
+        else:
+            # Sadece bir görsel yüklendiyse (JPG, PNG vs.)
+            # Resmin boyutlarını okuyabilmek ve gerekirse küçültmek için PIL kullan
+            from PIL import Image
+            uploaded_file.seek(0)
+            with Image.open(uploaded_file) as img:
+                max_width = 1000
+                if img.width > max_width:
+                    ratio = max_width / float(img.width)
+                    new_height = int(float(img.height) * float(ratio))
+                    img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
+                    
+                    # Küçültülmüş resmi kaydet
+                    import io as _io
+                    temp_io = _io.BytesIO()
+                    img_format = img.format if img.format else 'PNG'
+                    img.save(temp_io, format=img_format)
+                    page.background_image.save(uploaded_file.name, ContentFile(temp_io.getvalue()), save=False)
+                else:
+                    page.background_image = uploaded_file
+                
+                page.page_width = img.width
+                page.page_height = img.height
+            page.save()
+            
     return JsonResponse({'url': page.background_image.url if page.background_image else ''})
+
+
+@login_required
+@require_POST
+def api_page_delete_bg(request, page_pk):
+    page = get_object_or_404(WorksheetPage, pk=page_pk, worksheet__author=request.user)
+    if page.background_image:
+        page.background_image.delete()
+        page.page_width = 794
+        page.page_height = 1123
+        page.save()
+    return JsonResponse({'success': True})
 
 
 @login_required

@@ -1563,3 +1563,106 @@ System check identified 1 issue (0 silenced).
 [28/Apr/2026 22:44:06] "POST /worksheets/embeds/4/delete/ HTTP/1.1" 200 17
 [28/Apr/2026 22:44:10] "GET / HTTP/1.1" 302 0
 [28/Apr/2026 22:44:10] "GET /dashboard/ HTTP/1.1" 200 13641
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+[29/Apr/2026 23:25:52] "GET / HTTP/1.1" 200 7708
+Session data corrupted
+[29/Apr/2026 23:26:01] "GET / HTTP/1.1" 200 7708
+Not Found: /favicon.ico
+[29/Apr/2026 23:26:02] "GET /favicon.ico HTTP/1.1" 404 4591
+Session data corrupted
+[29/Apr/2026 23:26:07] "GET /register/ HTTP/1.1" 200 8337
+Session data corrupted
+[29/Apr/2026 23:26:09] "GET /login/ HTTP/1.1" 200 5868
+Session data corrupted
+[29/Apr/2026 23:26:12] "POST /login/ HTTP/1.1" 302 0
+[29/Apr/2026 23:26:12] "GET /dashboard/ HTTP/1.1" 200 13642
+[29/Apr/2026 23:26:13] "GET /worksheets/create/ HTTP/1.1" 200 17362
+[29/Apr/2026 23:26:24] "POST /worksheets/create/ HTTP/1.1" 302 0
+[29/Apr/2026 23:26:24] "GET /worksheets/fc133169-4489-4ff6-8f4f-34c06a566b76/editor/ HTTP/1.1" 200 56598
+[29/Apr/2026 23:26:28] "POST /worksheets/pages/89/upload/ HTTP/1.1" 200 38
+[29/Apr/2026 23:26:28] "GET /worksheets/fc133169-4489-4ff6-8f4f-34c06a566b76/editor/ HTTP/1.1" 200 56077
+[29/Apr/2026 23:26:28] "GET /media/backgrounds/zarf.png HTTP/1.1" 200 889462
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\views.py changed, reloading.
+Performing system checks...
+
+April 29, 2026 - 23:25:52
+Django version 5.0.6, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+C:\Users\ismail\Downloads\liveworksheet-main\apps\worksheets\urls.py changed, reloading.
+Performing system checks...
+
+April 29, 2026 - 23:28:03
+Django version 5.0.6, using settings 'config.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+System check identified some issues:
+
+WARNINGS:
+?: (staticfiles.W004) The directory 'C:\Users\ismail\Downloads\liveworksheet-main\static' in the STATICFILES_DIRS setting does not exist.
+
+System check identified 1 issue (0 silenced).
+Watching for file changes with StatReloader
+Syste[29/Apr/2026 23:29:45] "GET / HTTP/1.1" 302 0
+[29/Apr/2026 23:29:45] "GET /dashboard/ HTTP/1.1" 200 14940
+[29/Apr/2026 23:29:48] "GET /worksheets/create/ HTTP/1.1" 200 17362
+[29/Apr/2026 23:29:59] "POST /worksheets/create/ HTTP/1.1" 302 0
+[29/Apr/2026 23:29:59] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56953
+[29/Apr/2026 23:30:03] "POST /worksheets/pages/90/upload/ HTTP/1.1" 200 39
+[29/Apr/2026 23:30:03] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56728
+[29/Apr/2026 23:30:03] "GET /media/backgrounds/zarf.jpeg HTTP/1.1" 200 647644
+[29/Apr/2026 23:30:08] "POST /worksheets/pages/90/delete_bg/ HTTP/1.1" 200 17
+[29/Apr/2026 23:30:08] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56436
+[29/Apr/2026 23:30:17] "POST /worksheets/pages/90/upload/ HTTP/1.1" 200 72
+[29/Apr/2026 23:30:17] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56795
+[29/Apr/2026 23:30:17] "GET /media/backgrounds/bg_a3ec287db8c2429c964425642eb41c96_p1.png HTTP/1.1" 200 362876
+[29/Apr/2026 23:30:21] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/play/ HTTP/1.1" 200 17004
+[29/Apr/2026 23:30:21] "GET /media/backgrounds/bg_a3ec287db8c2429c964425642eb41c96_p1.png HTTP/1.1" 304 0
+[29/Apr/2026 23:30:27] "POST /worksheets/pages/90/delete_bg/ HTTP/1.1" 200 17
+[29/Apr/2026 23:30:27] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56436
+[29/Apr/2026 23:30:41] "POST /worksheets/pages/90/upload/ HTTP/1.1" 200 44
+[29/Apr/2026 23:30:41] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56737
+[29/Apr/2026 23:30:41] "GET /media/backgrounds/isoft_logo.png HTTP/1.1" 200 8302
+[29/Apr/2026 23:30:44] "POST /worksheets/pages/90/delete_bg/ HTTP/1.1" 200 17
+[29/Apr/2026 23:30:44] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56436
+[29/Apr/2026 23:30:49] "POST /worksheets/pages/90/upload/ HTTP/1.1" 200 41
+[29/Apr/2026 23:30:49] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56732
+[29/Apr/2026 23:30:49] "GET /media/backgrounds/web7500.png HTTP/1.1" 200 1843894
+[29/Apr/2026 23:31:01] "POST /worksheets/pages/90/delete_bg/ HTTP/1.1" 200 17
+[29/Apr/2026 23:31:01] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/editor/ HTTP/1.1" 200 56436
+[29/Apr/2026 23:31:04] "GET /worksheets/ HTTP/1.1" 200 16677
+[29/Apr/2026 23:31:05] "GET /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/delete/ HTTP/1.1" 200 7873
+[29/Apr/2026 23:31:06] "POST /worksheets/a3ec287d-b8c2-429c-9644-25642eb41c96/delete/ HTTP/1.1" 302 0
+[29/Apr/2026 23:31:06] "GET /worksheets/ HTTP/1.1" 200 15165
+[29/Apr/2026 23:31:07] "GET /worksheets/fc133169-4489-4ff6-8f4f-34c06a566b76/delete/ HTTP/1.1" 200 7861
+[29/Apr/2026 23:31:09] "POST /worksheets/fc133169-4489-4ff6-8f4f-34c06a566b76/delete/ HTTP/1.1" 302 0
+[29/Apr/2026 23:31:09] "GET /worksheets/ HTTP/1.1" 200 13183
+[29/Apr/2026 23:31:10] "GET /worksheets/ffb1e949-652f-40ee-b1cc-82cbf713fd91/delete/ HTTP/1.1" 200 7859
+[29/Apr/2026 23:31:11] "GET /worksheets/ HTTP/1.1" 200 12707
+[29/Apr/2026 23:31:13] "GET /worksheets/eda09821-9e90-4e9d-a0fd-35adb4fa6af9/delete/ HTTP/1.1" 200 7889
+[29/Apr/2026 23:31:14] "GET /worksheets/ HTTP/1.1" 200 12707
+[29/Apr/2026 23:31:16] "GET /worksheets/eda09821-9e90-4e9d-a0fd-35adb4fa6af9/delete/ HTTP/1.1" 200 7889
+[29/Apr/2026 23:31:17] "POST /worksheets/eda09821-9e90-4e9d-a0fd-35adb4fa6af9/delete/ HTTP/1.1" 302 0
+[29/Apr/2026 23:31:17] "GET /worksheets/ HTTP/1.1" 200 11187
+[29/Apr/2026 23:31:19] "GET /worksheets/f47ec166-ad15-4f47-baf4-f0c8875fa270/delete/ HTTP/1.1" 200 7879
+[29/Apr/2026 23:31:22] "POST /worksheets/f47ec166-ad15-4f47-baf4-f0c8875fa270/delete/ HTTP/1.1" 302 0
+[29/Apr/2026 23:31:22] "GET /worksheets/ HTTP/1.1" 200 9324
+[29/Apr/2026 23:31:24] "GET /worksheets/ffb1e949-652f-40ee-b1cc-82cbf713fd91/delete/ HTTP/1.1" 200 7859
+[29/Apr/2026 23:31:25] "POST /worksheets/ffb1e949-652f-40ee-b1cc-82cbf713fd91/delete/ HTTP/1.1" 302 0
+[29/Apr/2026 23:31:25] "GET /worksheets/ HTTP/1.1" 200 7823
