@@ -37,7 +37,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = ('id', 'question_type', 'order', 'pos_x', 'pos_y', 'width', 'height',
                   'label', 'correct_answer', 'font_size', 'bg_color', 'border_color',
-                  'options', 'drag_items', 'drop_targets', 'matching_pairs')
+                  'points', 'options', 'drag_items', 'drop_targets', 'matching_pairs')
 
     def create(self, validated_data):
         options_data = validated_data.pop('options', [])

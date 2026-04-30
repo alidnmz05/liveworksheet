@@ -89,10 +89,21 @@
 .question-inner textarea.auto-height {
     flex: 1;
     width: 100%;
+    min-width: 150px;
+    min-height: 50px;
     resize: none;
     background: transparent;
     outline: none;
     overflow: auto;
+}
+/* Yeni widget'lar içerik kadar küçük başlar; kullanıcı resize yapınca inline style override eder */
+.question-widget {
+    width: fit-content;
+    min-width: 28px;
+    min-height: 24px;
+}
+.question-inner input[type="text"] {
+    min-width: 100px;
 }
 </style>
 
@@ -153,11 +164,13 @@
              ondragover="onCanvasDragOver(event)"
              ondragleave="onCanvasDragLeave(event)"
              ondrop="onCanvasDrop(event, {{ page.id }})"
-             style="width:{{ page.page_width }}px; min-height:{{ page.page_height }}px;">
+             style="max-width:{{ page.page_width }}px; width:100%; padding-top:calc(({{ page.page_height }}/{{ page.page_width }})*100%)">
+
+            <div class="absolute inset-0">
 
             <!-- Background -->
             {% if page.background_image %}
-            <img src="{{ page.background_image.url }}" class="absolute inset-0 w-full h-full object-contain pointer-events-none" draggable="false">
+            <img src="{{ page.background_image.url }}" class="absolute inset-0 w-full h-full object-fill pointer-events-none" draggable="false">
             {% endif %}
 
             <!-- Upload overlay (if no background) -->
@@ -166,10 +179,10 @@
                  id="upload-overlay-{{ page.id }}">
                 <i class="fas fa-cloud-upload-alt text-5xl mb-3"></i>
                 <p class="text-sm font-medium">Arka plan yükleyin</p>
-                <p class="text-xs">JPG, PNG veya PDF</p>
+                <p class="text-xs">JPG, PNG, PDF veya Word</p>
                 <label class="mt-3 btn-primary text-xs cursor-pointer">
                     <i class="fas fa-upload"></i> Dosya Seç
-                    <input type="file" class="hidden" accept="image/*,.pdf" onchange="uploadBackground(this, {{ page.id }})">
+                    <input type="file" class="hidden" accept="image/*,.pdf,.doc,.docx" onchange="uploadBackground(this, {{ page.id }})">
                 </label>
             </div>
             {% endif %}
@@ -179,7 +192,7 @@
             <div class="absolute top-2 right-2 z-30 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                 <label class="bg-white border border-gray-200 shadow text-xs text-gray-600 px-3 py-1.5 rounded cursor-pointer hover:bg-gray-50 flex items-center gap-1">
                     <i class="fas fa-image"></i> Değiştir
-                    <input type="file" class="hidden" accept="image/*,.pdf" onchange="uploadBackground(this, {{ page.id }})">
+                    <input type="file" class="hidden" accept="image/*,.pdf,.doc,.docx" onchange="uploadBackground(this, {{ page.id }})">
                 </label>
                 <button onclick="deleteBackground({{ page.id }})" class="bg-red-50 border border-red-200 shadow text-xs text-red-600 px-3 py-1.5 rounded hover:bg-red-100 flex items-center gap-1">
                     <i class="fas fa-trash-alt"></i> Sil
@@ -192,28 +205,40 @@
             <div class="question-widget absolute cursor-move"
                  data-question-id="{{ question.id }}"
                  data-type="{{ question.question_type }}"
-                 style="left:{{ question.pos_x }}%; top:{{ question.pos_y }}%; width:{{ question.width }}%; height:{{ question.height }}%; min-height:{{ question.height }}%;"
+                 style="left:{{ question.pos_x }}%; top:{{ question.pos_y }}%;{% if question.width > 0 %} width:{{ question.width }}%; min-height:{{ question.height }}%;{% endif %}"
                  onmousedown="startDrag(event, this)">
-                <div class="question-inner border-2 rounded px-2 py-1 bg-white/90 backdrop-blur-sm w-full h-full flex flex-col justify-center"
+                <div class="question-inner border-2 rounded px-2 py-1 bg-white/90 backdrop-blur-sm w-full min-h-full flex flex-col justify-center"
                      style="border-color:{{ question.border_color }}; font-size:{{ question.font_size }}px; background:{{ question.bg_color }};">
+                    {% if question.label and question.question_type not in 'simple_text,play_mp3' %}
+                    <div class="mb-0.5 font-semibold">{{ question.label }}</div>
+                    {% endif %}
                     {% if question.question_type == 'fill_blank' %}
                     <input type="text" disabled class="w-full bg-transparent outline-none border-b border-current" placeholder="Yanıt...">
                     {% elif question.question_type == 'multiple_choice' %}
                     <div class="space-y-1">{% for opt in question.options.all %}
-                        <label class="flex items-center"><input type="radio" disabled><span class="ml-1">{{ opt.text }}</span></label>
+                        <label class="flex items-center gap-1.5"><input type="radio" disabled>{% if opt.text %}<span>{{ opt.text }}</span>{% endif %}</label>
                     {% endfor %}</div>
                     {% elif question.question_type == 'checkboxes' %}
                     <div class="space-y-1">{% for opt in question.options.all %}
-                        <label class="flex items-center"><input type="checkbox" disabled><span class="ml-1">{{ opt.text }}</span></label>
+                        <label class="flex items-center gap-1.5"><input type="checkbox" disabled>{% if opt.text %}<span>{{ opt.text }}</span>{% endif %}</label>
                     {% empty %}<span class="text-gray-400">Checkboxes</span>{% endfor %}</div>
                     {% elif question.question_type == 'dropdown' %}
                     <select disabled class="w-full bg-transparent">
                         {% for opt in question.options.all %}<option>{{ opt.text }}</option>{% endfor %}
                     </select>
                     {% elif question.question_type == 'drag_drop' %}
-                    <div class="flex items-center text-amber-600"><i class="fas fa-hand-rock mr-1"></i><span>Drag &amp; Drop</span></div>
+                    <div class="flex flex-wrap gap-1">
+                        {% for item in question.drag_items.all %}
+                        <span class="bg-white border border-indigo-300 text-indigo-800 px-2 py-0.5 rounded text-xs font-medium">{{ item.text }}</span>
+                        {% empty %}<span class="text-xs text-gray-400">Drag &amp; Drop</span>{% endfor %}
+                    </div>
                     {% elif question.question_type == 'matching' %}
-                    <div class="flex items-center text-pink-600"><i class="fas fa-exchange-alt mr-1"></i><span>Join</span></div>
+                    <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 text-xs">
+                        {% for pair in question.matching_pairs.all %}
+                        <span class="bg-indigo-50 border border-indigo-200 rounded px-1.5 py-0.5 truncate">{{ pair.left_text }}</span>
+                        <span class="bg-gray-50 border border-gray-200 rounded px-1.5 py-0.5 truncate">{{ pair.right_text }}</span>
+                        {% empty %}<span class="col-span-2 text-gray-400">Eşleştirme</span>{% endfor %}
+                    </div>
                     {% elif question.question_type == 'speech' %}
                     <div class="flex items-center text-teal-600"><i class="fas fa-microphone mr-1"></i><span>Speak</span></div>
                     {% elif question.question_type == 'play_mp3' %}
@@ -236,9 +261,16 @@
                         <i class="fas fa-times" style="font-size:8px"></i>
                     </button>
                 </div>
+                {% if question.question_type not in 'simple_text,play_mp3' %}
+                <div class="points-badge absolute -top-2 left-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold px-1.5 py-0.5 rounded-full leading-none pointer-events-none" title="Puan">
+                    {{ question.points }}p
+                </div>
+                {% endif %}
                 <!-- Resize handle -->
-                <div class="resize-handle absolute bottom-0 right-0 w-3 h-3 bg-indigo-400 cursor-se-resize rounded-tl"
-                     onmousedown="startResize(event, this.parentElement)"></div>
+                <div class="resize-handle absolute bottom-0 right-0 w-5 h-5 cursor-se-resize flex items-end justify-end"
+                     onmousedown="startResize(event, this.parentElement)">
+                    <svg width="10" height="10" viewBox="0 0 10 10" class="text-indigo-500 pointer-events-none"><path d="M9 1L1 9M9 5L5 9M9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
             </div>
             {% endfor %}
 
@@ -266,8 +298,10 @@
                     </button>
                 </div>
                 <!-- Resize handle -->
-                <div class="resize-handle absolute bottom-0 right-0 w-3 h-3 bg-indigo-400 cursor-se-resize rounded-tl z-20"
-                     onmousedown="startResize(event, this.parentElement, 'embed')"></div>
+                <div class="resize-handle absolute bottom-0 right-0 w-5 h-5 cursor-se-resize flex items-end justify-end z-20"
+                     onmousedown="startResize(event, this.parentElement, 'embed')">
+                    <svg width="10" height="10" viewBox="0 0 10 10" class="text-indigo-500 pointer-events-none"><path d="M9 1L1 9M9 5L5 9M9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
             </div>
             {% endfor %}
 
@@ -285,6 +319,7 @@
                 </audio>
             </div>
             {% endif %}
+            </div><!-- /absolute inset-0 -->
         </div>
         {% endfor %}
     </div>
@@ -386,7 +421,9 @@ async function uploadBackground(input, pageId) {
     const resp = await fetch(`/worksheets/pages/${pageId}/upload/`, {
         method: 'POST', headers: { 'X-CSRFToken': CSRF }, body: fd
     });
-    const data = await resp.json();
+    let data;
+    try { data = await resp.json(); } catch(e) { alert('Yükleme başarısız: Sunucu hatası (500)'); return; }
+    if (data.error) { alert('Yükleme hatası:\n' + data.error); return; }
     if (data.url) location.reload();
 }
 
@@ -456,6 +493,7 @@ async function onDragEnd() {
 
 // ---- Resize ----
 let isResizing = false, resizeEl = null, resizeStartX, resizeStartY, resizeStartW, resizeStartH, resizeStartFontSize = 14, resizeType = 'question';
+let _resizeRafId = null, _resizePendingE = null;
 
 function startResize(e, el, type = 'question') {
     e.preventDefault();
@@ -482,15 +520,19 @@ function startResize(e, el, type = 'question') {
     document.addEventListener('mouseup', onResizeEnd);
 }
 
-function onResizeMove(e) {
-    if (!isResizing) return;
+function _applyResize() {
+    _resizeRafId = null;
+    if (!_resizePendingE || !isResizing || !resizeEl) return;
+    const e = _resizePendingE;
     const page = resizeEl.closest('.worksheet-page');
     const rect = page.getBoundingClientRect();
     const dw = ((e.clientX - resizeStartX) / rect.width) * 100;
     const dh = ((e.clientY - resizeStartY) / rect.height) * 100;
 
-    const newW = Math.max(2, resizeStartW + dw);
-    const newH = Math.max(1, resizeStartH + dh);
+    // Snap to 0.5% grid for smooth, controlled feel
+    const snap = 0.5;
+    const newW = Math.max(5, Math.round((resizeStartW + dw) / snap) * snap);
+    const newH = Math.max(3, Math.round((resizeStartH + dh) / snap) * snap);
     resizeEl.style.width = newW + '%';
     resizeEl.style.height = newH + '%';
     resizeEl.style.minHeight = newH + '%';
@@ -504,6 +546,12 @@ function onResizeMove(e) {
             inner.style.fontSize = newFontSize + 'px';
         }
     }
+}
+
+function onResizeMove(e) {
+    if (!isResizing) return;
+    _resizePendingE = e;
+    if (!_resizeRafId) _resizeRafId = requestAnimationFrame(_applyResize);
 }
 
 async function onResizeEnd() {
@@ -652,11 +700,22 @@ function buildModalHTML(type, data) {
         </div>`;
 
     if (type === 'fill_blank') {
+        const answers = (d.correct_answer || '').split('|').map(s => s.trim()).filter(Boolean);
+        if (!answers.length) answers.push('');
         html += `
         <div>
-            <label class="block text-sm font-medium mb-1">Doğru Cevap</label>
-            <input type="text" id="q-correct" value="${escHtml(d.correct_answer||'')}"
-                   class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="Kabul edilecek cevap">
+            <label class="block text-sm font-medium mb-1">Doğru Cevap(lar)
+                <span class="text-xs text-gray-400 font-normal">— birden fazla kabul edilebilir cevap ekleyebilirsiniz</span>
+            </label>
+            <div id="answers-list" class="space-y-2">`;
+        answers.forEach((ans, i) => {
+            html += `<div class="flex gap-2 items-center answer-row">
+                <input type="text" class="answer-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm" value="${escHtml(ans)}" placeholder="Kabul edilecek cevap ${i+1}">
+                <button onclick="this.closest('.answer-row').remove()" class="text-red-400 hover:text-red-600 ${i===0?'invisible':''}"><i class="fas fa-times"></i></button>
+            </div>`;
+        });
+        html += `</div>
+            <button onclick="addAnswerRow()" class="mt-2 text-indigo-600 text-xs hover:underline"><i class="fas fa-plus mr-1"></i>Alternatif Cevap Ekle</button>
         </div>`;
     }
 
@@ -665,12 +724,12 @@ function buildModalHTML(type, data) {
         html += `<div><label class="block text-sm font-medium mb-2">Seçenekler</label>
         <div id="options-list" class="space-y-2">`;
         (opts.length ? opts : [{text:'',is_correct:false}]).forEach((opt, i) => {
-            html += `<div class="flex gap-2 items-center option-row">
-                <input type="text" class="opt-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm" value="${escHtml(opt.text)}" placeholder="Seçenek ${i+1}">
-                <label class="flex items-center gap-1 text-xs text-gray-600 cursor-pointer">
-                    <input type="radio" name="opt-correct" ${opt.is_correct?'checked':''} class="opt-correct"> Doğru
+            html += `<div class="flex gap-3 items-center option-row bg-gray-50 rounded-lg px-2 py-2">
+                <input type="text" class="opt-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm bg-white" value="${escHtml(opt.text)}" placeholder="Seçenek ${i+1}">
+                <label class="flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer whitespace-nowrap">
+                    <input type="radio" name="opt-correct" ${opt.is_correct?'checked':''} class="opt-correct w-3.5 h-3.5"> Doğru
                 </label>
-                <button onclick="this.closest('.option-row').remove()" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button>
+                <button onclick="this.closest('.option-row').remove()" class="text-red-400 hover:text-red-600 px-1"><i class="fas fa-times"></i></button>
             </div>`;
         });
         html += `</div>
@@ -683,12 +742,12 @@ function buildModalHTML(type, data) {
         html += `<div><label class="block text-sm font-medium mb-1">Seçenekler <span class="text-xs text-gray-400 font-normal">(birden fazla doğru seçilebilir)</span></label>
         <div id="options-list" class="space-y-2">`;
         (opts.length ? opts : [{text:'',is_correct:false}]).forEach((opt, i) => {
-            html += `<div class="flex gap-2 items-center option-row">
-                <input type="text" class="opt-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm" value="${escHtml(opt.text)}" placeholder="Seçenek ${i+1}">
-                <label class="flex items-center gap-1 text-xs text-gray-600 cursor-pointer">
-                    <input type="checkbox" ${opt.is_correct?'checked':''} class="opt-correct"> Doğru
+            html += `<div class="flex gap-3 items-center option-row bg-gray-50 rounded-lg px-2 py-2">
+                <input type="text" class="opt-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm bg-white" value="${escHtml(opt.text)}" placeholder="Seçenek ${i+1}">
+                <label class="flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer whitespace-nowrap">
+                    <input type="checkbox" ${opt.is_correct?'checked':''} class="opt-correct w-3.5 h-3.5"> Doğru
                 </label>
-                <button onclick="this.closest('.option-row').remove()" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button>
+                <button onclick="this.closest('.option-row').remove()" class="text-red-400 hover:text-red-600 px-1"><i class="fas fa-times"></i></button>
             </div>`;
         });
         html += `</div>
@@ -755,6 +814,19 @@ function buildModalHTML(type, data) {
     if (type === 'simple_text') {
         html += `<div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-700">
             <i class="fas fa-info-circle mr-1"></i>Yukarıdaki "Etiket" alanına yazdığınız içerik sayfada metin olarak görüntülenecek.
+        </div>`;
+    }
+
+    // Puan alanı (puanlanmayan türler hariç)
+    const noScore = ['simple_text', 'play_mp3', 'speech', 'open_answer'];
+    if (!noScore.includes(type)) {
+        html += `
+        <div class="flex items-center gap-3 bg-yellow-50 border border-yellow-200 rounded-lg px-3 py-2">
+            <i class="fas fa-star text-yellow-500"></i>
+            <label class="text-sm font-medium text-gray-700">Puan Değeri</label>
+            <input type="number" id="q-points" value="${d.points||1}" min="1" max="100"
+                   class="w-20 px-2 py-1 border border-yellow-300 rounded text-sm text-center font-bold focus:outline-none focus:ring-2 focus:ring-yellow-400">
+            <span class="text-xs text-gray-400">puan</span>
         </div>`;
     }
 
@@ -830,16 +902,24 @@ function buildWidgetInnerHTML(q) {
         return lbl + `<input type="text" disabled class="w-full bg-transparent outline-none border-b border-current" placeholder="Yanıt...">`;
     } else if (type === 'multiple_choice') {
         const list = opts.length ? opts : [{text:'Seçenek 1'},{text:'Seçenek 2'}];
-        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center"><input type="radio" disabled><span class="ml-1">${escHtml(o.text)}</span></label>`).join('')}</div>`;
+        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center gap-1.5"><input type="radio" disabled>${o.text?`<span>${escHtml(o.text)}</span>`:''}</label>`).join('')}</div>`;
     } else if (type === 'checkboxes') {
         const list = opts.length ? opts : [{text:'Seçenek 1'},{text:'Seçenek 2'}];
-        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center"><input type="checkbox" disabled><span class="ml-1">${escHtml(o.text)}</span></label>`).join('')}</div>`;
+        return lbl + `<div class="space-y-1">${list.map(o=>`<label class="flex items-center gap-1.5"><input type="checkbox" disabled>${o.text?`<span>${escHtml(o.text)}</span>`:''}</label>`).join('')}</div>`;
     } else if (type === 'dropdown') {
         return lbl + `<select disabled class="w-full bg-transparent">${opts.map(o=>`<option>${escHtml(o.text)}</option>`).join('')}</select>`;
     } else if (type === 'drag_drop') {
-        return lbl + `<div class="flex items-center text-amber-600"><i class="fas fa-hand-rock mr-1"></i><span>Drag &amp; Drop</span></div>`;
+        const items = q.drag_items || [];
+        const chips = items.length
+            ? items.map(i => `<span class="bg-white border border-indigo-300 text-indigo-800 px-2 py-0.5 rounded text-xs font-medium">${escHtml(i.text)}</span>`).join('')
+            : '<span class="text-xs text-gray-400">Drag &amp; Drop</span>';
+        return lbl + `<div class="flex flex-wrap gap-1">${chips}</div>`;
     } else if (type === 'matching') {
-        return lbl + `<div class="flex items-center text-pink-600"><i class="fas fa-exchange-alt mr-1"></i><span>Join</span></div>`;
+        const pairs = q.matching_pairs || [];
+        const rows = pairs.length
+            ? pairs.map(p => `<span class="bg-indigo-50 border border-indigo-200 rounded px-1.5 py-0.5 text-xs truncate">${escHtml(p.left_text)}</span><span class="bg-gray-50 border border-gray-200 rounded px-1.5 py-0.5 text-xs truncate">${escHtml(p.right_text)}</span>`).join('')
+            : '<span class="col-span-2 text-xs text-gray-400">Eşleştirme</span>';
+        return lbl + `<div class="grid grid-cols-2 gap-x-1 gap-y-0.5">${rows}</div>`;
     } else if (type === 'speech') {
         return lbl + `<div class="flex items-center text-teal-600"><i class="fas fa-microphone mr-1"></i><span>Speak</span></div>`;
     } else if (type === 'play_mp3') {
@@ -860,11 +940,12 @@ function injectWidget(q) {
     div.className = 'question-widget absolute cursor-move';
     div.dataset.questionId = q.id;
     div.dataset.type = q.question_type;
-    div.style.cssText = `left:${q.pos_x}%; top:${q.pos_y}%; width:${q.width}%; min-height:${q.height}%;`;
+    const wStyle = q.width > 0 ? ` width:${q.width}%; min-height:${q.height}%;` : '';
+    div.style.cssText = `left:${q.pos_x}%; top:${q.pos_y}%;${wStyle}`;
     div.setAttribute('onmousedown', 'startDrag(event, this)');
 
     const inner = document.createElement('div');
-    inner.className = 'question-inner border-2 rounded px-2 py-1 bg-white/90 backdrop-blur-sm w-full h-full flex flex-col justify-center';
+    inner.className = 'question-inner border-2 rounded px-2 py-1 bg-white/90 backdrop-blur-sm w-full min-h-full flex flex-col justify-center';
     inner.style.cssText = `border-color:${q.border_color}; font-size:${q.font_size}px; background:${q.bg_color};`;
     inner.innerHTML = buildWidgetInnerHTML(q);
 
@@ -879,7 +960,8 @@ function injectWidget(q) {
         </button>`;
 
     const resizeHandle = document.createElement('div');
-    resizeHandle.className = 'resize-handle absolute bottom-0 right-0 w-3 h-3 bg-indigo-400 cursor-se-resize rounded-tl';
+    resizeHandle.className = 'resize-handle absolute bottom-0 right-0 w-5 h-5 cursor-se-resize flex items-end justify-end';
+    resizeHandle.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" class="text-indigo-500 pointer-events-none"><path d="M9 1L1 9M9 5L5 9M9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
     resizeHandle.setAttribute('onmousedown', 'startResize(event, this.parentElement)');
 
     div.appendChild(inner);
@@ -897,18 +979,31 @@ function injectWidget(q) {
         id: q.id, type: q.question_type, pos_x: q.pos_x, pos_y: q.pos_y,
         width: q.width, height: q.height, label: q.label||'',
         correct_answer: q.correct_answer||'', font_size: q.font_size,
-        bg_color: q.bg_color, border_color: q.border_color,
+        bg_color: q.bg_color, border_color: q.border_color, points: q.points||1,
         options: q.options||[], drag_items: q.drag_items||[], matching_pairs: q.matching_pairs||[]
     });
+}
+
+function addAnswerRow() {
+    const list = document.getElementById('answers-list');
+    const row = document.createElement('div');
+    row.className = 'flex gap-2 items-center answer-row';
+    row.innerHTML = `<input type="text" class="answer-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm" placeholder="Alternatif cevap">
+        <button onclick="this.closest('.answer-row').remove()" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button>`;
+    list.appendChild(row);
 }
 
 function addOptionRow() {
     const list = document.getElementById('options-list');
     const row = document.createElement('div');
     row.className = 'flex gap-2 items-center option-row';
-    row.innerHTML = `<input type="text" class="opt-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm" placeholder="Seçenek">
-        <label class="flex items-center gap-1 text-xs cursor-pointer"><input type="radio" name="opt-correct" class="opt-correct"> Doğru</label>
-        <button onclick="this.closest('.option-row').remove()" class="text-red-400"><i class="fas fa-times"></i></button>`;
+    const isCheckbox = editingQuestionType === 'checkboxes';
+    const inputType = isCheckbox ? 'checkbox' : 'radio';
+    const nameAttr = isCheckbox ? '' : ' name="opt-correct"';
+    row.innerHTML = `<input type="text" class="opt-text flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm bg-white" placeholder="Seçenek">
+        <label class="flex items-center gap-1.5 text-xs cursor-pointer whitespace-nowrap"><input type="${inputType}"${nameAttr} class="opt-correct w-3.5 h-3.5"> Doğru</label>
+        <button onclick="this.closest('.option-row').remove()" class="text-red-400 px-1"><i class="fas fa-times"></i></button>`;
+    row.className = 'flex gap-3 items-center option-row bg-gray-50 rounded-lg px-2 py-2';
     list.appendChild(row);
 }
 
@@ -963,16 +1058,19 @@ async function saveQuestion() {
         if (Number.isFinite(styleWidth)) currentWidth = styleWidth;
         if (Number.isFinite(styleHeight)) currentHeight = styleHeight;
     }
-    const defaultWidth = (type === 'open_answer') ? 30 : (type === 'simple_text') ? 25 : 20;
-    const defaultHeight = (type === 'open_answer') ? 10 : (type === 'simple_text') ? 4 : 6;
+    const defaultWidth = 0;  // 0 = fit-content (kullanıcı resize yapınca explicit olur)
+    const defaultHeight = 0;
     const payload = {
         id: editingQuestionId,
         question_type: type,
         label: document.getElementById('q-label').value,
-        correct_answer: document.getElementById('q-correct')?.value || '',
+        correct_answer: type === 'fill_blank'
+            ? [...document.querySelectorAll('.answer-text')].map(i => i.value.trim()).filter(Boolean).join('|')
+            : (document.getElementById('q-correct')?.value || ''),
         font_size: normalizeFontSize(document.getElementById('q-fontsize')?.value, existing?.font_size || 14),
         bg_color: normalizeColor(document.getElementById('q-bgcolor')?.value, existing?.bg_color || '#ffffff'),
         border_color: normalizeColor(document.getElementById('q-bordercolor')?.value, existing?.border_color || '#cccccc'),
+        points: Math.max(1, parseInt(document.getElementById('q-points')?.value || '1', 10) || 1),
         pos_x: currentPosX,
         pos_y: currentPosY,
         width: currentWidth ?? defaultWidth,
@@ -1027,6 +1125,10 @@ async function saveQuestion() {
             ctx.question.border_color = payload.border_color;
             ctx.question.label = payload.label;
             ctx.question.correct_answer = payload.correct_answer;
+            ctx.question.points = payload.points;
+            if (data.question?.options) ctx.question.options = data.question.options;
+            if (data.question?.drag_items) ctx.question.drag_items = data.question.drag_items;
+            if (data.question?.matching_pairs) ctx.question.matching_pairs = data.question.matching_pairs;
         }
         // Widget görünümünü DOM'da da güncelle (yeniden yükleme olmadan)
         if (widget) {
@@ -1086,7 +1188,7 @@ async function updateQuestionPosition(qId, x, y) {
         body: JSON.stringify({ id: qId, question_type: q.type, pos_x: x, pos_y: y,
             width: q.width, height: q.height, label: q.label,
             correct_answer: q.correct_answer, font_size: q.font_size,
-            bg_color: q.bg_color, border_color: q.border_color })
+            bg_color: q.bg_color, border_color: q.border_color, points: q.points || 1 })
     });
     if (!resp.ok) {
         location.reload();
@@ -1105,7 +1207,7 @@ async function updateQuestionSize(qId, w, h, fontSizeOverride = null) {
         headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: qId, question_type: q.type, pos_x: q.pos_x, pos_y: q.pos_y,
             width: w, height: h, label: q.label, correct_answer: q.correct_answer,
-            font_size: q.font_size, bg_color: q.bg_color, border_color: q.border_color })
+            font_size: q.font_size, bg_color: q.bg_color, border_color: q.border_color, points: q.points || 1 })
     });
     if (!resp.ok) {
         location.reload();

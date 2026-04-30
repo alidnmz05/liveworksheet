@@ -24,12 +24,19 @@ class Submission(models.Model):
         return f"{self.student.email} – {self.worksheet}"
 
     def calculate_score(self):
-        answers = self.answers.all()
-        total = answers.count()
-        correct = answers.filter(is_correct=True).count()
-        self.total_questions = total
-        self.correct_count = correct
-        self.score = round((correct / total) * 100, 1) if total > 0 else 0
+        # Her soru kendi points değeriyle ağırlıklandırılır.
+        # Eşleştirme/drag-drop gibi çok öğeli soru tipleri için
+        # kısmi puan: (correct_items / total_items) * points
+        total_pts = 0
+        earned_pts = 0.0
+        for a in self.answers.all():
+            pts = a.question.points if a.question.points else 1
+            if a.total_items > 0:
+                total_pts += pts
+                earned_pts += (a.correct_items / a.total_items) * pts
+        self.total_questions = total_pts
+        self.correct_count = int(round(earned_pts))
+        self.score = round((earned_pts / total_pts) * 100, 1) if total_pts > 0 else 0
         self.is_graded = True
         self.save()
         return self.score
@@ -41,6 +48,9 @@ class Answer(models.Model):
     question = models.ForeignKey('worksheets.Question', on_delete=models.CASCADE)
     given_answer = models.TextField(blank=True)  # JSON string for complex types
     is_correct = models.BooleanField(null=True)
+    # Liveworksheets.com gibi eşleştirme/sürükle-bırak için kısmi puan desteği
+    correct_items = models.PositiveIntegerField(default=0)
+    total_items = models.PositiveIntegerField(default=1)
 
     class Meta:
         unique_together = ('submission', 'question')
@@ -52,35 +62,48 @@ class Answer(models.Model):
         q = self.question
         from apps.worksheets.models import Question as Q
         if q.question_type == Q.TYPE_FILL_BLANK:
-            self.is_correct = (
-                self.given_answer.strip().lower() == q.correct_answer.strip().lower()
-            )
+            given = self.given_answer.strip().lower()
+            accepted = [a.strip().lower() for a in q.correct_answer.split('|') if a.strip()]
+            self.is_correct = given in accepted if accepted else (given == '')
+            self.total_items = 1
+            self.correct_items = 1 if self.is_correct else 0
         elif q.question_type in (Q.TYPE_MULTIPLE_CHOICE, Q.TYPE_DROPDOWN):
             correct_opts = set(
                 q.options.filter(is_correct=True).values_list('text', flat=True)
             )
             self.is_correct = self.given_answer.strip() in correct_opts
+            self.total_items = 1
+            self.correct_items = 1 if self.is_correct else 0
         elif q.question_type == Q.TYPE_DRAG_DROP:
             import json
             try:
                 given = json.loads(self.given_answer)
-                all_correct = all(
-                    item.get('target') == item.get('expected')
-                    for item in given
+                self.total_items = len(given)
+                correct_count = sum(
+                    1 for item in given
+                    if item.get('target') == item.get('expected')
                 )
-                self.is_correct = all_correct
+                self.correct_items = correct_count
+                self.is_correct = correct_count == self.total_items
             except (json.JSONDecodeError, AttributeError):
                 self.is_correct = False
+                self.total_items = 0
+                self.correct_items = 0
         elif q.question_type == Q.TYPE_MATCHING:
             import json
             try:
                 given = json.loads(self.given_answer)
                 pairs = {p.left_text: p.right_text for p in q.matching_pairs.all()}
-                self.is_correct = all(
-                    given.get(k) == v for k, v in pairs.items()
+                self.total_items = len(pairs)
+                correct_count = sum(
+                    1 for k, v in pairs.items() if given.get(k) == v
                 )
+                self.correct_items = correct_count
+                self.is_correct = correct_count == self.total_items
             except (json.JSONDecodeError, AttributeError):
                 self.is_correct = False
+                self.total_items = 0
+                self.correct_items = 0
         elif q.question_type == Q.TYPE_CHECKBOXES:
             import json
             try:
@@ -91,9 +114,13 @@ class Answer(models.Model):
                 self.is_correct = given == correct
             except (json.JSONDecodeError, AttributeError, TypeError):
                 self.is_correct = False
+            self.total_items = 1
+            self.correct_items = 1 if self.is_correct else 0
         elif q.question_type in (Q.TYPE_SPEECH, Q.TYPE_OPEN_ANSWER,
                                   Q.TYPE_PLAY_MP3, Q.TYPE_SIMPLE_TEXT):
-            # Manuel değerlendirme veya cevap gerekmez
+            # Manuel değerlendirme veya cevap gerekmez — puandan hariç
             self.is_correct = None
+            self.total_items = 0
+            self.correct_items = 0
         self.save()
         return self.is_correct

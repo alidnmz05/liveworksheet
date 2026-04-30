@@ -63,10 +63,16 @@
                     <a href="{% url 'workbook_list' %}" class="text-gray-600 hover:text-indigo-600 font-medium">
                         <i class="fas fa-book mr-1"></i>Defterler
                     </a>
+                    <a href="{% url 'classroom_list' %}" class="text-gray-600 hover:text-indigo-600 font-medium">
+                        <i class="fas fa-users mr-1"></i>Sınıflarım
+                    </a>
                     <a href="{% url 'assignment_list' %}" class="text-gray-600 hover:text-indigo-600 font-medium">
                         <i class="fas fa-tasks mr-1"></i>Ödevler
                     </a>
                     {% else %}
+                    <a href="{% url 'classroom_list' %}" class="text-gray-600 hover:text-indigo-600 font-medium">
+                        <i class="fas fa-users mr-1"></i>Sınıflarım
+                    </a>
                     <a href="{% url 'assignment_list' %}" class="text-gray-600 hover:text-indigo-600 font-medium">
                         <i class="fas fa-tasks mr-1"></i>Ödevlerim
                     </a>

@@ -8,6 +8,14 @@ from django.core.files.base import ContentFile
 import json
 import os
 import re
+import io as _io
+
+try:
+    import pymupdf as fitz
+    _PYMUPDF_OK = True
+except Exception:
+    fitz = None
+    _PYMUPDF_OK = False
 
 from .models import Worksheet, WorksheetPage, Question, Subject
 from .forms import WorksheetForm, WorksheetPageForm
@@ -41,8 +49,8 @@ def _pdf_to_pages(worksheet, pdf_file):
     PDF dosyasını sayfa sayfa PNG'ye çevirip her biri için WorksheetPage oluşturur.
     PyMuPDF (fitz) kullanır. Döndürülen değer: oluşturulan sayfa sayısı.
     """
-    import fitz
-    import io as _io
+    if not _PYMUPDF_OK or fitz is None:
+        raise RuntimeError("PyMuPDF yüklenemedi. Sunucuyu yeniden başlatın.")
 
     # Dosya işaretçisini başa sar ve bytes olarak oku
     pdf_file.seek(0)
@@ -71,7 +79,7 @@ def _pdf_to_pages(worksheet, pdf_file):
 
 @login_required
 def worksheet_list(request):
-    worksheets = Worksheet.objects.filter(author=request.user).order_by('-created_at')
+    worksheets = Worksheet.objects.filter(author=request.user).prefetch_related('pages').order_by('-created_at')
     return render(request, 'worksheets/list.html', {'worksheets': worksheets})
 
 
@@ -137,6 +145,7 @@ def worksheet_editor(request, pk):
                 'font_size': q.font_size,
                 'bg_color': q.bg_color,
                 'border_color': q.border_color,
+                'points': q.points,
                 'options': [
                     {'id': opt.id, 'text': opt.text, 'is_correct': opt.is_correct}
                     for opt in q.options.all()
@@ -234,78 +243,119 @@ def api_page_add(request, worksheet_pk):
 @login_required
 @require_POST
 def api_page_upload_bg(request, page_pk):
+    import traceback as _tb
     page = get_object_or_404(WorksheetPage, pk=page_pk, worksheet__author=request.user)
-    if 'background_image' in request.FILES:
-        uploaded_file = request.FILES['background_image']
-        
-        # Eğer yüklenen dosya bir PDF ise
-        if uploaded_file.name.lower().endswith('.pdf'):
-            import fitz
-            import io as _io
-            
-            uploaded_file.seek(0)
-            pdf_bytes = uploaded_file.read()
-            doc = fitz.open(stream=_io.BytesIO(pdf_bytes), filetype="pdf")
-            
-            if len(doc) > 0:
-                # İlk sayfayı mevcut sayfaya arka plan olarak ayarla
-                pdf_page = doc[0]
-                mat = fitz.Matrix(2, 2)
-                pix = pdf_page.get_pixmap(matrix=mat, alpha=False)
-                img_bytes = pix.tobytes("png")
-                
-                safe_pk = str(page.worksheet.pk).replace('-', '')
-                filename = f"bg_{safe_pk}_p{page.order}.png"
-                
-                page.page_width = pix.width
-                page.page_height = pix.height
-                page.background_image.save(filename, ContentFile(img_bytes), save=True)
-                
-                # Eğer PDF birden fazla sayfaysa, kalan sayfalar için yeni WorksheetPage oluştur
-                if len(doc) > 1:
-                    worksheet = page.worksheet
-                    current_order = worksheet.pages.count()
-                    for i in range(1, len(doc)):
-                        current_order += 1
-                        pdf_page = doc[i]
-                        pix = pdf_page.get_pixmap(matrix=mat, alpha=False)
-                        img_bytes = pix.tobytes("png")
-                        
-                        wp = WorksheetPage.objects.create(
-                            worksheet=worksheet,
-                            order=current_order,
-                            page_width=pix.width,
-                            page_height=pix.height,
+    try:
+        if 'background_image' in request.FILES:
+            uploaded_file = request.FILES['background_image']
+
+            fname_lower = uploaded_file.name.lower()
+
+            # Word dosyası → önce PDF'e çevir, sonra PDF dalına düş
+            if fname_lower.endswith('.docx') or fname_lower.endswith('.doc'):
+                if not _PYMUPDF_OK or fitz is None:
+                    return JsonResponse({'error': 'PyMuPDF yüklenemedi. Sunucuyu yeniden başlatın.'}, status=500)
+                try:
+                    from docx2pdf import convert as _docx2pdf
+                except ImportError:
+                    return JsonResponse({'error': 'docx2pdf paketi bulunamadı. pip install docx2pdf'}, status=500)
+                import tempfile, shutil
+                uploaded_file.seek(0)
+                with tempfile.NamedTemporaryFile(suffix='.docx', delete=False) as tmp_in:
+                    tmp_in.write(uploaded_file.read())
+                    tmp_in_path = tmp_in.name
+                tmp_out_path = tmp_in_path.replace('.docx', '.pdf')
+                try:
+                    _docx2pdf(tmp_in_path, tmp_out_path)
+                    with open(tmp_out_path, 'rb') as f:
+                        pdf_bytes = f.read()
+                finally:
+                    try: os.remove(tmp_in_path)
+                    except Exception: pass
+                    try: os.remove(tmp_out_path)
+                    except Exception: pass
+                doc = fitz.open(stream=_io.BytesIO(pdf_bytes), filetype="pdf")
+
+            # Eğer yüklenen dosya bir PDF ise
+            elif fname_lower.endswith('.pdf'):
+                if not _PYMUPDF_OK or fitz is None:
+                    return JsonResponse({'error': 'PyMuPDF yüklenemedi. Sunucuyu yeniden başlatın.'}, status=500)
+
+                uploaded_file.seek(0)
+                pdf_bytes = uploaded_file.read()
+                doc = fitz.open(stream=_io.BytesIO(pdf_bytes), filetype="pdf")
+
+                if len(doc) > 0:
+                    # İlk sayfayı mevcut sayfaya arka plan olarak ayarla
+                    pdf_page = doc[0]
+                    mat = fitz.Matrix(2, 2)
+                    pix = pdf_page.get_pixmap(matrix=mat, alpha=False)
+                    img_bytes = pix.tobytes("png")
+
+                    safe_pk = str(page.worksheet.pk).replace('-', '')
+                    filename = f"bg_{safe_pk}_p{page.order}.png"
+
+                    page.page_width = pix.width
+                    page.page_height = pix.height
+                    page.background_image.save(filename, ContentFile(img_bytes), save=True)
+
+                    # Eğer PDF birden fazla sayfaysa, kalan sayfalar için yeni WorksheetPage oluştur
+                    if len(doc) > 1:
+                        worksheet = page.worksheet
+                        current_order = worksheet.pages.count()
+                        for i in range(1, len(doc)):
+                            current_order += 1
+                            pdf_page_i = doc[i]
+                            pix_i = pdf_page_i.get_pixmap(matrix=mat, alpha=False)
+                            img_bytes_i = pix_i.tobytes("png")
+
+                            wp = WorksheetPage.objects.create(
+                                worksheet=worksheet,
+                                order=current_order,
+                                page_width=pix_i.width,
+                                page_height=pix_i.height,
+                            )
+                            fn_i = f"bg_{safe_pk}_p{current_order}.png"
+                            wp.background_image.save(fn_i, ContentFile(img_bytes_i), save=True)
+                doc.close()
+            else:
+                # Sadece bir görsel yüklendiyse (JPG, PNG vs.)
+                from PIL import Image, ImageOps
+                uploaded_file.seek(0)
+                img_bytes_raw = uploaded_file.read()
+                with Image.open(_io.BytesIO(img_bytes_raw)) as _raw_img:
+                    orig_format = _raw_img.format or 'PNG'
+                    img = ImageOps.exif_transpose(_raw_img)  # EXIF rotasyonunu uygula
+                    orig_w, orig_h = img.width, img.height
+                    max_width = 1000
+                    if orig_w > max_width:
+                        ratio = max_width / float(orig_w)
+                        new_h = int(orig_h * ratio)
+                        img_resized = img.resize((max_width, new_h), Image.Resampling.LANCZOS)
+                        temp_io = _io.BytesIO()
+                        img_resized.save(temp_io, format=orig_format)
+                        page.background_image.save(
+                            uploaded_file.name,
+                            ContentFile(temp_io.getvalue()),
+                            save=False,
                         )
-                        filename = f"bg_{safe_pk}_p{current_order}.png"
-                        wp.background_image.save(filename, ContentFile(img_bytes), save=True)
-            doc.close()
-        else:
-            # Sadece bir görsel yüklendiyse (JPG, PNG vs.)
-            # Resmin boyutlarını okuyabilmek ve gerekirse küçültmek için PIL kullan
-            from PIL import Image
-            uploaded_file.seek(0)
-            with Image.open(uploaded_file) as img:
-                max_width = 1000
-                if img.width > max_width:
-                    ratio = max_width / float(img.width)
-                    new_height = int(float(img.height) * float(ratio))
-                    img = img.resize((max_width, new_height), Image.Resampling.LANCZOS)
-                    
-                    # Küçültülmüş resmi kaydet
-                    import io as _io
-                    temp_io = _io.BytesIO()
-                    img_format = img.format if img.format else 'PNG'
-                    img.save(temp_io, format=img_format)
-                    page.background_image.save(uploaded_file.name, ContentFile(temp_io.getvalue()), save=False)
-                else:
-                    page.background_image = uploaded_file
-                
-                page.page_width = img.width
-                page.page_height = img.height
-            page.save()
-            
-    return JsonResponse({'url': page.background_image.url if page.background_image else ''})
+                        page.page_width = max_width
+                        page.page_height = new_h
+                    else:
+                        temp_io = _io.BytesIO()
+                        img.save(temp_io, format=orig_format)
+                        page.background_image.save(
+                            uploaded_file.name,
+                            ContentFile(temp_io.getvalue()),
+                            save=False,
+                        )
+                        page.page_width = orig_w
+                        page.page_height = orig_h
+                page.save()
+
+        return JsonResponse({'url': page.background_image.url if page.background_image else ''})
+    except Exception as exc:
+        return JsonResponse({'error': str(exc), 'traceback': _tb.format_exc()}, status=500)
 
 
 @login_required
@@ -344,6 +394,7 @@ def api_question_save(request, page_pk):
         question.font_size = max(8, min(36, _to_int(data.get('font_size', 14), 14)))
         question.bg_color = _normalize_hex_color(data.get('bg_color', '#ffffff'), '#ffffff')
         question.border_color = _normalize_hex_color(data.get('border_color', '#cccccc'), '#cccccc')
+        question.points = max(1, _to_int(data.get('points', 1), 1))
         question.order = data.get('order', 1)
         question.save()
 

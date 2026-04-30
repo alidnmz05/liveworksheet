@@ -161,6 +161,9 @@ class Question(models.Model):
     # Doğru cevap (fill_blank, multiple_choice, dropdown için)
     correct_answer = models.TextField(blank=True)
 
+    # Puan
+    points = models.PositiveIntegerField(default=1, help_text='Bu soru kaç puan değerinde?')
+
     # Stil
     font_size = models.PositiveIntegerField(default=14)
     bg_color = models.CharField(max_length=7, default='#ffffff')

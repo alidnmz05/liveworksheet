@@ -98,6 +98,15 @@ def profile_view(request):
 
 
 @login_required
+def classroom_list(request):
+    if request.user.is_teacher:
+        classrooms = Classroom.objects.filter(teacher=request.user)
+    else:
+        classrooms = request.user.enrolled_classrooms.all()
+    return render(request, 'accounts/classroom_list.html', {'classrooms': classrooms})
+
+
+@login_required
 def classroom_create(request):
     if not request.user.is_teacher:
         messages.error(request, 'Bu sayfaya sadece öğretmenler erişebilir.')

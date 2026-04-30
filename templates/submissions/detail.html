@@ -16,7 +16,7 @@
         <div class="text-5xl font-bold {% if submission.score >= 60 %}text-green-600{% else %}text-orange-500{% endif %}">
             {{ submission.score|floatformat:0 }}%
         </div>
-        <p class="text-gray-600 mt-2">{{ submission.correct_count }} / {{ submission.total_questions }} doğru cevap</p>
+        <p class="text-gray-600 mt-2">{{ submission.correct_count }} / {{ submission.total_questions }} puan</p>
     </div>
 
     <!-- Answers -->

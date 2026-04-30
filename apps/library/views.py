@@ -13,7 +13,14 @@ def library_index(request):
     level = request.GET.get('level', '')
     language = request.GET.get('language', '')
 
-    items = LibraryItem.objects.select_related('worksheet__author', 'worksheet__subject')
+    # is_public=True olan ama LibraryItem'ı olmayan worksheetleri otomatik ekle
+    public_ws = Worksheet.objects.filter(is_public=True)
+    for ws in public_ws:
+        LibraryItem.objects.get_or_create(worksheet=ws)
+
+    items = LibraryItem.objects.select_related('worksheet__author', 'worksheet__subject').filter(
+        worksheet__is_public=True
+    )
 
     if query:
         items = items.filter(
