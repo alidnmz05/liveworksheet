@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load l10n %}
+{% load l10n worksheet_tags %}
 
 {% block title %}{{ worksheet.title }}{% endblock %}
 {% block main_class %}{% endblock %}
@@ -420,24 +420,16 @@
                         </div>
 
                         {% elif question.question_type == 'word_choice' %}
-                        <div class="flex items-center justify-center gap-1 select-none" id="choice-{{ question.id }}">
-                            <script>
-                                (function() {
-                                    const label = "{{ question.label|escapejs }}";
-                                    const qId = "{{ question.id }}";
-                                    const parts = label.split('/').map(s => s.trim());
-                                    const w1 = parts[0] || '...';
-                                    const w2 = parts[1] || '...';
-                                    const html = `
-                                        <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
-                                              onclick="selectWordChoice('${qId}', 1)" data-word-idx="1">${w1}</span>
-                                        <span class="text-gray-300 font-normal">/</span>
-                                        <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
-                                              onclick="selectWordChoice('${qId}', 2)" data-word-idx="2">${w2}</span>
-                                    `;
-                                    document.write(html);
-                                })();
-                            </script>
+                        <div class="flex items-center justify-center gap-1 select-none word-choice-container" 
+                             id="choice-{{ question.id }}"
+                             data-label="{{ question.label }}">
+                            {% with labels=question.label|split_choice %}
+                            <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
+                                  onclick="selectWordChoice('{{ question.id }}', 1)" data-word-idx="1">{{ labels.0|default:"..." }}</span>
+                            <span class="text-gray-300 font-normal">/</span>
+                            <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
+                                  onclick="selectWordChoice('{{ question.id }}', 2)" data-word-idx="2">{{ labels.1|default:"..." }}</span>
+                            {% endwith %}
                         </div>
 
                         {% elif question.question_type == 'open_answer' %}
@@ -599,6 +591,19 @@
                               rows="3"
                               placeholder="Cevabınızı buraya yazın..."
                               :disabled="submitted"></textarea>
+
+                    {% elif question.question_type == 'word_choice' %}
+                    <div class="flex items-center justify-center gap-1 select-none word-choice-container" 
+                         id="choice-{{ question.id }}"
+                         data-label="{{ question.label }}">
+                        {% with labels=question.label|split_choice %}
+                        <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
+                              onclick="selectWordChoice('{{ question.id }}', 1)" data-word-idx="1">{{ labels.0|default:"..." }}</span>
+                        <span class="text-gray-300 font-normal">/</span>
+                        <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
+                              onclick="selectWordChoice('{{ question.id }}', 2)" data-word-idx="2">{{ labels.1|default:"..." }}</span>
+                        {% endwith %}
+                    </div>
 
                     {% elif question.question_type == 'simple_text' %}
                     <div style="font-size:inherit; white-space:pre-wrap;">{{ question.correct_answer|default:question.label }}</div>
