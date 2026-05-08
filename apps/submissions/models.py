@@ -63,15 +63,20 @@ class Answer(models.Model):
         from apps.worksheets.models import Question as Q
         if q.question_type == Q.TYPE_FILL_BLANK:
             given = self.given_answer.strip().lower()
-            accepted = [a.strip().lower() for a in q.correct_answer.split('|') if a.strip()]
+            # Hem | hem de / ayracını destekle
+            raw_accepted = q.correct_answer.replace('/', '|').split('|')
+            accepted = [a.strip().lower() for a in raw_accepted if a.strip()]
             self.is_correct = given in accepted if accepted else (given == '')
             self.total_items = 1
             self.correct_items = 1 if self.is_correct else 0
-        elif q.question_type in (Q.TYPE_MULTIPLE_CHOICE, Q.TYPE_DROPDOWN):
-            correct_opts = set(
-                q.options.filter(is_correct=True).values_list('text', flat=True)
-            )
-            self.is_correct = self.given_answer.strip() in correct_opts
+        elif q.question_type in (Q.TYPE_MULTIPLE_CHOICE, Q.TYPE_DROPDOWN, Q.TYPE_WORD_CHOICE):
+            if q.question_type == Q.TYPE_WORD_CHOICE:
+                self.is_correct = self.given_answer.strip() == str(q.correct_answer).strip()
+            else:
+                correct_opts = set(
+                    q.options.filter(is_correct=True).values_list('text', flat=True)
+                )
+                self.is_correct = self.given_answer.strip() in correct_opts
             self.total_items = 1
             self.correct_items = 1 if self.is_correct else 0
         elif q.question_type == Q.TYPE_DRAG_DROP:

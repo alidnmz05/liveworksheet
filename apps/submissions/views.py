@@ -59,7 +59,7 @@ def submit_worksheet(request, worksheet_pk):
             {
                 'question_id': a.question_id,
                 'is_correct': a.is_correct,
-                'correct_answer': a.question.correct_answer,
+                'correct_answer': a.question.get_correct_answer_text(),
             }
             for a in submission.answers.select_related('question')
         ]

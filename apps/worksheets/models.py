@@ -129,6 +129,7 @@ class Question(models.Model):
     TYPE_OPEN_ANSWER = 'open_answer'
     TYPE_SIMPLE_TEXT = 'simple_text'
     TYPE_PLAY_MP3 = 'play_mp3'
+    TYPE_WORD_CHOICE = 'word_choice'
 
     TYPE_CHOICES = [
         (TYPE_FILL_BLANK, 'Textfield'),
@@ -143,6 +144,7 @@ class Question(models.Model):
         (TYPE_OPEN_ANSWER, 'Open Answer'),
         (TYPE_SIMPLE_TEXT, 'Simple Text'),
         (TYPE_PLAY_MP3, 'Play MP3'),
+        (TYPE_WORD_CHOICE, 'Kelime Seçimi (word1 / word2)'),
     ]
 
     page = models.ForeignKey(WorksheetPage, on_delete=models.CASCADE, related_name='questions')
@@ -176,6 +178,31 @@ class Question(models.Model):
 
     def __str__(self):
         return f"{self.get_question_type_display()} - {self.page}"
+
+    def get_correct_answer_text(self):
+        """Soru tipine göre doğru cevabın okunabilir metnini döner."""
+        if self.question_type == self.TYPE_FILL_BLANK:
+            return self.correct_answer.replace('|', ' veya ')
+        
+        if self.question_type in (self.TYPE_MULTIPLE_CHOICE, self.TYPE_DROPDOWN, self.TYPE_CHECKBOXES):
+            corrects = self.options.filter(is_correct=True).values_list('text', flat=True)
+            return ", ".join(corrects)
+            
+        if self.question_type == self.TYPE_WORD_CHOICE:
+            parts = [p.strip() for p in self.label.split('/')]
+            try:
+                idx = int(self.correct_answer) - 1
+                if 0 <= idx < len(parts):
+                    return parts[idx]
+            except (ValueError, TypeError):
+                pass
+            return self.correct_answer
+
+        if self.question_type == self.TYPE_MATCHING:
+            pairs = self.matching_pairs.all()
+            return "; ".join([f"{p.left_text} → {p.right_text}" for p in pairs])
+
+        return self.correct_answer
 
 
 class ChoiceOption(models.Model):

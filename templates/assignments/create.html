@@ -13,14 +13,42 @@
                 <label class="block text-sm font-medium mb-1">Ödev Başlığı</label>
                 <input type="text" name="title" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Ödev adı">
             </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Çalışma Kağıdı</label>
-                <select name="worksheet_id" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                    <option value="">Seçin...</option>
-                    {% for ws in my_worksheets %}
-                    <option value="{{ ws.pk }}">{{ ws.title }}</option>
-                    {% endfor %}
-                </select>
+            <div class="space-y-4" x-data="{ assignType: '{% if pre_wb %}workbook{% else %}worksheet{% endif %}' }">
+                <!-- Type Toggle -->
+                <div class="flex p-1 bg-gray-100 rounded-lg">
+                    <button type="button" @click="assignType = 'worksheet'" 
+                            :class="assignType === 'worksheet' ? 'bg-white shadow text-indigo-600' : 'text-gray-500'"
+                            class="flex-1 py-2 text-xs font-bold rounded-md transition-all">
+                        <i class="fas fa-file-alt mr-1"></i> Çalışma Kağıdı
+                    </button>
+                    <button type="button" @click="assignType = 'workbook'" 
+                            :class="assignType === 'workbook' ? 'bg-white shadow text-indigo-600' : 'text-gray-500'"
+                            class="flex-1 py-2 text-xs font-bold rounded-md transition-all">
+                        <i class="fas fa-book mr-1"></i> Defter (Workbook)
+                    </button>
+                </div>
+
+                <!-- Worksheet Selection -->
+                <div x-show="assignType === 'worksheet'">
+                    <label class="block text-sm font-medium mb-2">Çalışma Kağıdı Seçin</label>
+                    <select name="worksheet_id" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <option value="">Seçin...</option>
+                        {% for ws in my_worksheets %}
+                        <option value="{{ ws.pk }}" {% if pre_ws == ws.pk|stringformat:"s" %}selected{% endif %}>{{ ws.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Workbook Selection -->
+                <div x-show="assignType === 'workbook'" x-cloak>
+                    <label class="block text-sm font-medium mb-2">Defter Seçin</label>
+                    <select name="workbook_id" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <option value="">Seçin...</option>
+                        {% for wb in my_workbooks %}
+                        <option value="{{ wb.pk }}" {% if pre_wb == wb.pk|stringformat:"s" %}selected{% endif %}>{{ wb.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
             <div>
                 <label class="block text-sm font-medium mb-2">Sınıflar</label>

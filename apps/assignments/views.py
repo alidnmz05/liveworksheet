@@ -56,10 +56,17 @@ def assignment_create(request):
     my_worksheets = Worksheet.objects.filter(author=request.user)
     my_workbooks = Workbook.objects.filter(teacher=request.user)
     my_classrooms = Classroom.objects.filter(teacher=request.user)
+    
+    # Pre-select from GET params
+    pre_ws = request.GET.get('worksheet_id', '')
+    pre_wb = request.GET.get('workbook_id', '')
+
     return render(request, 'assignments/create.html', {
         'my_worksheets': my_worksheets,
         'my_workbooks': my_workbooks,
         'my_classrooms': my_classrooms,
+        'pre_ws': pre_ws,
+        'pre_wb': pre_wb,
     })
 
 

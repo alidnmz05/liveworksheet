@@ -4,6 +4,191 @@
 {% block title %}{{ worksheet.title }}{% endblock %}
 {% block main_class %}{% endblock %}
 
+{% block extra_css %}
+<style>
+/* ── Player Question Widgets ────────────────────────────────────── */
+.question-box {
+    border-radius: 0.4rem !important;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+    padding: 0.15em 0.35em !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Label */
+.question-box .qw-label {
+    font-weight: 600;
+    margin-bottom: 0.4em;
+    color: inherit;
+    line-height: 1.35;
+}
+
+/* Fill-blank */
+.qw-input {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.65);
+    padding: 0.4em 0.7em;
+    outline: none;
+    font-size: inherit;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+}
+.qw-input::placeholder { color: rgba(0,0,0,0.25); }
+.qw-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    background: #fff;
+}
+.qw-input:disabled { opacity:.65; cursor:not-allowed; }
+
+/* Option cards (radio / checkbox) */
+.qw-option {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.45em 0.75em;
+    border-radius: 0.625rem;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+    font-size: inherit;
+    user-select: none;
+    line-height: 1.4;
+}
+.qw-option:hover {
+    border-color: #a5b4fc;
+    background: rgba(238,242,255,0.75);
+}
+.qw-option:has(input:checked) {
+    border-color: #6366f1;
+    background: rgba(238,242,255,0.95);
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+}
+.qw-option input[type="radio"],
+.qw-option input[type="checkbox"] {
+    accent-color: #6366f1;
+    width: 1em;
+    height: 1em;
+    min-width: 1em;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: none;
+}
+.qw-option:has(input:disabled) { cursor:not-allowed; opacity:.7; }
+
+/* Select / dropdown */
+.qw-select {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.75);
+    padding: 0.4em 0.7em;
+    outline: none;
+    font-size: inherit;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+}
+.qw-select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+.qw-select:disabled { opacity:.65; cursor:not-allowed; }
+
+/* Drag items */
+.drag-item {
+    background: #fff !important;
+    border: 1.5px solid #c7d2fe !important;
+    color: #3730a3 !important;
+    border-radius: 9999px !important;
+    padding: 0.2em 0.8em !important;
+    font-size: 0.78em;
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(99,102,241,0.13);
+    cursor: grab;
+    transition: box-shadow .12s, transform .12s;
+    user-select: none;
+}
+.drag-item:hover { box-shadow: 0 3px 9px rgba(99,102,241,0.22); transform: translateY(-1px); }
+.drag-bank {
+    background: rgba(254,252,232,0.85) !important;
+    border: 2px dashed #fbbf24 !important;
+    border-radius: 0.625rem !important;
+    padding: 0.5rem !important;
+    gap: 0.3rem !important;
+}
+.drop-zone {
+    border: 2px dashed #d1d5db !important;
+    border-radius: 0.5rem !important;
+    background: rgba(249,250,251,0.6);
+    transition: border-color .15s, background .15s;
+    min-height: 2.2rem;
+    padding: 0.25rem 0.5rem !important;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+.drop-zone.drag-over {
+    border-color: #6366f1 !important;
+    background: rgba(238,242,255,0.85) !important;
+}
+/* Dropped items inside zones look like pills too */
+.drop-zone .drag-item {
+    margin: 0;
+}
+
+/* Matching cards */
+.matching-left {
+    background: rgba(238,242,255,0.8) !important;
+    border: 1.5px solid #c7d2fe !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600;
+    transition: border-color .15s, box-shadow .15s;
+}
+.matching-left:hover { box-shadow: 0 0 0 2px rgba(99,102,241,0.25); }
+.matching-right {
+    background: rgba(248,250,252,0.8) !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 0.5rem !important;
+    transition: border-color .15s, box-shadow .15s;
+}
+.matching-right:hover { box-shadow: 0 0 0 2px rgba(107,114,128,0.2); }
+
+/* Open answer */
+.qw-textarea {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: rgba(255,255,255,0.65);
+    padding: 0.5em 0.75em;
+    outline: none;
+    font-size: inherit;
+    resize: none;
+    transition: border-color .15s, box-shadow .15s, background .15s;
+    line-height: 1.5;
+}
+.qw-textarea::placeholder { color: rgba(0,0,0,0.25); }
+.qw-textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    background: #fff;
+}
+.qw-textarea:disabled { opacity:.65; cursor:not-allowed; }
+
+/* Result badge */
+.qw-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    margin-top: 0.4em;
+    padding: 0.2em 0.6em;
+    border-radius: 9999px;
+    font-size: 0.72em;
+    font-weight: 700;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="max-w-4xl mx-auto py-8 px-4" x-data="worksheetPlayer()" x-init="init()">
     <!-- Header -->
@@ -82,15 +267,18 @@
         </div>
         {% endif %}
 
-        <!-- Page canvas -->
-        <div class="relative bg-white shadow-lg overflow-hidden"
-             style="width:100%; padding-top: calc(({{ page.page_height }} / {{ page.page_width }}) * 100%);">
-            <div class="absolute inset-0">
-                {% if page.background_image %}
-                <img src="{{ page.background_image.url }}" class="w-full h-full object-fill select-none" draggable="false">
-                {% endif %}
+        {% if page.background_image %}
+        <!-- ── PDF / arka planlı sayfa: canvas + absolute konumlandırma ── -->
+        <div class="overflow-hidden shadow-lg"
+             data-canvas-wrapper
+             data-page-width="{{ page.page_width }}"
+             data-page-height="{{ page.page_height }}"
+             style="width:100%;">
+            <div class="relative bg-white"
+                 data-page-canvas
+                 style="width:{{ page.page_width }}px; height:{{ page.page_height }}px; transform-origin:top left;">
+                <img src="{{ page.background_image.url }}" class="absolute inset-0 w-full h-full object-fill select-none" draggable="false">
 
-                <!-- Video embeds -->
                 {% for embed in page.embeds.all %}
                 <div class="absolute"
                      style="left:{{ embed.pos_x }}%; top:{{ embed.pos_y }}%; width:{{ embed.width }}%; height:{{ embed.height }}%;">
@@ -98,43 +286,39 @@
                 </div>
                 {% endfor %}
 
-                <!-- Questions -->
                 {% for question in page.questions.all %}
                 <div class="absolute question-container"
                      data-question-id="{{ question.id }}"
                      data-type="{{ question.question_type }}"
                      style="left:{{ question.pos_x }}%; top:{{ question.pos_y }}%;{% if question.width > 0 %} width:{{ question.width }}%; min-height:{{ question.height }}%;{% else %} width:fit-content; min-width:28px;{% endif %}">
-
-                    <div class="question-box border-2 rounded px-2 py-1 transition-colors flex flex-col justify-center w-full min-h-full"
+                    <div class="question-box border-2 flex flex-col justify-center w-full min-h-full transition-colors"
                          id="qbox-{{ question.id }}"
                          style="border-color:{{ question.border_color }}; background:{{ question.bg_color }}; font-size:{{ question.font_size }}px;">
 
                         {% if question.label and question.question_type not in 'simple_text,play_mp3' %}
-                        <div class="mb-0.5 font-semibold">{{ question.label }}</div>
+                        <div class="qw-label">{{ question.label }}</div>
                         {% endif %}
 
                         {% if question.question_type == 'fill_blank' %}
                         <input type="text" id="ans-{{ question.id }}"
-                               class="w-full bg-transparent outline-none border-b border-current py-0.5"
+                               class="qw-input"
                                placeholder="Yanıt..."
                                :disabled="submitted">
 
                         {% elif question.question_type == 'multiple_choice' %}
-                        <div class="space-y-1">
+                        <div class="space-y-1.5 mt-0.5">
                             {% for opt in question.options.all %}
-                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                            <label class="qw-option">
                                 <input type="radio" name="q{{ question.id }}" value="{{ opt.text }}"
                                        :disabled="submitted"
-                                       id="ans-{{ question.id }}-{{ opt.id }}"
-                                       class="text-indigo-600">
+                                       id="ans-{{ question.id }}-{{ opt.id }}">
                                 <span>{{ opt.text }}</span>
                             </label>
                             {% endfor %}
                         </div>
 
                         {% elif question.question_type == 'dropdown' %}
-                        <select id="ans-{{ question.id }}" :disabled="submitted"
-                                class="w-full bg-transparent border-b border-gray-300 text-sm py-0.5 focus:outline-none">
+                        <select id="ans-{{ question.id }}" :disabled="submitted" class="qw-select">
                             <option value="">Seçin...</option>
                             {% for opt in question.options.all %}
                             <option value="{{ opt.text }}">{{ opt.text }}</option>
@@ -142,14 +326,13 @@
                         </select>
 
                         {% elif question.question_type == 'drag_drop' %}
-                        <!-- Items bank -->
-                        <p class="text-xs text-gray-400 font-medium mb-1 select-none">Kelimeler — sürükle &amp; bırak:</p>
-                        <div class="drag-bank flex flex-wrap gap-1 mb-2 p-1.5 bg-amber-50 border-2 border-dashed border-amber-300 rounded min-h-8"
+                        <p class="select-none mb-1" style="font-size:0.72em;color:rgba(0,0,0,0.4);font-weight:600;letter-spacing:0.02em;">KELIMELER — SÜRÜKLE &amp; BIRAK</p>
+                        <div class="drag-bank flex flex-wrap mb-2"
                              id="bank-{{ question.id }}"
                              ondragover="dragOverBank(event)"
                              ondrop="dropToBank(event,'{{ question.id }}')"> 
                             {% for item in question.drag_items.all %}
-                            <div class="drag-item bg-white border border-indigo-300 text-indigo-800 px-2 py-1 rounded text-xs cursor-grab font-medium select-none shadow-sm"
+                            <div class="drag-item"
                                  draggable="true"
                                  data-item-id="{{ item.id }}"
                                  data-item-text="{{ item.text }}"
@@ -159,19 +342,18 @@
                                  id="item-{{ item.id }}">{{ item.text }}</div>
                             {% endfor %}
                         </div>
-                        <!-- Drop zones -->
                         <div class="space-y-1.5">
                             {% for target in question.drop_targets.all %}
-                            <div class="flex items-center gap-1.5 text-xs">
-                                <span class="text-gray-600 font-medium shrink-0">{{ target.label }}</span>
-                                <div class="drop-zone flex-1 border-2 border-dashed border-gray-300 rounded px-2 py-1 min-h-7 flex items-center transition-colors"
+                            <div class="flex items-center gap-2" style="font-size:0.85em;">
+                                <span class="font-semibold shrink-0" style="color:rgba(0,0,0,0.55);">{{ target.label }}</span>
+                                <div class="drop-zone flex-1 flex items-center"
                                      id="zone-{{ target.target_id }}"
                                      data-target-id="{{ target.target_id }}"
                                      data-question-id="{{ question.id }}"
                                      ondragover="dragOver(event)"
                                      ondragleave="dragLeave(event)"
                                      ondrop="drop(event)">
-                                    <span class="placeholder-hint text-gray-300 italic">boş</span>
+                                    <span class="placeholder-hint" style="color:rgba(0,0,0,0.2);font-style:italic;">boş</span>
                                 </div>
                             </div>
                             {% endfor %}
@@ -179,19 +361,19 @@
 
                         {% elif question.question_type == 'matching' %}
                         <div class="matching-container" id="matching-{{ question.id }}">
-                            <p class="text-xs text-gray-400 mb-1.5 select-none">Sol taraftan seç &rarr; sağdan eşleştir. Geri almak için eşleşmiş öğeye tıkla.</p>
-                            <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-xs">
-                                <div class="space-y-1">
+                            <p class="select-none mb-2" style="font-size:0.7em;color:rgba(0,0,0,0.35);font-weight:600;letter-spacing:0.02em;">SOL TARAFTAN SEÇ → SAĞDAN EŞLEŞTİR &nbsp;·&nbsp; EŞLEŞMİŞ ÖĞEYE TIKLA GERİ AL</p>
+                            <div class="grid grid-cols-2 gap-x-2 gap-y-1.5" style="font-size:0.85em;">
+                                <div class="space-y-1.5">
                                     {% for pair in question.matching_pairs.all %}
-                                    <div class="bg-indigo-50 border border-indigo-200 rounded px-2 py-1.5 font-medium cursor-pointer matching-left select-none"
+                                    <div class="matching-left px-2.5 py-1.5 cursor-pointer select-none"
                                          data-left-text="{{ pair.left_text }}"
                                          data-question="{{ question.id }}"
                                          onclick="selectLeft(this)">{{ pair.left_text }}</div>
                                     {% endfor %}
                                 </div>
-                                <div class="space-y-1" id="right-col-{{ question.id }}">
+                                <div class="space-y-1.5" id="right-col-{{ question.id }}">
                                     {% for pair in question.matching_pairs.all %}
-                                    <div class="bg-gray-50 border border-gray-200 rounded px-2 py-1.5 cursor-pointer matching-right select-none"
+                                    <div class="matching-right px-2.5 py-1.5 cursor-pointer select-none"
                                          data-right-text="{{ pair.right_text }}"
                                          data-question="{{ question.id }}"
                                          onclick="selectRight(this)">{{ pair.right_text }}</div>
@@ -201,55 +383,235 @@
                         </div>
 
                         {% elif question.question_type == 'speech' %}
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2.5">
                             <button onclick="toggleRecording({{ question.id }}, this)"
-                                    class="flex items-center gap-2 bg-teal-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-teal-600 transition-colors"
+                                    class="flex items-center gap-2 bg-teal-500 text-white px-3 py-1.5 rounded-xl font-semibold hover:bg-teal-600 active:scale-95 transition-all shadow-sm"
+                                    style="font-size:0.82em;"
                                     data-recording="false">
                                 <i class="fas fa-microphone"></i> <span>Kayıt Başlat</span>
                             </button>
-                            <span id="speech-status-{{ question.id }}" class="text-xs text-gray-400"></span>
+                            <span id="speech-status-{{ question.id }}" style="font-size:0.75em;color:rgba(0,0,0,0.45);"></span>
                         </div>
 
                         {% elif question.question_type == 'checkboxes' %}
-                        <div class="space-y-1">
+                        <div class="space-y-1.5 mt-0.5">
                             {% for opt in question.options.all %}
-                            <label class="flex items-center gap-2 cursor-pointer text-sm">
+                            <label class="qw-option">
                                 <input type="checkbox" name="q{{ question.id }}" value="{{ opt.text }}"
                                        :disabled="submitted"
-                                       class="w-4 h-4 rounded accent-green-600 flex-shrink-0">
+                                       class="flex-shrink-0">
                                 <span>{{ opt.text }}</span>
                             </label>
                             {% endfor %}
                         </div>
 
                         {% elif question.question_type == 'play_mp3' %}
-                        <div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex-shrink-0">
+                                <i class="fas fa-music" style="font-size:0.8em;"></i>
+                            </div>
                             {% if question.correct_answer %}
-                            <audio controls class="w-full h-8">
+                            <audio controls class="flex-1" style="height:2rem;">
                                 <source src="{{ question.correct_answer }}">
                             </audio>
                             {% else %}
-                            <span class="text-xs text-gray-400"><i class="fas fa-music mr-1"></i>Ses dosyası ayarlanmamış</span>
+                            <span style="font-size:0.8em;color:rgba(0,0,0,0.4);">Ses dosyası ayarlanmamış</span>
                             {% endif %}
+                        </div>
+
+                        {% elif question.question_type == 'word_choice' %}
+                        <div class="flex items-center justify-center gap-1 select-none" id="choice-{{ question.id }}">
+                            <script>
+                                (function() {
+                                    const label = "{{ question.label|escapejs }}";
+                                    const qId = "{{ question.id }}";
+                                    const parts = label.split('/').map(s => s.trim());
+                                    const w1 = parts[0] || '...';
+                                    const w2 = parts[1] || '...';
+                                    const html = `
+                                        <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
+                                              onclick="selectWordChoice('${qId}', 1)" data-word-idx="1">${w1}</span>
+                                        <span class="text-gray-300 font-normal">/</span>
+                                        <span class="px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item"
+                                              onclick="selectWordChoice('${qId}', 2)" data-word-idx="2">${w2}</span>
+                                    `;
+                                    document.write(html);
+                                })();
+                            </script>
                         </div>
 
                         {% elif question.question_type == 'open_answer' %}
                         <textarea id="ans-{{ question.id }}" :disabled="submitted"
-                                  class="w-full bg-transparent outline-none border border-gray-300 rounded p-1.5 text-sm resize-none focus:border-indigo-500"
+                                  class="qw-textarea"
                                   rows="3" placeholder="Cevabınızı buraya yazın..."></textarea>
 
                         {% elif question.question_type == 'simple_text' %}
-                        <span class="font-medium">{{ question.label }}</span>
+                        <span style="font-weight:500;">{{ question.label }}</span>
 
                         {% endif %}
 
                         <!-- Result indicator -->
-                        <div id="result-{{ question.id }}" class="hidden mt-1 text-xs font-semibold"></div>
+                        <div id="result-{{ question.id }}" class="hidden"></div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </div>
+
+        {% else %}
+        <!-- ── Arka plansız sayfa: normal akış düzeni ── -->
+        <div class="flow-questions space-y-3">
+            {% for question in page.questions.all %}
+            <div class="question-container"
+                 data-question-id="{{ question.id }}"
+                 data-type="{{ question.question_type }}">
+                <div class="question-box border-2 flex flex-col justify-start w-full transition-colors"
+                     id="qbox-{{ question.id }}"
+                     style="border-color:{{ question.border_color }}; background:{{ question.bg_color }}; font-size:{{ question.font_size }}px;">
+
+                    {% if question.label and question.question_type not in 'simple_text,play_mp3' %}
+                    <div class="qw-label">{{ question.label }}</div>
+                    {% endif %}
+
+                    {% if question.question_type == 'fill_blank' %}
+                    <input type="text" id="ans-{{ question.id }}"
+                           class="qw-input"
+                           placeholder="Yanıt..."
+                           :disabled="submitted">
+
+                    {% elif question.question_type == 'multiple_choice' %}
+                    <div class="space-y-1.5 mt-0.5">
+                        {% for opt in question.options.all %}
+                        <label class="qw-option">
+                            <input type="radio" name="q{{ question.id }}" value="{{ opt.text }}"
+                                   :disabled="submitted"
+                                   id="ans-{{ question.id }}-{{ opt.id }}">
+                            <span>{{ opt.text }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+
+                    {% elif question.question_type == 'dropdown' %}
+                    <select id="ans-{{ question.id }}" :disabled="submitted" class="qw-select">
+                        <option value="">Seçin...</option>
+                        {% for opt in question.options.all %}
+                        <option value="{{ opt.text }}">{{ opt.text }}</option>
+                        {% endfor %}
+                    </select>
+
+                    {% elif question.question_type == 'drag_drop' %}
+                    <p class="select-none mb-1" style="font-size:0.72em;color:rgba(0,0,0,0.4);font-weight:600;letter-spacing:0.02em;">KELIMELER — SÜRÜKLE &amp; BIRAK</p>
+                    <div class="drag-bank flex flex-wrap mb-2"
+                         id="bank-{{ question.id }}"
+                         ondragover="dragOverBank(event)"
+                         ondrop="dropToBank(event,'{{ question.id }}')">
+                        {% for item in question.drag_items.all %}
+                        <div class="drag-item"
+                             draggable="true"
+                             data-item-id="{{ item.id }}"
+                             data-item-text="{{ item.text }}"
+                             data-correct-target="{{ item.correct_target_id }}"
+                             data-bank-id="{{ question.id }}"
+                             ondragstart="dragStart(event)"
+                             id="item-{{ item.id }}">{{ item.text }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="space-y-1.5">
+                        {% for target in question.drop_targets.all %}
+                        <div class="flex items-center gap-2" style="font-size:0.85em;">
+                            <span class="font-semibold shrink-0" style="color:rgba(0,0,0,0.55);">{{ target.label }}</span>
+                            <div class="drop-zone flex-1 flex flex-wrap items-center gap-1"
+                                 id="zone-{{ target.target_id }}"
+                                 data-target-id="{{ target.target_id }}"
+                                 data-question-id="{{ question.id }}"
+                                 ondragover="dragOver(event)"
+                                 ondragleave="dragLeave(event)"
+                                 ondrop="drop(event)">
+                                <span class="placeholder-hint" style="color:rgba(0,0,0,0.2);font-style:italic;">buraya sürükle</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    {% elif question.question_type == 'matching' %}
+                    <div class="matching-container" id="matching-{{ question.id }}">
+                        <p class="select-none mb-2" style="font-size:0.7em;color:rgba(0,0,0,0.35);font-weight:600;letter-spacing:0.02em;">SOL TARAFTAN SEÇ → SAĞDAN EŞLEŞTİR &nbsp;·&nbsp; EŞLEŞMİŞ ÖĞEYE TIKLA GERİ AL</p>
+                        <div class="grid grid-cols-2 gap-x-2 gap-y-1.5" style="font-size:0.85em;">
+                            <div class="space-y-1.5">
+                                {% for pair in question.matching_pairs.all %}
+                                <div class="matching-left px-2.5 py-1.5 cursor-pointer select-none"
+                                     data-left-text="{{ pair.left_text }}"
+                                     data-question="{{ question.id }}"
+                                     onclick="selectLeft(this)">{{ pair.left_text }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="space-y-1.5" id="right-col-{{ question.id }}">
+                                {% for pair in question.matching_pairs.all %}
+                                <div class="matching-right px-2.5 py-1.5 cursor-pointer select-none"
+                                     data-right-text="{{ pair.right_text }}"
+                                     data-question="{{ question.id }}"
+                                     onclick="selectRight(this)">{{ pair.right_text }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% elif question.question_type == 'speech' %}
+                    <div class="flex items-center gap-2.5">
+                        <button onclick="toggleRecording({{ question.id }}, this)"
+                                class="flex items-center gap-2 bg-teal-500 text-white px-3 py-1.5 rounded-xl font-semibold hover:bg-teal-600 active:scale-95 transition-all shadow-sm"
+                                style="font-size:0.82em;"
+                                data-recording="false">
+                            <i class="fas fa-microphone"></i> <span>Kayıt Başlat</span>
+                        </button>
+                        <span id="speech-status-{{ question.id }}" style="font-size:0.75em;color:rgba(0,0,0,0.45);"></span>
+                    </div>
+
+                    {% elif question.question_type == 'checkboxes' %}
+                    <div class="space-y-1.5 mt-0.5">
+                        {% for opt in question.options.all %}
+                        <label class="qw-option">
+                            <input type="checkbox" name="q{{ question.id }}" value="{{ opt.text }}"
+                                   :disabled="submitted"
+                                   class="flex-shrink-0">
+                            <span>{{ opt.text }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+
+                    {% elif question.question_type == 'play_mp3' %}
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex-shrink-0">
+                            <i class="fas fa-music" style="font-size:0.8em;"></i>
+                        </div>
+                        {% if question.correct_answer %}
+                        <audio controls class="flex-1" style="height:2rem;">
+                            <source src="{{ question.correct_answer }}">
+                        </audio>
+                        {% else %}
+                        <span style="font-size:0.8em;color:rgba(0,0,0,0.4);">Ses dosyası ayarlanmamış</span>
+                        {% endif %}
+                    </div>
+
+                    {% elif question.question_type == 'open_answer' %}
+                    <textarea id="ans-{{ question.id }}"
+                              class="qw-textarea"
+                              rows="3"
+                              placeholder="Cevabınızı buraya yazın..."
+                              :disabled="submitted"></textarea>
+
+                    {% elif question.question_type == 'simple_text' %}
+                    <div style="font-size:inherit; white-space:pre-wrap;">{{ question.correct_answer|default:question.label }}</div>
+
+                    {% endif %}
+
+                    <!-- Result indicator -->
+                    <div id="result-{{ question.id }}" class="hidden"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
     {% endfor %}
     {% endlocalize %}
@@ -292,7 +654,9 @@ function worksheetPlayer() {
         score: 0,
         correctCount: 0,
         totalCount: 0,
-        init() {},
+        init() {
+            // scalePages() etc.
+        },
         async submitAnswers() {
             const answers = collectAnswers();
             const resp = await fetch(`/submissions/worksheet/${WORKSHEET_ID}/submit/`, {
@@ -316,16 +680,19 @@ function worksheetPlayer() {
                 if (a.is_correct === true) {
                     box.style.borderColor = '#22c55e';
                     box.style.backgroundColor = '#f0fdf4';
-                    result.textContent = '✓ Doğru';
-                    result.className = 'mt-1 text-xs font-semibold text-green-600';
+                    result.innerHTML = '<i class="fas fa-check-circle" style="margin-right:0.3em;"></i>Doğru';
+                    result.className = 'qw-result';
+                    result.style.cssText = 'background:#dcfce7;color:#15803d;border:1px solid #86efac;';
                 } else if (a.is_correct === false) {
                     box.style.borderColor = '#ef4444';
                     box.style.backgroundColor = '#fef2f2';
-                    result.textContent = `✗ Yanlış — Doğru: ${a.correct_answer}`;
-                    result.className = 'mt-1 text-xs font-semibold text-red-600';
+                    result.innerHTML = `<i class="fas fa-times-circle" style="margin-right:0.3em;"></i>Yanlış — Doğru: ${a.correct_answer}`;
+                    result.className = 'qw-result';
+                    result.style.cssText = 'background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;';
                 } else {
-                    result.textContent = '⏳ Manuel değerlendirme bekleniyor';
-                    result.className = 'mt-1 text-xs font-semibold text-yellow-600';
+                    result.innerHTML = '<i class="fas fa-hourglass-half" style="margin-right:0.3em;"></i>Manuel değerlendirme bekleniyor';
+                    result.className = 'qw-result';
+                    result.style.cssText = 'background:#fef9c3;color:#a16207;border:1px solid #fde047;';
                 }
                 result.classList.remove('hidden');
             });
@@ -357,6 +724,8 @@ function collectAnswers() {
             ans = JSON.stringify(checked.map(c => c.value));
         } else if (type === 'open_answer') {
             ans = document.getElementById('ans-' + qId)?.value || '';
+        } else if (type === 'word_choice') {
+            ans = wordChoiceAnswers[qId] || '';
         }
         // play_mp3 ve simple_text için cevap gerekmez
         answers[qId] = ans;
@@ -372,11 +741,11 @@ function dragStart(e) {
 
 function dragOver(e) {
     e.preventDefault();
-    e.currentTarget.classList.add('bg-indigo-50', 'border-indigo-400');
+    e.currentTarget.classList.add('drag-over');
 }
 
 function dragLeave(e) {
-    e.currentTarget.classList.remove('bg-indigo-50', 'border-indigo-400');
+    e.currentTarget.classList.remove('drag-over');
 }
 
 function dragOverBank(e) { e.preventDefault(); }
@@ -384,7 +753,7 @@ function dragOverBank(e) { e.preventDefault(); }
 function drop(e) {
     e.preventDefault();
     const zone = e.currentTarget;
-    zone.classList.remove('bg-indigo-50', 'border-indigo-400');
+    zone.classList.remove('drag-over');
     const itemId = e.dataTransfer.getData('itemId');
     const item = document.getElementById('item-' + itemId);
     if (!item) return;
@@ -437,7 +806,7 @@ function returnItemToBank(item, qId) {
     item.classList.remove('opacity-40');
     const bank = document.getElementById('bank-' + item.dataset.bankId);
     if (bank) bank.appendChild(item);
-    if (zone) zone.innerHTML = '<span class="placeholder-hint text-gray-300 italic">boş</span>';
+    if (zone) zone.innerHTML = '<span class="placeholder-hint" style="color:rgba(0,0,0,0.2);font-style:italic;">buraya sürükle</span>';
     if (dragAnswers[qId]) dragAnswers[qId] = dragAnswers[qId].filter(a => a.item_id != item.dataset.itemId);
 }
 
@@ -453,6 +822,24 @@ const MATCH_COLORS = [
 const matchColorMap = {};
 const usedMatchColors = {};
 
+// Global Selection Function
+const wordChoiceAnswers = {};
+window.selectWordChoice = function(qId, idx) {
+    const alpineData = document.querySelector('[x-data]')?.__x?.$data;
+    if (alpineData && alpineData.submitted) return;
+    
+    wordChoiceAnswers[qId] = idx.toString();
+    const container = document.getElementById('choice-' + qId);
+    if (!container) return;
+    
+    container.querySelectorAll('[data-word-idx]').forEach(el => {
+        if (el.dataset.wordIdx == idx) {
+            el.className = 'px-1 py-0 rounded bg-indigo-600 text-white cursor-pointer font-bold shadow-sm scale-105 transition-all choice-item selected';
+        } else {
+            el.className = 'px-1 py-0 rounded cursor-pointer hover:bg-gray-100 transition-all font-bold text-[0.95em] choice-item';
+        }
+    });
+};
 function getMatchColor(qId) {
     if (!usedMatchColors[qId]) usedMatchColors[qId] = new Set();
     for (let i = 0; i < MATCH_COLORS.length; i++) {
@@ -592,10 +979,28 @@ async function toggleRecording(qId, btn) {
     }
 }
 
-// Ensure page canvas aspect ratio is applied correctly
-document.querySelectorAll('.absolute.inset-0').forEach(el => {
-    const parent = el.parentElement;
-    const ws = {{ pages|length }};
-});
+// ---- Scale page canvases to fit container ----
+// The canvas is rendered at the natural page dimensions (page_width × page_height)
+// and then scaled uniformly so it fills the wrapper. This ensures positions and
+// font-sizes look identical to the editor regardless of viewport/screen size.
+function scalePageCanvases() {
+    document.querySelectorAll('[data-canvas-wrapper]').forEach(function(wrapper) {
+        const pw = parseInt(wrapper.getAttribute('data-page-width') || '0', 10);
+        const ph = parseInt(wrapper.getAttribute('data-page-height') || '0', 10);
+        if (!pw || !ph) return;
+        const containerWidth = wrapper.offsetWidth;
+        if (!containerWidth) return;
+        const scale = containerWidth / pw;
+        const canvas = wrapper.querySelector('[data-page-canvas]');
+        if (canvas) {
+            canvas.style.transform = 'scale(' + scale + ')';
+            wrapper.style.height = Math.round(ph * scale) + 'px';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', scalePageCanvases);
+window.addEventListener('load', scalePageCanvases);
+window.addEventListener('resize', scalePageCanvases);
 </script>
 {% endblock %}
