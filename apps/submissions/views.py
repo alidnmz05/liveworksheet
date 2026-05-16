@@ -21,13 +21,29 @@ def submit_worksheet(request, worksheet_pk):
         return JsonResponse({'error': 'Geçersiz veri formatı.'}, status=400)
 
     assignment_id = data.get('assignment_id') or None
+    is_draft = data.get('is_draft', False)
 
     with transaction.atomic():
-        submission = Submission.objects.create(
-            student=request.user,
-            worksheet=worksheet,
-            assignment_id=assignment_id,
-        )
+        # Varsa mevcut taslağı bul
+        if assignment_id:
+            submission = Submission.objects.filter(
+                student=request.user, assignment_id=assignment_id, is_draft=True
+            ).first()
+        else:
+            submission = Submission.objects.filter(
+                student=request.user, worksheet=worksheet, assignment__isnull=True, is_draft=True
+            ).first()
+
+        if not submission:
+            submission = Submission.objects.create(
+                student=request.user,
+                worksheet=worksheet,
+                assignment_id=assignment_id,
+                is_draft=is_draft,
+            )
+        else:
+            submission.is_draft = is_draft
+            submission.answers.all().delete() # Eski taslak yanıtlarını sil
 
         answers_data = data.get('answers', {})
         for q_id_str, given_answer in answers_data.items():
@@ -49,10 +65,26 @@ def submit_worksheet(request, worksheet_pk):
             answer.check_answer()
 
         submission.calculate_score()
+        if is_draft:
+            submission.is_draft = True
+            submission.is_graded = False
+            submission.save()
+
+    if is_draft:
+        return JsonResponse({'success': True, 'message': 'Taslak olarak kaydedildi.'})
+
+    # Puanlama sistemine göre gösterilecek skoru hesapla
+    grading_system = worksheet.grading_system  # '100' veya '10'
+    if grading_system == '10':
+        display_score = round((submission.score / 10), 1) if submission.score is not None else 0
+    else:
+        display_score = submission.score  # zaten 0-100
 
     return JsonResponse({
         'submission_id': submission.id,
-        'score': submission.score,
+        'score': submission.score,           # her zaman 0-100 (ham oran)
+        'display_score': display_score,      # gösterilecek puan (sisteme göre)
+        'grading_system': grading_system,    # '10' veya '100'
         'correct': submission.correct_count,
         'total': submission.total_questions,
         'answers': [

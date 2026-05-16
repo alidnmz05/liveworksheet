@@ -3,9 +3,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.conf.urls.i18n import set_language
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('i18n/set-language/', set_language, name='set_language'),
     path('accounts/', include('allauth.urls')),
     path('api/', include([
         path('worksheets/', include('apps.worksheets.api_urls')),

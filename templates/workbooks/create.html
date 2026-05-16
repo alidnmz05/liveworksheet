@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}Yeni Defter{% endblock %}
+{% load i18n %}
+{% block title %}{% trans 'Yeni Defter' %}{% endblock %}
 {% block content %}
 <div class="max-w-lg mx-auto mt-8">
     <div class="card p-6">
-        <h1 class="text-xl font-bold mb-5">Yeni Dijital Defter</h1>
+        <h1 class="text-xl font-bold mb-5">{% trans "Yeni Dijital Defter" %}</h1>
         <form method="post" class="space-y-4">
             {% csrf_token %}
             <div>
-                <label class="block text-sm font-medium mb-1">Defter Adı</label>
-                <input type="text" name="title" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Defter başlığı">
+                <label class="block text-sm font-medium mb-1">{% trans 'Defter Adı' %}</label>
+                <input type="text" name="title" required class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="{% trans '{% trans "Defter başlığı" %}' %}">
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1">Açıklama</label>
+                <label class="block text-sm font-medium mb-1">{% trans "Açıklama" %}</label>
                 <textarea name="description" rows="3" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"></textarea>
             </div>
-            <button type="submit" class="btn-primary w-full justify-center py-2.5">Oluştur</button>
+            <button type="submit" class="btn-primary w-full justify-center py-2.5">{% trans 'Oluştur' %}</button>
         </form>
     </div>
 </div>

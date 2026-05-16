@@ -214,9 +214,33 @@ def worksheet_play(request, pk):
         'questions__drop_targets', 'questions__matching_pairs',
         'embeds'
     )
+    assignment_id = request.GET.get('assignment')
+    draft_answers_json = "{}"
+    if request.user.is_authenticated:
+        from apps.submissions.models import Submission
+        import json
+        if assignment_id:
+            draft = Submission.objects.filter(
+                student=request.user, assignment_id=assignment_id, is_draft=True
+            ).first()
+        else:
+            draft = Submission.objects.filter(
+                student=request.user, worksheet=worksheet, assignment__isnull=True, is_draft=True
+            ).first()
+
+        if draft:
+            answers_dict = {}
+            for ans in draft.answers.all():
+                try:
+                    answers_dict[str(ans.question_id)] = json.loads(ans.given_answer)
+                except ValueError:
+                    answers_dict[str(ans.question_id)] = ans.given_answer
+            draft_answers_json = json.dumps(answers_dict)
+
     return render(request, 'worksheets/player.html', {
         'worksheet': worksheet,
         'pages': pages,
+        'draft_answers_json': draft_answers_json,
     })
 
 

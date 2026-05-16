@@ -1,0 +1,915 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-16 19:20+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: apps/accounts/views.py:16
+msgid "Sürükle & Bırak"
+msgstr "السحب والإسقاط"
+
+#: apps/accounts/views.py:16
+msgid "Öğrenciler nesneleri doğru kutucuklara sürükler."
+msgstr "يقوم الطلاب بسحب الكائنات إلى المربعات الصحيحة."
+
+#: apps/accounts/views.py:17
+msgid "Çoktan Seçmeli"
+msgstr "الاختيار من متعدد"
+
+#: apps/accounts/views.py:17
+msgid "Klasik çoktan seçmeli sorular oluşturun."
+msgstr "إنشاء أسئلة الاختيار من متعدد الكلاسيكية."
+
+#: apps/accounts/views.py:18
+msgid "Eşleştirme"
+msgstr "مطابقة"
+
+#: apps/accounts/views.py:18
+msgid "İki sütun arasında öğeleri birbirine bağlayın."
+msgstr "ربط العناصر بين عمودين."
+
+#: apps/accounts/views.py:19
+msgid "Sesli Yanıt"
+msgstr "الرد الصوتي"
+
+#: apps/accounts/views.py:19
+msgid "Öğrenciler mikrofon ile sözlü cevap verebilir."
+msgstr "يمكن للطلاب تقديم إجابات شفهية من خلال الميكروفون."
+
+#: apps/accounts/views.py:20
+msgid "Video Entegrasyonu"
+msgstr "تكامل الفيديو"
+
+#: apps/accounts/views.py:20
+msgid "YouTube/Vimeo videolarını kağıda gömün."
+msgstr "قم بتضمين مقاطع فيديو YouTube/Vimeo على الورق."
+
+#: apps/accounts/views.py:21
+msgid "Anında Puanlama"
+msgstr "التهديف الفوري"
+
+#: apps/accounts/views.py:21
+msgid "Sistem cevapları otomatik değerlendirir ve puan verir."
+msgstr "يقوم النظام تلقائيًا بتقييم الإجابات ويمنح النقاط."
+
+#: apps/worksheets/models.py:22
+msgid "Anaokulu"
+msgstr "روضة"
+
+#: apps/worksheets/models.py:23
+msgid "İlkokul"
+msgstr "المدرسة الابتدائية"
+
+#: apps/worksheets/models.py:24
+msgid "Ortaokul"
+msgstr "المرحلة الثانوية"
+
+#: apps/worksheets/models.py:25
+msgid "Lise"
+msgstr "الثانوية"
+
+#: apps/worksheets/models.py:26
+msgid "Üniversite"
+msgstr "جامعة"
+
+#: apps/worksheets/models.py:27
+msgid "Yetişkin"
+msgstr "بالغ"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "Türkçe"
+msgstr "تركي"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "İngilizce"
+msgstr "انجليزي"
+
+#: apps/worksheets/models.py:30
+msgid "Almanca"
+msgstr "الألمانية"
+
+#: apps/worksheets/models.py:31
+msgid "Fransızca"
+msgstr "الفرنسية"
+
+#: apps/worksheets/models.py:31
+msgid "İspanyolca"
+msgstr "الاسبانية"
+
+#: apps/worksheets/models.py:31
+msgid "Arapça"
+msgstr "عربي"
+
+#: apps/worksheets/models.py:32
+msgid "Portekizce"
+msgstr "البرتغالية"
+
+#: apps/worksheets/models.py:32
+msgid "Rusça"
+msgstr "روسي"
+
+#: apps/worksheets/models.py:32
+msgid "Çince"
+msgstr "صيني"
+
+#: apps/worksheets/models.py:33
+msgid "İtalyanca"
+msgstr "إيطالي"
+
+#: apps/worksheets/models.py:33
+msgid "Korece"
+msgstr "الكورية"
+
+#: apps/worksheets/models.py:38
+msgid "100'lük Sistem (0–100 puan)"
+msgstr "نظام 100"
+
+#: apps/worksheets/models.py:39
+msgid "10'luk Sistem (0–10 puan)"
+msgstr "نظام 10"
+
+#: apps/worksheets/models.py:65
+msgid "Matematik"
+msgstr "الرياضيات"
+
+#: apps/worksheets/models.py:65 templates/assignments/detail.html:33
+#: templates/submissions/list.html:14
+msgid "Tarih"
+msgstr "التاريخ"
+
+#: apps/worksheets/models.py:65
+msgid "Coğrafya"
+msgstr "جغرافيا"
+
+#: apps/worksheets/models.py:66
+msgid "Fizik"
+msgstr "فيزياء"
+
+#: apps/worksheets/models.py:66
+msgid "Kimya"
+msgstr "كيمياء"
+
+#: apps/worksheets/models.py:66
+msgid "Biyoloji"
+msgstr "أحياء"
+
+#: apps/worksheets/models.py:66
+msgid "Fen Bilimleri"
+msgstr "علوم"
+
+#: apps/worksheets/models.py:66
+msgid "Sosyal Bilgiler"
+msgstr "دراسات اجتماعية"
+
+#: apps/worksheets/models.py:67
+msgid "Hayat Bilgisi"
+msgstr "علوم الحياة"
+
+#: apps/worksheets/models.py:67
+msgid "Din Kültürü"
+msgstr "ثقافة دينية"
+
+#: apps/worksheets/models.py:67
+msgid "Yabancı Dil"
+msgstr "لغة أجنبية"
+
+#: apps/worksheets/models.py:67
+msgid "Müzik"
+msgstr "موسيقى"
+
+#: apps/worksheets/models.py:67
+msgid "Resim"
+msgstr "صورة"
+
+#: templates/accounts/classroom_detail.html:8
+msgid "Sınıf Kodu"
+msgstr "إنشاء فصل"
+
+#: templates/accounts/classroom_detail.html:16
+#: templates/accounts/classroom_list.html:47
+#: templates/worksheets/editor.html:890
+msgid "Öğrenciler"
+msgstr "الطالب"
+
+#: templates/accounts/classroom_form.html:3
+#: templates/accounts/classroom_form.html:7
+#: templates/accounts/classroom_list.html:49 templates/base.html:147
+msgid "Sınıf Oluştur"
+msgstr "إنشاء فصل"
+
+#: templates/accounts/classroom_form.html:11
+msgid "Sınıf Adı"
+msgstr "فصولي"
+
+#: templates/accounts/classroom_form.html:15
+#: templates/workbooks/create.html:15 templates/worksheets/create.html:51
+msgid "Açıklama"
+msgstr "الوصف"
+
+#: templates/accounts/classroom_form.html:18
+#: templates/accounts/dashboard.html:143 templates/workbooks/create.html:18
+msgid "Oluştur"
+msgstr "إنشاء"
+
+#: templates/accounts/classroom_list.html:3
+#: templates/accounts/classroom_list.html:6
+#: templates/accounts/dashboard.html:112 templates/base.html:79
+#: templates/base.html:86
+msgid "Sınıflarım"
+msgstr "فصولي"
+
+#: templates/accounts/classroom_list.html:9
+msgid "Yeni Sınıf"
+msgstr "انضم إلى فصل جديد"
+
+#: templates/accounts/classroom_list.html:16
+#: templates/accounts/dashboard.html:233
+msgid "Katıl"
+msgstr "انضم"
+
+#: templates/accounts/classroom_list.html:35
+msgid "öğrenci"
+msgstr "الطالب"
+
+#: templates/accounts/classroom_list.html:46
+msgid "Henüz sınıfınız yok"
+msgstr "ليس لديك أي فئة"
+
+#: templates/accounts/classroom_list.html:52
+msgid "Henüz bir sınıfa katılmadınız"
+msgstr "ليس لديك أي أوراق عمل بعد"
+
+#: templates/accounts/classroom_list.html:53
+msgid "Öğretmeninizden sınıf kodunu alın ve yukarıya girin."
+msgstr "أدخل رمز المشاركة الذي قدمه معلمك."
+
+#: templates/accounts/dashboard.html:3 templates/base.html:69
+msgid "Panel"
+msgstr "لوحة"
+
+#: templates/accounts/dashboard.html:8
+msgid "Merhaba,"
+msgstr "مرحبا"
+
+#: templates/accounts/dashboard.html:12
+msgid "Öğretmen Yönetim Paneli"
+msgstr "لوحة إدارة المعلم"
+
+#: templates/accounts/dashboard.html:14
+msgid "Öğrenci Kontrol Paneli"
+msgstr "لوحة تحكم الطالب"
+
+#: templates/accounts/dashboard.html:29 templates/submissions/list.html:11
+msgid "Çalışma Kağıdı"
+msgstr "ورقة عمل"
+
+#: templates/accounts/dashboard.html:40
+msgid "Toplam Öğrenci"
+msgstr "إجمالي الطلاب"
+
+#: templates/accounts/dashboard.html:51
+msgid "Aktif Ödev"
+msgstr "واجب منزلي نشط"
+
+#: templates/accounts/dashboard.html:61
+msgid "Son Çalışma Kağıtları"
+msgstr "أحدث أوراق العمل"
+
+#: templates/accounts/dashboard.html:63 templates/accounts/dashboard.html:114
+msgid "Yeni Ekle"
+msgstr "إضافة جديد"
+
+#: templates/accounts/dashboard.html:79
+msgid "görüntülenme"
+msgstr "مشاهدات"
+
+#: templates/accounts/dashboard.html:83 templates/worksheets/list.html:29
+msgid "Düzenle"
+msgstr "تحرير"
+
+#: templates/accounts/dashboard.html:86
+msgid "Görüntüle"
+msgstr "عرض"
+
+#: templates/accounts/dashboard.html:89 templates/worksheets/list.html:35
+msgid "Sil"
+msgstr "حذف"
+
+#: templates/accounts/dashboard.html:96
+msgid "Tümünü Gör"
+msgstr "شاهد الكل"
+
+#: templates/accounts/dashboard.html:102
+msgid "Çalışma Kağıdı Bulunamadı"
+msgstr "لم يتم العثور على ورقة عمل"
+
+#: templates/accounts/dashboard.html:103
+msgid "Öğrencilerinize atamak için ilk materyalinizi hazırlayın."
+msgstr "قم بإعداد المادة الأولى لتعيينها لطلابك."
+
+#: templates/accounts/dashboard.html:104 templates/worksheets/list.html:68
+msgid "İlk Kağıdınızı Oluşturun"
+msgstr "أنشئ ورقتك الأولى"
+
+#: templates/accounts/dashboard.html:130 templates/assignments/detail.html:30
+msgid "Öğrenci"
+msgstr "الطالب"
+
+#: templates/accounts/dashboard.html:141
+msgid "Sınıfınız Yok"
+msgstr "ليس لديك أي فئة"
+
+#: templates/accounts/dashboard.html:142
+msgid "Öğrencilerinizi gruplamak için sınıf oluşturun."
+msgstr "قم بإنشاء فصول لتجميع طلابك."
+
+#: templates/accounts/dashboard.html:153
+msgid "Bekleyen Ödevlerim"
+msgstr "واجباتي المعلقة"
+
+#: templates/accounts/dashboard.html:154
+msgid "Görev"
+msgstr "السعي"
+
+#: templates/accounts/dashboard.html:176
+msgid "Süresi Geçti!"
+msgstr "منتهي الصلاحية!"
+
+#: templates/accounts/dashboard.html:178
+msgid "Teslim"
+msgstr "التسليم"
+
+#: templates/accounts/dashboard.html:181
+msgid "Süresiz"
+msgstr "غير محدد"
+
+#: templates/accounts/dashboard.html:185 templates/assignments/list.html:39
+msgid "Başla"
+msgstr "ابدأ"
+
+#: templates/accounts/dashboard.html:194
+msgid "Harika Haber!"
+msgstr "أخبار عظيمة!"
+
+#: templates/accounts/dashboard.html:195
+msgid "Şu anda bekleyen hiçbir ödeviniz yok."
+msgstr "ليس لديك حاليا أية مهام معلقة."
+
+#: templates/accounts/dashboard.html:201
+msgid "Kayıtlı Sınıflarım"
+msgstr "دروسي المحفوظة"
+
+#: templates/accounts/dashboard.html:224
+msgid "Yeni Sınıfa Katıl"
+msgstr "انضم إلى فصل جديد"
+
+#: templates/accounts/dashboard.html:225
+msgid "Öğretmeninizin verdiği katılım kodunu giriniz."
+msgstr "أدخل رمز المشاركة الذي قدمه معلمك."
+
+#: templates/accounts/dashboard.html:232
+msgid "KOD-GİRİN"
+msgstr "أدخل الرمز"
+
+#: templates/accounts/login.html:3 templates/accounts/login.html:28
+#: templates/accounts/register.html:77 templates/base.html:157
+msgid "Giriş Yap"
+msgstr "تسجيل الدخول"
+
+#: templates/accounts/login.html:9
+msgid "Tekrar Hoş Geldiniz"
+msgstr "أهلا بعودتك"
+
+#: templates/accounts/login.html:10
+msgid "Hesabınıza giriş yapın"
+msgstr "قم بتسجيل الدخول إلى حسابك"
+
+#: templates/accounts/login.html:16 templates/accounts/register.html:47
+msgid "E-posta"
+msgstr "البريد الإلكتروني"
+
+#: templates/accounts/login.html:22 templates/accounts/register.html:53
+msgid "Şifre"
+msgstr "كلمة المرور"
+
+#: templates/accounts/login.html:33
+msgid "Hesabınız yok mu?"
+msgstr "ليس لديك حساب؟"
+
+#: templates/accounts/login.html:33 templates/accounts/register.html:3
+#: templates/base.html:158
+msgid "Kayıt Ol"
+msgstr "سجل"
+
+#: templates/accounts/profile.html:6
+msgid "Profilim"
+msgstr "الملف الشخصي"
+
+#: templates/accounts/profile.html:13
+msgid "Profil fotoğrafı"
+msgstr "الصورة الشخصية"
+
+#: templates/accounts/profile.html:17
+msgid "Profil Fotoğrafı"
+msgstr "صورة الملف الشخصي"
+
+#: templates/accounts/profile.html:22 templates/accounts/register.html:34
+msgid "Ad"
+msgstr "الاسم"
+
+#: templates/accounts/profile.html:26 templates/accounts/register.html:40
+msgid "Soyad"
+msgstr "اللقب"
+
+#: templates/accounts/profile.html:31
+msgid "Okul/Kurum"
+msgstr "المدرسة/المؤسسة"
+
+#: templates/accounts/profile.html:35
+msgid "Ülke"
+msgstr "الدولة"
+
+#: templates/accounts/profile.html:39
+msgid "Hakkında"
+msgstr "حول"
+
+#: templates/accounts/register.html:9
+msgid "Ücretsiz Hesap Oluştur"
+msgstr "إنشاء حساب مجاني"
+
+#: templates/accounts/register.html:19
+msgid "Öğretmenim"
+msgstr "أستاذي"
+
+#: templates/accounts/register.html:26
+msgid "Öğrenciyim"
+msgstr "أنا طالب"
+
+#: templates/accounts/register.html:37
+msgid "Adınız"
+msgstr "اسمك"
+
+#: templates/accounts/register.html:43
+msgid "Soyadınız"
+msgstr "لقبك"
+
+#: templates/accounts/register.html:56
+msgid "En az 8 karakter"
+msgstr "8 أحرف على الأقل"
+
+#: templates/accounts/register.html:59
+msgid "Şifre Tekrar"
+msgstr "كلمة المرور مرة أخرى"
+
+#: templates/accounts/register.html:62
+msgid "Şifreyi tekrar girin"
+msgstr "أعد إدخال كلمة المرور"
+
+#: templates/accounts/register.html:72
+msgid "Hesap Oluştur"
+msgstr "إنشاء حساب"
+
+#: templates/accounts/register.html:77
+msgid "Zaten hesabınız var mı?"
+msgstr "هل لديك حساب بالفعل؟"
+
+#: templates/assignments/create.html:7 templates/assignments/detail.html:6
+#: templates/workbooks/detail.html:7
+msgid "Geri"
+msgstr "العودة"
+
+#: templates/assignments/create.html:36 templates/assignments/create.html:47
+#: templates/workbooks/detail.html:50 templates/worksheets/create.html:60
+#: templates/worksheets/create.html:69
+msgid "Seçin..."
+msgstr "اختر..."
+
+#: templates/assignments/detail.html:10
+msgid "Son teslim"
+msgstr "التسليم"
+
+#: templates/assignments/detail.html:19
+msgid "Öğrenci Gönderimleri"
+msgstr "الطالب"
+
+#: templates/assignments/detail.html:22
+msgid "Önizle"
+msgstr "معاينة"
+
+#: templates/assignments/detail.html:31 templates/submissions/list.html:12
+msgid "Puan"
+msgstr "النتيجة"
+
+#: templates/assignments/detail.html:32 templates/submissions/list.html:13
+msgid "Doğru/Toplam"
+msgstr "صحيح/المجموع"
+
+#: templates/assignments/detail.html:43
+msgid "Devam Ediyor"
+msgstr "قيد التقدم"
+
+#: templates/assignments/detail.html:53
+msgid "Soru"
+msgstr "سؤال"
+
+#: templates/assignments/detail.html:62 templates/assignments/list.html:39
+#: templates/submissions/list.html:30
+msgid "Detay"
+msgstr "تفصيل"
+
+#: templates/assignments/detail.html:70
+msgid "Henüz gönderim yok."
+msgstr "ليس لديك مشاركات بعد."
+
+#: templates/assignments/detail.html:80
+msgid "Taslak Kaydınız Var"
+msgstr "لديك مسودة تسجيل"
+
+#: templates/assignments/detail.html:82
+msgid "Çözülmeye devam ediliyor"
+msgstr "مستمر في الحل"
+
+#: templates/assignments/detail.html:86
+msgid "Son Sonucunuz"
+msgstr "النتيجة الأخيرة"
+
+#: templates/assignments/detail.html:90
+msgid "doğru"
+msgstr "صحيح"
+
+#: templates/assignments/detail.html:93
+msgid "Detayları Gör"
+msgstr "انظر إجاباتي"
+
+#: templates/assignments/detail.html:104
+msgid "Ödeve Devam Et"
+msgstr "متابعة المهمة"
+
+#: templates/assignments/detail.html:106
+msgid "Ödevi Başlat"
+msgstr "إنشاء حساب مجاني"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:82
+msgid "Ödevler"
+msgstr "الواجبات"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:89
+msgid "Ödevlerim"
+msgstr "واجباتي"
+
+#: templates/assignments/list.html:9
+msgid "Yeni Ödev"
+msgstr "مهمة جديدة"
+
+#: templates/assignments/list.html:28
+msgid "Süresi doldu"
+msgstr "انتهت"
+
+#: templates/assignments/list.html:47
+msgid "Henüz ödev yok"
+msgstr "لا يوجد واجب منزلي بعد"
+
+#: templates/assignments/list.html:49
+msgid "Ödev Oluştur"
+msgstr "إنشاء الواجب"
+
+#: templates/base.html:73 templates/home.html:8
+msgid "Çalışma Kağıtları"
+msgstr "أوراق عمل"
+
+#: templates/base.html:76
+msgid "Defterler"
+msgstr "دفاتر"
+
+#: templates/base.html:92 templates/submissions/list.html:3
+#: templates/submissions/list.html:5
+msgid "Sonuçlarım"
+msgstr "نتائجي"
+
+#: templates/base.html:96 templates/library/index.html:3
+msgid "Kütüphane"
+msgstr "مكتبة"
+
+#: templates/base.html:143
+msgid "Profil"
+msgstr "الملف الشخصي"
+
+#: templates/base.html:152
+msgid "Çıkış"
+msgstr "خروج"
+
+#: templates/base.html:189
+msgid "Etkileşimli Eğitim Platformu"
+msgstr "منصة التعليم التفاعلي"
+
+#: templates/home.html:8
+msgid "Etkileşimli"
+msgstr "تفاعلية"
+
+#: templates/home.html:8
+msgid "Oluşturun"
+msgstr "إنشاء"
+
+#: templates/home.html:11
+msgid ""
+"PDF ve görsellerinizi; sürükle-bırak, çoktan seçmeli, sesli yanıt gibi "
+"interaktif sorularla dönüştürün. Öğrencilerinizi takip edin, anında puan "
+"verin."
+msgstr ""
+"ملفات PDF والصور الخاصة بك؛ قم بتحويله باستخدام أسئلة تفاعلية مثل السحب "
+"والإفلات والاختيار من متعدد والاستجابة الصوتية. اتبع طلابك وإعطاء النقاط على"
+" الفور."
+
+#: templates/home.html:15
+msgid "Ücretsiz Başla"
+msgstr "إنشاء حساب مجاني"
+
+#: templates/home.html:18
+msgid "Kütüphaneye Göz At"
+msgstr "مكتبة"
+
+#: templates/library/index.html:7
+msgid "Etkileşimli Çalışma Kütüphanesi"
+msgstr "مكتبة الدراسات التفاعلية"
+
+#: templates/library/index.html:13
+msgid "Konu, etiket veya öğretmen adı..."
+msgstr "الموضوع أو العلامة أو اسم المعلم..."
+
+#: templates/library/index.html:16
+msgid "Tüm Dersler"
+msgstr "جميع الدروس"
+
+#: templates/library/index.html:20
+msgid "Tüm Seviyeler"
+msgstr "جميع المستويات"
+
+#: templates/library/index.html:24
+msgid "Tüm Diller"
+msgstr "جميع اللغات"
+
+#: templates/library/index.html:28
+msgid "Ara"
+msgstr "بحث"
+
+#: templates/library/index.html:46
+msgid "Öne Çıkan"
+msgstr "مميز"
+
+#: templates/library/index.html:51 templates/worksheets/list.html:32
+msgid "Çöz"
+msgstr "حل"
+
+#: templates/library/index.html:78
+msgid "Sonuç bulunamadı"
+msgstr "لم يتم العثور على نتائج"
+
+#: templates/library/index.html:79
+msgid "Farklı anahtar kelimeler deneyin."
+msgstr "جرب كلمات رئيسية مختلفة."
+
+#: templates/submissions/list.html:40
+msgid "Henüz gönderiminiz yok."
+msgstr "ليس لديك مشاركات بعد."
+
+#: templates/workbooks/create.html:3 templates/workbooks/list.html:8
+msgid "Yeni Defter"
+msgstr "دفاتر"
+
+#: templates/workbooks/create.html:7
+msgid "Yeni Dijital Defter"
+msgstr "دفاتر"
+
+#: templates/workbooks/create.html:11
+msgid "Defter Adı"
+msgstr "دفاتر"
+
+#: templates/workbooks/list.html:3 templates/workbooks/list.html:6
+msgid "Defterlerim"
+msgstr "دفاتر"
+
+#: templates/workbooks/list.html:32 templates/worksheets/list.html:40
+msgid "Ödev Ver"
+msgstr "إعطاء الواجب المنزلي"
+
+#: templates/workbooks/list.html:41
+msgid "Henüz defter yok"
+msgstr "لا يوجد واجب منزلي بعد"
+
+#: templates/workbooks/list.html:42
+msgid "Defter Oluştur"
+msgstr "إنشاء جديد"
+
+#: templates/worksheets/create.html:3 templates/worksheets/create.html:10
+msgid "Yeni Çalışma Kağıdı"
+msgstr "ورقة عمل"
+
+#: templates/worksheets/create.html:21
+msgid "PDF Dosyası"
+msgstr "ملف بي دي اف"
+
+#: templates/worksheets/create.html:21
+msgid "(opsiyonel — her sayfa otomatik oluşturulur)"
+msgstr "(اختياري — يتم إنشاء كل صفحة تلقائيًا)"
+
+#: templates/worksheets/create.html:26 templates/worksheets/create.html:167
+msgid "PDF dosyası seçin veya buraya sürükleyin"
+msgstr "حدد أو اسحب ملف PDF هنا"
+
+#: templates/worksheets/create.html:27 templates/worksheets/create.html:168
+msgid "Maks. 50 MB"
+msgstr "الأعلى. 50 ميجا"
+
+#: templates/worksheets/create.html:34
+msgid "Kaldır"
+msgstr "إزالة"
+
+#: templates/worksheets/create.html:40
+msgid "veya bilgileri doldurun"
+msgstr "أو املأ المعلومات"
+
+#: templates/worksheets/create.html:45
+msgid "Başlık"
+msgstr "ابدأ"
+
+#: templates/worksheets/create.html:48
+msgid "Örn: 2. Sınıf Toplama İşlemi"
+msgstr "على سبيل المثال: إضافة الدرجة الثانية"
+
+#: templates/worksheets/create.html:54
+msgid "Kağıt hakkında kısa bir açıklama"
+msgstr "وصف مختصر عن الورقة"
+
+#: templates/worksheets/create.html:58
+msgid "Ders"
+msgstr "الدرس"
+
+#: templates/worksheets/create.html:67
+msgid "Seviye"
+msgstr "جميع المستويات"
+
+#: templates/worksheets/create.html:78
+msgid "Dil"
+msgstr "حذف"
+
+#: templates/worksheets/create.html:86
+msgid "Etiketler"
+msgstr "العلامات"
+
+#: templates/worksheets/create.html:89
+msgid "matematik, toplama"
+msgstr "الرياضيات، الجمع"
+
+#: templates/worksheets/create.html:95
+msgid "Puanlama Sistemi"
+msgstr "نظام التسجيل"
+
+#: templates/worksheets/create.html:96
+msgid "(öğrenciye gösterilecek puan)"
+msgstr "(الدرجة التي سيتم إظهارها للطالب)"
+
+#: templates/worksheets/create.html:104
+msgid "100'lük Sistem"
+msgstr "نظام 100"
+
+#: templates/worksheets/create.html:105
+msgid "Öğrenciye 0–100 arası puan gösterilir"
+msgstr "تظهر للطالب درجة تتراوح بين 0 و 100"
+
+#: templates/worksheets/create.html:108 templates/worksheets/create.html:119
+msgid "Seçili"
+msgstr "تم التحديد"
+
+#: templates/worksheets/create.html:115
+msgid "10'luk Sistem"
+msgstr "نظام 10"
+
+#: templates/worksheets/create.html:116
+msgid "Öğrenciye 0–10 arası puan gösterilir"
+msgstr "تظهر للطالب درجة تتراوح بين 0 و 10"
+
+#: templates/worksheets/create.html:127
+msgid "Herkese açık (kütüphaneye eklenebilir)"
+msgstr "عام (يمكن إضافته إلى المكتبة)"
+
+#: templates/worksheets/create.html:131
+msgid "Oluştur ve Düzenle"
+msgstr "إنشاء وتحرير"
+
+#: templates/worksheets/create.html:133 templates/worksheets/editor.html:382
+#: templates/worksheets/editor.html:409
+msgid "İptal"
+msgstr "إلغاء"
+
+#: templates/worksheets/create.html:155
+msgid "PDF yüklendi — sayfa sayısı işlem sırasında belirlenir."
+msgstr "تم تحميل ملف PDF - يتم تحديد عدد الصفحات أثناء العملية."
+
+#: templates/worksheets/create.html:161
+msgid "PDF İşle ve Oluştur"
+msgstr "إنشاء الواجب"
+
+#: templates/worksheets/create.html:192
+msgid "PDF işleniyor, lütfen bekleyin..."
+msgstr "جاري معالجة ملف PDF، يرجى الانتظار..."
+
+#: templates/worksheets/list.html:3 templates/worksheets/list.html:6
+msgid "Çalışma Kağıtlarım"
+msgstr "أوراق العمل الخاصة بي"
+
+#: templates/worksheets/list.html:8
+msgid "Yeni Oluştur"
+msgstr "إنشاء جديد"
+
+#: templates/worksheets/list.html:52
+msgid "Herkese Açık"
+msgstr "عام"
+
+#: templates/worksheets/list.html:52
+msgid "Özel"
+msgstr "خاص"
+
+#: templates/worksheets/list.html:65
+msgid "Henüz çalışma kağıdınız yok"
+msgstr "ليس لديك أي أوراق عمل بعد"
+
+#: templates/worksheets/list.html:66
+msgid "PDF veya görselden etkileşimli çalışma kağıtları oluşturun."
+msgstr "قم بإنشاء أوراق عمل تفاعلية من ملف PDF أو صورة."
+
+#: templates/worksheets/player.html:216
+msgid "10\\'luk Sistem"
+msgstr "نظام 10"
+
+#: templates/worksheets/player.html:216
+msgid "100\\'lük Sistem"
+msgstr "نظام 100"
+
+#: templates/worksheets/player.html:235
+msgid "Harika iş! Tebrikler!"
+msgstr "عمل عظيم! تهانينا!"
+
+#: templates/worksheets/player.html:235
+msgid "Biraz daha çalışabilirsin."
+msgstr "يمكنك العمل أكثر من ذلك بقليل."
+
+#: templates/worksheets/player.html:242
+msgid "Geçti"
+msgstr "مرت"
+
+#: templates/worksheets/player.html:242
+msgid "Geçemedi"
+msgstr "لا يمكن المرور"
+
+#: templates/worksheets/player.html:251
+msgid "Cevaplarımı Gör"
+msgstr "انظر إجاباتي"
+
+#: templates/worksheets/player.html:255
+msgid "Tekrar Dene"
+msgstr "حاول مرة أخرى"
+
+#: templates/worksheets/player.html:259
+msgid "Diğer Kağıtlar"
+msgstr "أوراق أخرى"
+
+#: templates/worksheets/player.html:653
+msgid "Çözmeye Daha Sonra Devam Et"
+msgstr "متابعة الحل لاحقًا"
+
+#: templates/worksheets/player.html:658
+msgid "Gönder ve Puanla"
+msgstr "إرسال وتقييم"
+
+#: templates/worksheets/player.html:745
+msgid "Başarılı!"
+msgstr "ناجح!"
+
+#: templates/worksheets/player.html:746
+msgid ""
+"Cevaplarınız taslak olarak kaydedildi. İstediğiniz zaman geri dönüp devam "
+"edebilirsiniz."
+msgstr "تم حفظ إجاباتك كمسودات. يمكنك العودة والمتابعة وقتما تشاء."
+
+#: templates/worksheets/player.html:748
+msgid "Tamam"
+msgstr "نعم"
+
+#~ msgid "Doğru"
+#~ msgstr "صحيح"

@@ -1,0 +1,914 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-16 19:20+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps/accounts/views.py:16
+msgid "Sürükle & Bırak"
+msgstr "드래그 앤 드롭"
+
+#: apps/accounts/views.py:16
+msgid "Öğrenciler nesneleri doğru kutucuklara sürükler."
+msgstr "학생들은 개체를 올바른 상자에 끌어다 놓습니다."
+
+#: apps/accounts/views.py:17
+msgid "Çoktan Seçmeli"
+msgstr "객관식"
+
+#: apps/accounts/views.py:17
+msgid "Klasik çoktan seçmeli sorular oluşturun."
+msgstr "전형적인 객관식 질문을 만들어 보세요."
+
+#: apps/accounts/views.py:18
+msgid "Eşleştirme"
+msgstr "매칭"
+
+#: apps/accounts/views.py:18
+msgid "İki sütun arasında öğeleri birbirine bağlayın."
+msgstr "두 열 사이에 항목을 연결합니다."
+
+#: apps/accounts/views.py:19
+msgid "Sesli Yanıt"
+msgstr "음성 응답"
+
+#: apps/accounts/views.py:19
+msgid "Öğrenciler mikrofon ile sözlü cevap verebilir."
+msgstr "학생들은 마이크를 통해 구두로 답변할 수 있습니다."
+
+#: apps/accounts/views.py:20
+msgid "Video Entegrasyonu"
+msgstr "비디오 통합"
+
+#: apps/accounts/views.py:20
+msgid "YouTube/Vimeo videolarını kağıda gömün."
+msgstr "YouTube/Vimeo 비디오를 종이에 삽입하세요."
+
+#: apps/accounts/views.py:21
+msgid "Anında Puanlama"
+msgstr "즉시 점수 매기기"
+
+#: apps/accounts/views.py:21
+msgid "Sistem cevapları otomatik değerlendirir ve puan verir."
+msgstr "시스템은 자동으로 답변을 평가하고 점수를 부여합니다."
+
+#: apps/worksheets/models.py:22
+msgid "Anaokulu"
+msgstr "유치원"
+
+#: apps/worksheets/models.py:23
+msgid "İlkokul"
+msgstr "초등학교"
+
+#: apps/worksheets/models.py:24
+msgid "Ortaokul"
+msgstr "중등학교"
+
+#: apps/worksheets/models.py:25
+msgid "Lise"
+msgstr "고등학교"
+
+#: apps/worksheets/models.py:26
+msgid "Üniversite"
+msgstr "대학"
+
+#: apps/worksheets/models.py:27
+msgid "Yetişkin"
+msgstr "성인"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "Türkçe"
+msgstr "터키어"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "İngilizce"
+msgstr "영어"
+
+#: apps/worksheets/models.py:30
+msgid "Almanca"
+msgstr "독일어"
+
+#: apps/worksheets/models.py:31
+msgid "Fransızca"
+msgstr "프랑스어"
+
+#: apps/worksheets/models.py:31
+msgid "İspanyolca"
+msgstr "스페인어"
+
+#: apps/worksheets/models.py:31
+msgid "Arapça"
+msgstr "아랍어"
+
+#: apps/worksheets/models.py:32
+msgid "Portekizce"
+msgstr "포르투갈어"
+
+#: apps/worksheets/models.py:32
+msgid "Rusça"
+msgstr "러시아어"
+
+#: apps/worksheets/models.py:32
+msgid "Çince"
+msgstr "중국어"
+
+#: apps/worksheets/models.py:33
+msgid "İtalyanca"
+msgstr "이탈리아어"
+
+#: apps/worksheets/models.py:33
+msgid "Korece"
+msgstr "한국어"
+
+#: apps/worksheets/models.py:38
+msgid "100'lük Sistem (0–100 puan)"
+msgstr "100 시스템"
+
+#: apps/worksheets/models.py:39
+msgid "10'luk Sistem (0–10 puan)"
+msgstr "10인 시스템"
+
+#: apps/worksheets/models.py:65
+msgid "Matematik"
+msgstr "수학"
+
+#: apps/worksheets/models.py:65 templates/assignments/detail.html:33
+#: templates/submissions/list.html:14
+msgid "Tarih"
+msgstr "날짜"
+
+#: apps/worksheets/models.py:65
+msgid "Coğrafya"
+msgstr "지리"
+
+#: apps/worksheets/models.py:66
+msgid "Fizik"
+msgstr "물리학"
+
+#: apps/worksheets/models.py:66
+msgid "Kimya"
+msgstr "화학"
+
+#: apps/worksheets/models.py:66
+msgid "Biyoloji"
+msgstr "생물학"
+
+#: apps/worksheets/models.py:66
+msgid "Fen Bilimleri"
+msgstr "과학"
+
+#: apps/worksheets/models.py:66
+msgid "Sosyal Bilgiler"
+msgstr "사회"
+
+#: apps/worksheets/models.py:67
+msgid "Hayat Bilgisi"
+msgstr "생명과학"
+
+#: apps/worksheets/models.py:67
+msgid "Din Kültürü"
+msgstr "종교 문화"
+
+#: apps/worksheets/models.py:67
+msgid "Yabancı Dil"
+msgstr "외국어"
+
+#: apps/worksheets/models.py:67
+msgid "Müzik"
+msgstr "음악"
+
+#: apps/worksheets/models.py:67
+msgid "Resim"
+msgstr "그림"
+
+#: templates/accounts/classroom_detail.html:8
+msgid "Sınıf Kodu"
+msgstr "수업 만들기"
+
+#: templates/accounts/classroom_detail.html:16
+#: templates/accounts/classroom_list.html:47
+#: templates/worksheets/editor.html:890
+msgid "Öğrenciler"
+msgstr "학생"
+
+#: templates/accounts/classroom_form.html:3
+#: templates/accounts/classroom_form.html:7
+#: templates/accounts/classroom_list.html:49 templates/base.html:147
+msgid "Sınıf Oluştur"
+msgstr "수업 만들기"
+
+#: templates/accounts/classroom_form.html:11
+msgid "Sınıf Adı"
+msgstr "내 수업"
+
+#: templates/accounts/classroom_form.html:15
+#: templates/workbooks/create.html:15 templates/worksheets/create.html:51
+msgid "Açıklama"
+msgstr "설명"
+
+#: templates/accounts/classroom_form.html:18
+#: templates/accounts/dashboard.html:143 templates/workbooks/create.html:18
+msgid "Oluştur"
+msgstr "만들기"
+
+#: templates/accounts/classroom_list.html:3
+#: templates/accounts/classroom_list.html:6
+#: templates/accounts/dashboard.html:112 templates/base.html:79
+#: templates/base.html:86
+msgid "Sınıflarım"
+msgstr "내 수업"
+
+#: templates/accounts/classroom_list.html:9
+msgid "Yeni Sınıf"
+msgstr "새 수업에 참여"
+
+#: templates/accounts/classroom_list.html:16
+#: templates/accounts/dashboard.html:233
+msgid "Katıl"
+msgstr "가입"
+
+#: templates/accounts/classroom_list.html:35
+msgid "öğrenci"
+msgstr "학생"
+
+#: templates/accounts/classroom_list.html:46
+msgid "Henüz sınıfınız yok"
+msgstr "넌 수업이 없어"
+
+#: templates/accounts/classroom_list.html:52
+msgid "Henüz bir sınıfa katılmadınız"
+msgstr "아직 워크시트가 없습니다"
+
+#: templates/accounts/classroom_list.html:53
+msgid "Öğretmeninizden sınıf kodunu alın ve yukarıya girin."
+msgstr "선생님이 알려주신 참여코드를 입력하세요."
+
+#: templates/accounts/dashboard.html:3 templates/base.html:69
+msgid "Panel"
+msgstr "패널"
+
+#: templates/accounts/dashboard.html:8
+msgid "Merhaba,"
+msgstr "안녕하세요,"
+
+#: templates/accounts/dashboard.html:12
+msgid "Öğretmen Yönetim Paneli"
+msgstr "교사 관리 패널"
+
+#: templates/accounts/dashboard.html:14
+msgid "Öğrenci Kontrol Paneli"
+msgstr "학생 제어판"
+
+#: templates/accounts/dashboard.html:29 templates/submissions/list.html:11
+msgid "Çalışma Kağıdı"
+msgstr "워크시트"
+
+#: templates/accounts/dashboard.html:40
+msgid "Toplam Öğrenci"
+msgstr "총 학생 수"
+
+#: templates/accounts/dashboard.html:51
+msgid "Aktif Ödev"
+msgstr "적극적인 숙제"
+
+#: templates/accounts/dashboard.html:61
+msgid "Son Çalışma Kağıtları"
+msgstr "최신 연구 보고서"
+
+#: templates/accounts/dashboard.html:63 templates/accounts/dashboard.html:114
+msgid "Yeni Ekle"
+msgstr "새로 추가"
+
+#: templates/accounts/dashboard.html:79
+msgid "görüntülenme"
+msgstr "조회수"
+
+#: templates/accounts/dashboard.html:83 templates/worksheets/list.html:29
+msgid "Düzenle"
+msgstr "편집"
+
+#: templates/accounts/dashboard.html:86
+msgid "Görüntüle"
+msgstr "보기"
+
+#: templates/accounts/dashboard.html:89 templates/worksheets/list.html:35
+msgid "Sil"
+msgstr "삭제"
+
+#: templates/accounts/dashboard.html:96
+msgid "Tümünü Gör"
+msgstr "모두 보기"
+
+#: templates/accounts/dashboard.html:102
+msgid "Çalışma Kağıdı Bulunamadı"
+msgstr "작업 문서를 찾을 수 없습니다"
+
+#: templates/accounts/dashboard.html:103
+msgid "Öğrencilerinize atamak için ilk materyalinizi hazırlayın."
+msgstr "학생들에게 할당할 첫 번째 자료를 준비하세요."
+
+#: templates/accounts/dashboard.html:104 templates/worksheets/list.html:68
+msgid "İlk Kağıdınızı Oluşturun"
+msgstr "첫 번째 논문 작성"
+
+#: templates/accounts/dashboard.html:130 templates/assignments/detail.html:30
+msgid "Öğrenci"
+msgstr "학생"
+
+#: templates/accounts/dashboard.html:141
+msgid "Sınıfınız Yok"
+msgstr "넌 수업이 없어"
+
+#: templates/accounts/dashboard.html:142
+msgid "Öğrencilerinizi gruplamak için sınıf oluşturun."
+msgstr "수업을 만들어 학생들을 그룹화하세요."
+
+#: templates/accounts/dashboard.html:153
+msgid "Bekleyen Ödevlerim"
+msgstr "내 보류 중인 과제"
+
+#: templates/accounts/dashboard.html:154
+msgid "Görev"
+msgstr "퀘스트"
+
+#: templates/accounts/dashboard.html:176
+msgid "Süresi Geçti!"
+msgstr "만료되었습니다!"
+
+#: templates/accounts/dashboard.html:178
+msgid "Teslim"
+msgstr "배달"
+
+#: templates/accounts/dashboard.html:181
+msgid "Süresiz"
+msgstr "무기한"
+
+#: templates/accounts/dashboard.html:185 templates/assignments/list.html:39
+msgid "Başla"
+msgstr "시작"
+
+#: templates/accounts/dashboard.html:194
+msgid "Harika Haber!"
+msgstr "좋은 소식입니다!"
+
+#: templates/accounts/dashboard.html:195
+msgid "Şu anda bekleyen hiçbir ödeviniz yok."
+msgstr "현재 보류 중인 과제가 없습니다."
+
+#: templates/accounts/dashboard.html:201
+msgid "Kayıtlı Sınıflarım"
+msgstr "내가 저장한 수업"
+
+#: templates/accounts/dashboard.html:224
+msgid "Yeni Sınıfa Katıl"
+msgstr "새 수업에 참여"
+
+#: templates/accounts/dashboard.html:225
+msgid "Öğretmeninizin verdiği katılım kodunu giriniz."
+msgstr "선생님이 알려주신 참여코드를 입력하세요."
+
+#: templates/accounts/dashboard.html:232
+msgid "KOD-GİRİN"
+msgstr "코드를 입력하세요"
+
+#: templates/accounts/login.html:3 templates/accounts/login.html:28
+#: templates/accounts/register.html:77 templates/base.html:157
+msgid "Giriş Yap"
+msgstr "로그인"
+
+#: templates/accounts/login.html:9
+msgid "Tekrar Hoş Geldiniz"
+msgstr "돌아온 것을 환영합니다"
+
+#: templates/accounts/login.html:10
+msgid "Hesabınıza giriş yapın"
+msgstr "귀하의 계정에 로그인하세요"
+
+#: templates/accounts/login.html:16 templates/accounts/register.html:47
+msgid "E-posta"
+msgstr "이메일"
+
+#: templates/accounts/login.html:22 templates/accounts/register.html:53
+msgid "Şifre"
+msgstr "비밀번호"
+
+#: templates/accounts/login.html:33
+msgid "Hesabınız yok mu?"
+msgstr "계정이 없나요?"
+
+#: templates/accounts/login.html:33 templates/accounts/register.html:3
+#: templates/base.html:158
+msgid "Kayıt Ol"
+msgstr "가입"
+
+#: templates/accounts/profile.html:6
+msgid "Profilim"
+msgstr "프로필"
+
+#: templates/accounts/profile.html:13
+msgid "Profil fotoğrafı"
+msgstr "프로필 사진"
+
+#: templates/accounts/profile.html:17
+msgid "Profil Fotoğrafı"
+msgstr "프로필 사진"
+
+#: templates/accounts/profile.html:22 templates/accounts/register.html:34
+msgid "Ad"
+msgstr "이름"
+
+#: templates/accounts/profile.html:26 templates/accounts/register.html:40
+msgid "Soyad"
+msgstr "성"
+
+#: templates/accounts/profile.html:31
+msgid "Okul/Kurum"
+msgstr "학교/기관"
+
+#: templates/accounts/profile.html:35
+msgid "Ülke"
+msgstr "국가"
+
+#: templates/accounts/profile.html:39
+msgid "Hakkında"
+msgstr "소개"
+
+#: templates/accounts/register.html:9
+msgid "Ücretsiz Hesap Oluştur"
+msgstr "무료 계정 만들기"
+
+#: templates/accounts/register.html:19
+msgid "Öğretmenim"
+msgstr "선생님"
+
+#: templates/accounts/register.html:26
+msgid "Öğrenciyim"
+msgstr "나는 학생이다"
+
+#: templates/accounts/register.html:37
+msgid "Adınız"
+msgstr "당신의 이름"
+
+#: templates/accounts/register.html:43
+msgid "Soyadınız"
+msgstr "당신의 성"
+
+#: templates/accounts/register.html:56
+msgid "En az 8 karakter"
+msgstr "최소 8자 이상"
+
+#: templates/accounts/register.html:59
+msgid "Şifre Tekrar"
+msgstr "비밀번호를 다시 입력하세요"
+
+#: templates/accounts/register.html:62
+msgid "Şifreyi tekrar girin"
+msgstr "비밀번호를 다시 입력하세요"
+
+#: templates/accounts/register.html:72
+msgid "Hesap Oluştur"
+msgstr "계정 만들기"
+
+#: templates/accounts/register.html:77
+msgid "Zaten hesabınız var mı?"
+msgstr "이미 계정이 있나요?"
+
+#: templates/assignments/create.html:7 templates/assignments/detail.html:6
+#: templates/workbooks/detail.html:7
+msgid "Geri"
+msgstr "뒤로"
+
+#: templates/assignments/create.html:36 templates/assignments/create.html:47
+#: templates/workbooks/detail.html:50 templates/worksheets/create.html:60
+#: templates/worksheets/create.html:69
+msgid "Seçin..."
+msgstr "선택..."
+
+#: templates/assignments/detail.html:10
+msgid "Son teslim"
+msgstr "배달"
+
+#: templates/assignments/detail.html:19
+msgid "Öğrenci Gönderimleri"
+msgstr "학생"
+
+#: templates/assignments/detail.html:22
+msgid "Önizle"
+msgstr "미리보기"
+
+#: templates/assignments/detail.html:31 templates/submissions/list.html:12
+msgid "Puan"
+msgstr "점수"
+
+#: templates/assignments/detail.html:32 templates/submissions/list.html:13
+msgid "Doğru/Toplam"
+msgstr "참/전체"
+
+#: templates/assignments/detail.html:43
+msgid "Devam Ediyor"
+msgstr "진행 중"
+
+#: templates/assignments/detail.html:53
+msgid "Soru"
+msgstr "질문"
+
+#: templates/assignments/detail.html:62 templates/assignments/list.html:39
+#: templates/submissions/list.html:30
+msgid "Detay"
+msgstr "세부정보"
+
+#: templates/assignments/detail.html:70
+msgid "Henüz gönderim yok."
+msgstr "아직 게시물이 없습니다."
+
+#: templates/assignments/detail.html:80
+msgid "Taslak Kaydınız Var"
+msgstr "임시 등록이 있습니다"
+
+#: templates/assignments/detail.html:82
+msgid "Çözülmeye devam ediliyor"
+msgstr "계속 해결 중"
+
+#: templates/assignments/detail.html:86
+msgid "Son Sonucunuz"
+msgstr "마지막 결과"
+
+#: templates/assignments/detail.html:90
+msgid "doğru"
+msgstr "사실"
+
+#: templates/assignments/detail.html:93
+msgid "Detayları Gör"
+msgstr "내 답변 보기"
+
+#: templates/assignments/detail.html:104
+msgid "Ödeve Devam Et"
+msgstr "과제 계속"
+
+#: templates/assignments/detail.html:106
+msgid "Ödevi Başlat"
+msgstr "무료 계정 만들기"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:82
+msgid "Ödevler"
+msgstr "과제"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:89
+msgid "Ödevlerim"
+msgstr "내 숙제"
+
+#: templates/assignments/list.html:9
+msgid "Yeni Ödev"
+msgstr "새 과제"
+
+#: templates/assignments/list.html:28
+msgid "Süresi doldu"
+msgstr "만료됨"
+
+#: templates/assignments/list.html:47
+msgid "Henüz ödev yok"
+msgstr "아직 숙제가 없어요"
+
+#: templates/assignments/list.html:49
+msgid "Ödev Oluştur"
+msgstr "과제 생성"
+
+#: templates/base.html:73 templates/home.html:8
+msgid "Çalışma Kağıtları"
+msgstr "워크시트"
+
+#: templates/base.html:76
+msgid "Defterler"
+msgstr "노트북"
+
+#: templates/base.html:92 templates/submissions/list.html:3
+#: templates/submissions/list.html:5
+msgid "Sonuçlarım"
+msgstr "내 결과"
+
+#: templates/base.html:96 templates/library/index.html:3
+msgid "Kütüphane"
+msgstr "도서관"
+
+#: templates/base.html:143
+msgid "Profil"
+msgstr "프로필"
+
+#: templates/base.html:152
+msgid "Çıkış"
+msgstr "종료"
+
+#: templates/base.html:189
+msgid "Etkileşimli Eğitim Platformu"
+msgstr "대화형 교육 플랫폼"
+
+#: templates/home.html:8
+msgid "Etkileşimli"
+msgstr "대화형"
+
+#: templates/home.html:8
+msgid "Oluşturun"
+msgstr "만들기"
+
+#: templates/home.html:11
+msgid ""
+"PDF ve görsellerinizi; sürükle-bırak, çoktan seçmeli, sesli yanıt gibi "
+"interaktif sorularla dönüştürün. Öğrencilerinizi takip edin, anında puan "
+"verin."
+msgstr ""
+"귀하의 PDF 및 이미지 드래그 앤 드롭, 객관식, 음성 응답과 같은 대화형 질문으로 변환하세요. 학생들을 팔로우하고 즉시 포인트를 "
+"제공하세요."
+
+#: templates/home.html:15
+msgid "Ücretsiz Başla"
+msgstr "무료 계정 만들기"
+
+#: templates/home.html:18
+msgid "Kütüphaneye Göz At"
+msgstr "도서관"
+
+#: templates/library/index.html:7
+msgid "Etkileşimli Çalışma Kütüphanesi"
+msgstr "대화형 학습 라이브러리"
+
+#: templates/library/index.html:13
+msgid "Konu, etiket veya öğretmen adı..."
+msgstr "주제, 태그 또는 교사 이름..."
+
+#: templates/library/index.html:16
+msgid "Tüm Dersler"
+msgstr "모든 강의"
+
+#: templates/library/index.html:20
+msgid "Tüm Seviyeler"
+msgstr "모든 레벨"
+
+#: templates/library/index.html:24
+msgid "Tüm Diller"
+msgstr "모든 언어 ​​"
+
+#: templates/library/index.html:28
+msgid "Ara"
+msgstr "검색"
+
+#: templates/library/index.html:46
+msgid "Öne Çıkan"
+msgstr "특집"
+
+#: templates/library/index.html:51 templates/worksheets/list.html:32
+msgid "Çöz"
+msgstr "해결"
+
+#: templates/library/index.html:78
+msgid "Sonuç bulunamadı"
+msgstr "결과를 찾을 수 없습니다"
+
+#: templates/library/index.html:79
+msgid "Farklı anahtar kelimeler deneyin."
+msgstr "다른 키워드를 사용해 보세요."
+
+#: templates/submissions/list.html:40
+msgid "Henüz gönderiminiz yok."
+msgstr "아직 게시물이 없습니다."
+
+#: templates/workbooks/create.html:3 templates/workbooks/list.html:8
+msgid "Yeni Defter"
+msgstr "노트북"
+
+#: templates/workbooks/create.html:7
+msgid "Yeni Dijital Defter"
+msgstr "노트북"
+
+#: templates/workbooks/create.html:11
+msgid "Defter Adı"
+msgstr "노트북"
+
+#: templates/workbooks/list.html:3 templates/workbooks/list.html:6
+msgid "Defterlerim"
+msgstr "노트북"
+
+#: templates/workbooks/list.html:32 templates/worksheets/list.html:40
+msgid "Ödev Ver"
+msgstr "숙제 내줘"
+
+#: templates/workbooks/list.html:41
+msgid "Henüz defter yok"
+msgstr "아직 숙제가 없어요"
+
+#: templates/workbooks/list.html:42
+msgid "Defter Oluştur"
+msgstr "새로 만들기"
+
+#: templates/worksheets/create.html:3 templates/worksheets/create.html:10
+msgid "Yeni Çalışma Kağıdı"
+msgstr "워크시트"
+
+#: templates/worksheets/create.html:21
+msgid "PDF Dosyası"
+msgstr "PDF 파일"
+
+#: templates/worksheets/create.html:21
+msgid "(opsiyonel — her sayfa otomatik oluşturulur)"
+msgstr "(선택 사항 - 각 페이지가 자동으로 생성됨)"
+
+#: templates/worksheets/create.html:26 templates/worksheets/create.html:167
+msgid "PDF dosyası seçin veya buraya sürükleyin"
+msgstr "여기로 PDF 파일을 선택하거나 드래그하세요"
+
+#: templates/worksheets/create.html:27 templates/worksheets/create.html:168
+msgid "Maks. 50 MB"
+msgstr "최대. 50MB"
+
+#: templates/worksheets/create.html:34
+msgid "Kaldır"
+msgstr "제거"
+
+#: templates/worksheets/create.html:40
+msgid "veya bilgileri doldurun"
+msgstr "또는 정보를 입력하세요"
+
+#: templates/worksheets/create.html:45
+msgid "Başlık"
+msgstr "시작"
+
+#: templates/worksheets/create.html:48
+msgid "Örn: 2. Sınıf Toplama İşlemi"
+msgstr "예: 2차 클래스 추가"
+
+#: templates/worksheets/create.html:54
+msgid "Kağıt hakkında kısa bir açıklama"
+msgstr "논문에 대한 간략한 설명"
+
+#: templates/worksheets/create.html:58
+msgid "Ders"
+msgstr "레슨"
+
+#: templates/worksheets/create.html:67
+msgid "Seviye"
+msgstr "모든 레벨"
+
+#: templates/worksheets/create.html:78
+msgid "Dil"
+msgstr "삭제"
+
+#: templates/worksheets/create.html:86
+msgid "Etiketler"
+msgstr "태그"
+
+#: templates/worksheets/create.html:89
+msgid "matematik, toplama"
+msgstr "수학, 덧셈"
+
+#: templates/worksheets/create.html:95
+msgid "Puanlama Sistemi"
+msgstr "점수 시스템"
+
+#: templates/worksheets/create.html:96
+msgid "(öğrenciye gösterilecek puan)"
+msgstr "(학생에게 표시되는 점수)"
+
+#: templates/worksheets/create.html:104
+msgid "100'lük Sistem"
+msgstr "100 시스템"
+
+#: templates/worksheets/create.html:105
+msgid "Öğrenciye 0–100 arası puan gösterilir"
+msgstr "학생에게 0에서 100 사이의 점수가 표시됩니다"
+
+#: templates/worksheets/create.html:108 templates/worksheets/create.html:119
+msgid "Seçili"
+msgstr "선택됨"
+
+#: templates/worksheets/create.html:115
+msgid "10'luk Sistem"
+msgstr "10인 시스템"
+
+#: templates/worksheets/create.html:116
+msgid "Öğrenciye 0–10 arası puan gösterilir"
+msgstr "학생에게 0에서 10 사이의 점수가 표시됩니다"
+
+#: templates/worksheets/create.html:127
+msgid "Herkese açık (kütüphaneye eklenebilir)"
+msgstr "공개(라이브러리에 추가 가능)"
+
+#: templates/worksheets/create.html:131
+msgid "Oluştur ve Düzenle"
+msgstr "생성 및 편집"
+
+#: templates/worksheets/create.html:133 templates/worksheets/editor.html:382
+#: templates/worksheets/editor.html:409
+msgid "İptal"
+msgstr "취소"
+
+#: templates/worksheets/create.html:155
+msgid "PDF yüklendi — sayfa sayısı işlem sırasında belirlenir."
+msgstr "PDF 업로드 — 페이지 수는 프로세스 중에 결정됩니다."
+
+#: templates/worksheets/create.html:161
+msgid "PDF İşle ve Oluştur"
+msgstr "과제 생성"
+
+#: templates/worksheets/create.html:192
+msgid "PDF işleniyor, lütfen bekleyin..."
+msgstr "PDF를 처리 중입니다. 잠시 기다려 주세요..."
+
+#: templates/worksheets/list.html:3 templates/worksheets/list.html:6
+msgid "Çalışma Kağıtlarım"
+msgstr "내 작업 서류"
+
+#: templates/worksheets/list.html:8
+msgid "Yeni Oluştur"
+msgstr "새로 만들기"
+
+#: templates/worksheets/list.html:52
+msgid "Herkese Açık"
+msgstr "공개"
+
+#: templates/worksheets/list.html:52
+msgid "Özel"
+msgstr "비공개"
+
+#: templates/worksheets/list.html:65
+msgid "Henüz çalışma kağıdınız yok"
+msgstr "아직 워크시트가 없습니다"
+
+#: templates/worksheets/list.html:66
+msgid "PDF veya görselden etkileşimli çalışma kağıtları oluşturun."
+msgstr "PDF 또는 이미지에서 대화형 워크시트를 만듭니다."
+
+#: templates/worksheets/player.html:216
+msgid "10\\'luk Sistem"
+msgstr "10인 시스템"
+
+#: templates/worksheets/player.html:216
+msgid "100\\'lük Sistem"
+msgstr "100 시스템"
+
+#: templates/worksheets/player.html:235
+msgid "Harika iş! Tebrikler!"
+msgstr "정말 잘했어요! 축하해요!"
+
+#: templates/worksheets/player.html:235
+msgid "Biraz daha çalışabilirsin."
+msgstr "조금 더 일하시면 됩니다."
+
+#: templates/worksheets/player.html:242
+msgid "Geçti"
+msgstr "합격"
+
+#: templates/worksheets/player.html:242
+msgid "Geçemedi"
+msgstr "통과하지 못했어요"
+
+#: templates/worksheets/player.html:251
+msgid "Cevaplarımı Gör"
+msgstr "내 답변 보기"
+
+#: templates/worksheets/player.html:255
+msgid "Tekrar Dene"
+msgstr "다시 시도해 보세요"
+
+#: templates/worksheets/player.html:259
+msgid "Diğer Kağıtlar"
+msgstr "기타 논문"
+
+#: templates/worksheets/player.html:653
+msgid "Çözmeye Daha Sonra Devam Et"
+msgstr "나중에 계속 풀기"
+
+#: templates/worksheets/player.html:658
+msgid "Gönder ve Puanla"
+msgstr "제출 및 평가"
+
+#: templates/worksheets/player.html:745
+msgid "Başarılı!"
+msgstr "성공적인!"
+
+#: templates/worksheets/player.html:746
+msgid ""
+"Cevaplarınız taslak olarak kaydedildi. İstediğiniz zaman geri dönüp devam "
+"edebilirsiniz."
+msgstr "답변이 초안으로 저장되었습니다. 원할 때 언제든지 돌아가서 계속할 수 있습니다."
+
+#: templates/worksheets/player.html:748
+msgid "Tamam"
+msgstr "좋아요"
+
+#~ msgid "Doğru"
+#~ msgstr "사실"

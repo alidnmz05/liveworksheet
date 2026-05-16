@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}{{ classroom.name }}{% endblock %}
 {% block content %}
 <div class="max-w-3xl mx-auto">
     <h1 class="text-2xl font-bold mb-2">{{ classroom.name }}</h1>
     <div class="flex items-center gap-3 mb-6">
-        <span class="text-sm text-gray-500">Sınıf Kodu:</span>
+        <span class="text-sm text-gray-500">{% trans 'Sınıf Kodu' %}:</span>
         <code class="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-lg tracking-widest">{{ classroom.code }}</code>
         <button onclick="navigator.clipboard.writeText('{{ classroom.code }}')" class="text-xs text-gray-400 hover:text-indigo-600">
             <i class="fas fa-copy"></i> Kopyala
@@ -12,7 +13,7 @@
     </div>
     <div class="card overflow-hidden">
         <div class="px-5 py-3 border-b bg-gray-50">
-            <h2 class="font-semibold">Öğrenciler ({{ classroom.students.count }})</h2>
+            <h2 class="font-semibold">{% trans 'Öğrenciler' %} ({{ classroom.students.count }})</h2>
         </div>
         {% if classroom.students.all %}
         <div class="divide-y">

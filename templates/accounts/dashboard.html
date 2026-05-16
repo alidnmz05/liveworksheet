@@ -1,175 +1,239 @@
 {% extends 'base.html' %}
-{% block title %}Panel{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Panel" %}{% endblock %}
 {% block content %}
-<div class="mb-8">
-    <h1 class="text-2xl font-bold text-gray-900">
-        Merhaba, {{ user.first_name|default:user.email }} 👋
-    </h1>
-    <p class="text-gray-500 text-sm mt-1">
-        {% if user.is_teacher %}Öğretmen paneli{% else %}Öğrenci paneli{% endif %}
-    </p>
+<div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div>
+        <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">
+            {% trans "Merhaba," %} <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">{{ user.first_name|default:user.email }}</span> <span class="inline-block origin-bottom-right hover:animate-pulse">👋</span>
+        </h1>
+        <p class="text-slate-500 text-lg mt-2 font-medium flex items-center gap-2">
+            {% if user.is_teacher %}
+            <i class="fas fa-chalkboard-teacher text-indigo-400"></i> {% trans "Öğretmen Yönetim Paneli" %}
+            {% else %}
+            <i class="fas fa-user-graduate text-indigo-400"></i> {% trans "Öğrenci Kontrol Paneli" %}
+            {% endif %}
+        </p>
+    </div>
 </div>
 
 {% if user.is_teacher %}
 <!-- Teacher Dashboard -->
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-    <div class="card p-5 flex items-center gap-4">
-        <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-            <i class="fas fa-file-alt text-indigo-600 text-xl"></i>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+    <div class="bg-white rounded-3xl p-6 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-6 hover:-translate-y-1 hover:shadow-[0_8px_30px_-4px_rgba(79,70,229,0.15)] transition-all duration-300">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 flex items-center justify-center shadow-inner relative overflow-hidden">
+            <div class="absolute inset-0 bg-white/20 mix-blend-overlay"></div>
+            <i class="fas fa-file-alt text-indigo-600 text-3xl drop-shadow-sm"></i>
         </div>
         <div>
-            <div class="text-2xl font-bold">{{ my_worksheets.count }}</div>
-            <div class="text-gray-500 text-sm">Çalışma Kağıdı</div>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{% trans "Çalışma Kağıdı" %}</div>
+            <div class="text-4xl font-extrabold text-gray-900">{{ my_worksheets.count }}</div>
         </div>
     </div>
-    <div class="card p-5 flex items-center gap-4">
-        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-            <i class="fas fa-users text-green-600 text-xl"></i>
+    
+    <div class="bg-white rounded-3xl p-6 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-6 hover:-translate-y-1 hover:shadow-[0_8px_30px_-4px_rgba(34,197,94,0.15)] transition-all duration-300">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center shadow-inner relative overflow-hidden">
+            <div class="absolute inset-0 bg-white/20 mix-blend-overlay"></div>
+            <i class="fas fa-users text-green-600 text-3xl drop-shadow-sm"></i>
         </div>
         <div>
-            <div class="text-2xl font-bold">{{ total_students }}</div>
-            <div class="text-gray-500 text-sm">Toplam Öğrenci</div>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{% trans "Toplam Öğrenci" %}</div>
+            <div class="text-4xl font-extrabold text-gray-900">{{ total_students }}</div>
         </div>
     </div>
-    <div class="card p-5 flex items-center gap-4">
-        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-            <i class="fas fa-tasks text-orange-600 text-xl"></i>
+    
+    <div class="bg-white rounded-3xl p-6 shadow-[0_2px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-6 hover:-translate-y-1 hover:shadow-[0_8px_30px_-4px_rgba(249,115,22,0.15)] transition-all duration-300">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center shadow-inner relative overflow-hidden">
+            <div class="absolute inset-0 bg-white/20 mix-blend-overlay"></div>
+            <i class="fas fa-tasks text-orange-500 text-3xl drop-shadow-sm"></i>
         </div>
         <div>
-            <div class="text-2xl font-bold">{{ my_assignments.count }}</div>
-            <div class="text-gray-500 text-sm">Aktif Ödev</div>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">{% trans "Aktif Ödev" %}</div>
+            <div class="text-4xl font-extrabold text-gray-900">{{ my_assignments.count }}</div>
         </div>
     </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <!-- Recent Worksheets -->
     <div class="lg:col-span-2">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-semibold">Son Çalışma Kağıtları</h2>
-            <a href="{% url 'worksheet_create' %}" class="btn-primary text-xs">
-                <i class="fas fa-plus"></i> Yeni Oluştur
+        <div class="flex items-center justify-between mb-5">
+            <h2 class="text-xl font-bold text-gray-800">{% trans "Son Çalışma Kağıtları" %}</h2>
+            <a href="{% url 'worksheet_create' %}" class="btn-secondary text-sm px-4 py-2 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all">
+                <i class="fas fa-plus mr-1"></i> {% trans "Yeni Ekle" %}
             </a>
         </div>
+        
         {% if my_worksheets %}
-        <div class="space-y-3">
+        <div class="space-y-4">
             {% for ws in my_worksheets %}
-            <div class="card p-4 flex items-center gap-4">
-                <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <i class="fas fa-file-alt text-indigo-400"></i>
+            <div class="bg-white rounded-2xl p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5 hover:-translate-y-1 hover:shadow-lg hover:border-indigo-100 transition-all duration-300">
+                <div class="w-14 h-14 bg-gradient-to-br from-indigo-50 to-indigo-100/50 rounded-xl flex items-center justify-center flex-shrink-0 shadow-inner">
+                    <i class="fas fa-file-alt text-indigo-500 text-2xl"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <div class="font-medium text-sm truncate">{{ ws.title }}</div>
-                    <div class="text-gray-400 text-xs">{{ ws.created_at|date:"d M Y" }} · {{ ws.view_count }} görüntülenme</div>
+                    <div class="font-bold text-lg text-gray-800 truncate mb-1">{{ ws.title }}</div>
+                    <div class="text-gray-500 text-sm flex items-center gap-2">
+                        <i class="far fa-calendar-alt text-gray-400"></i> {{ ws.created_at|date:"d M Y" }}
+                        <span class="text-gray-300">|</span>
+                        <i class="far fa-eye text-gray-400"></i> {{ ws.view_count }} {% trans "görüntülenme" %}
+                    </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <a href="{% url 'worksheet_editor' ws.pk %}" class="text-indigo-600 hover:text-indigo-800 text-sm" title="Düzenle">
+                    <a href="{% url 'worksheet_editor' ws.pk %}" class="w-10 h-10 rounded-xl flex items-center justify-center text-indigo-600 bg-indigo-50 hover:bg-indigo-600 hover:text-white transition-all duration-200" title="{% trans 'Düzenle' %}">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <a href="{% url 'worksheet_detail' ws.pk %}" class="text-gray-400 hover:text-gray-600 text-sm" title="Görüntüle">
+                    <a href="{% url 'worksheet_detail' ws.pk %}" class="w-10 h-10 rounded-xl flex items-center justify-center text-slate-600 bg-slate-50 hover:bg-slate-600 hover:text-white transition-all duration-200" title="{% trans 'Görüntüle' %}">
                         <i class="fas fa-eye"></i>
                     </a>
-                    <a href="{% url 'worksheet_delete' ws.pk %}" class="text-red-400 hover:text-red-600 text-sm" title="Sil">
+                    <a href="{% url 'worksheet_delete' ws.pk %}" class="w-10 h-10 rounded-xl flex items-center justify-center text-red-500 bg-red-50 hover:bg-red-500 hover:text-white transition-all duration-200" title="{% trans 'Sil' %}">
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>
             </div>
             {% endfor %}
         </div>
-        <a href="{% url 'worksheet_list' %}" class="block text-center text-sm text-indigo-600 mt-3 hover:underline">Tümünü gör →</a>
+        <a href="{% url 'worksheet_list' %}" class="inline-flex items-center justify-center w-full mt-6 py-3 font-semibold text-indigo-600 bg-indigo-50/50 rounded-xl hover:bg-indigo-50 transition-colors">{% trans "Tümünü Gör" %} <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
         {% else %}
-        <div class="card p-8 text-center text-gray-400">
-            <i class="fas fa-file-circle-plus text-4xl mb-3"></i>
-            <p class="text-sm">Henüz çalışma kağıdı oluşturmadınız.</p>
-            <a href="{% url 'worksheet_create' %}" class="btn-primary mt-4 text-xs">İlk kağıdınızı oluşturun</a>
+        <div class="bg-slate-50/50 rounded-3xl p-12 text-center text-gray-400 border-2 border-dashed border-slate-200">
+            <div class="w-20 h-20 mx-auto bg-white rounded-full shadow-sm flex items-center justify-center mb-5">
+                <i class="fas fa-file-circle-plus text-4xl text-indigo-300"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-700 mb-2">{% trans "Çalışma Kağıdı Bulunamadı" %}</h3>
+            <p class="text-base text-gray-500 mb-6">{% trans "Öğrencilerinize atamak için ilk materyalinizi hazırlayın." %}</p>
+            <a href="{% url 'worksheet_create' %}" class="btn-primary text-base px-8 py-3 shadow-lg shadow-indigo-200/50">{% trans "İlk Kağıdınızı Oluşturun" %}</a>
         </div>
         {% endif %}
     </div>
 
     <!-- Classrooms -->
     <div>
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-semibold">Sınıflarım</h2>
-            <a href="{% url 'classroom_create' %}" class="btn-secondary text-xs">
-                <i class="fas fa-plus"></i> Yeni
+        <div class="flex items-center justify-between mb-5">
+            <h2 class="text-xl font-bold text-gray-800">{% trans "Sınıflarım" %}</h2>
+            <a href="{% url 'classroom_create' %}" class="btn-secondary text-sm px-4 py-2 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all">
+                <i class="fas fa-plus mr-1"></i> {% trans "Yeni Ekle" %}
             </a>
         </div>
         {% if my_classrooms %}
-        <div class="space-y-3">
+        <div class="space-y-4">
             {% for cls in my_classrooms %}
-            <a href="{% url 'classroom_detail' cls.pk %}" class="card p-4 flex items-center gap-3 hover:shadow-md transition-shadow block">
-                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-chalkboard text-green-600"></i>
+            <a href="{% url 'classroom_detail' cls.pk %}" class="bg-white rounded-2xl p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-4 hover:-translate-y-1 hover:shadow-lg hover:border-green-200 transition-all duration-300 block group overflow-hidden relative">
+                <div class="absolute right-0 top-0 bottom-0 w-1 bg-green-500 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom duration-300"></div>
+                <div class="w-14 h-14 bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl flex items-center justify-center group-hover:rotate-3 transition-transform shadow-inner">
+                    <i class="fas fa-chalkboard text-green-600 text-2xl drop-shadow-sm"></i>
                 </div>
                 <div>
-                    <div class="font-medium text-sm">{{ cls.name }}</div>
-                    <div class="text-xs text-gray-400">Kod: <span class="font-mono font-bold text-indigo-600">{{ cls.code }}</span> · {{ cls.students.count }} öğrenci</div>
+                    <div class="font-bold text-lg text-gray-800 group-hover:text-green-700 transition-colors">{{ cls.name }}</div>
+                    <div class="text-sm text-gray-500 mt-1 flex items-center gap-2">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs font-mono font-bold tracking-wider">{{ cls.code }}</span>
+                        <span class="text-gray-300">|</span>
+                        <i class="fas fa-user-graduate text-gray-400"></i> {{ cls.students.count }} {% trans "Öğrenci" %}
+                    </div>
                 </div>
             </a>
             {% endfor %}
         </div>
         {% else %}
-        <div class="card p-6 text-center text-gray-400 text-sm">
-            <i class="fas fa-chalkboard text-3xl mb-2"></i>
-            <p>Henüz sınıf oluşturmadınız.</p>
+        <div class="bg-slate-50/50 rounded-3xl p-10 text-center text-gray-400 border-2 border-dashed border-slate-200">
+            <div class="w-16 h-16 mx-auto bg-white rounded-full shadow-sm flex items-center justify-center mb-4">
+                <i class="fas fa-chalkboard text-3xl text-green-300"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-700 mb-1">{% trans "Sınıfınız Yok" %}</h3>
+            <p class="text-sm mb-4 text-gray-500">{% trans "Öğrencilerinizi gruplamak için sınıf oluşturun." %}</p>
+            <a href="{% url 'classroom_create' %}" class="btn-primary text-sm px-6 py-2.5 shadow-md">{% trans "Oluştur" %}</a>
         </div>
         {% endif %}
     </div>
 </div>
-
 {% else %}
 <!-- Student Dashboard -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
-        <h2 class="text-lg font-semibold mb-4">Ödevlerim</h2>
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">{% trans "Bekleyen Ödevlerim" %}</h2>
+            <span class="bg-indigo-100 text-indigo-700 py-1 px-3 rounded-full text-sm font-bold">{{ my_assignments.count|default:"0" }} {% trans "Görev" %}</span>
+        </div>
         {% if my_assignments %}
-        <div class="space-y-3">
+        <div class="space-y-4">
             {% for assignment in my_assignments %}
-            <div class="card p-4 flex items-center gap-4">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0
-                    {% if assignment.is_overdue %}bg-red-100{% else %}bg-indigo-100{% endif %}">
-                    <i class="fas fa-tasks {% if assignment.is_overdue %}text-red-500{% else %}text-indigo-500{% endif %}"></i>
+            <div class="bg-white rounded-2xl p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-6 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+                {% if assignment.is_overdue %}
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>
+                {% else %}
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-indigo-500"></div>
+                {% endif %}
+                
+                <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner
+                    {% if assignment.is_overdue %}bg-gradient-to-br from-red-50 to-red-100{% else %}bg-gradient-to-br from-indigo-50 to-indigo-100{% endif %}">
+                    <i class="fas fa-tasks text-2xl drop-shadow-sm {% if assignment.is_overdue %}text-red-500{% else %}text-indigo-600{% endif %}"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <div class="font-medium text-sm">{{ assignment.title }}</div>
-                    <div class="text-xs text-gray-400">
-                        {% if assignment.due_date %}Son teslim: {{ assignment.due_date|date:"d M Y H:i" }}{% endif %}
+                    <div class="font-bold text-lg text-gray-900 mb-1 group-hover:text-indigo-700 transition-colors">{{ assignment.title }}</div>
+                    <div class="text-sm font-medium flex items-center gap-2">
+                        <i class="far fa-clock"></i>
+                        {% if assignment.due_date %}
+                            {% if assignment.is_overdue %}
+                            <span class="text-red-600 bg-red-50 px-2 py-0.5 rounded">{% trans "Süresi Geçti!" %} ({{ assignment.due_date|date:"d M Y" }})</span>
+                            {% else %}
+                            <span class="text-gray-500">{{ assignment.due_date|date:"d M H:i" }} {% trans "Teslim" %}</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="text-green-600 bg-green-50 px-2 py-0.5 rounded">{% trans "Süresiz" %}</span>
+                        {% endif %}
                     </div>
                 </div>
-                <a href="{% url 'assignment_detail' assignment.pk %}" class="btn-primary text-xs">Başla</a>
+                <a href="{% url 'assignment_detail' assignment.pk %}" class="btn-primary px-8 py-3 rounded-xl shadow-lg shadow-indigo-200/50 hover:shadow-indigo-300/50">{% trans "Başla" %} <i class="fas fa-chevron-right text-xs ml-1 opacity-70"></i></a>
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <div class="card p-8 text-center text-gray-400 text-sm">
-            <i class="fas fa-inbox text-4xl mb-3"></i>
-            <p>Bekleyen ödeviniz yok.</p>
+        <div class="bg-slate-50/50 rounded-3xl p-12 text-center border-2 border-dashed border-slate-200">
+            <div class="w-24 h-24 mx-auto bg-white rounded-full shadow-md flex items-center justify-center mb-6">
+                <i class="fas fa-glass-cheers text-5xl text-yellow-400 drop-shadow-sm"></i>
+            </div>
+            <h3 class="text-2xl font-extrabold text-gray-800 mb-2">{% trans "Harika Haber!" %}</h3>
+            <p class="text-lg text-gray-500">{% trans "Şu anda bekleyen hiçbir ödeviniz yok." %}</p>
         </div>
         {% endif %}
     </div>
 
     <div>
-        <h2 class="text-lg font-semibold mb-4">Sınıflarım</h2>
+        <h2 class="text-xl font-bold text-gray-800 mb-5">{% trans "Kayıtlı Sınıflarım" %}</h2>
         {% if enrolled_classrooms %}
-        <div class="space-y-3">
+        <div class="space-y-4">
             {% for cls in enrolled_classrooms %}
-            <div class="card p-4">
-                <div class="font-medium text-sm">{{ cls.name }}</div>
-                <div class="text-xs text-gray-400">{{ cls.teacher.full_name }}</div>
+            <div class="bg-white rounded-2xl p-5 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-4 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 relative group overflow-hidden">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center text-green-600">
+                    <i class="fas fa-chalkboard text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="font-bold text-gray-900 text-lg">{{ cls.name }}</div>
+                    <div class="text-sm text-gray-500 flex items-center gap-2 mt-0.5">
+                        <i class="fas fa-chalkboard-teacher text-green-400"></i> {{ cls.teacher.full_name }}
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
         {% endif %}
+        
         <!-- Join Classroom -->
-        <form method="post" action="{% url 'join_classroom' %}" class="mt-4">
-            {% csrf_token %}
-            <div class="flex gap-2">
-                <input type="text" name="code" maxlength="10"
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 font-mono uppercase"
-                       placeholder="SINIF KODU">
-                <button type="submit" class="btn-primary text-xs">Katıl</button>
-            </div>
-        </form>
+        <div class="mt-8 bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-2xl p-6 shadow-xl shadow-indigo-200/50 text-white relative overflow-hidden">
+            <div class="absolute -right-8 -top-8 w-24 h-24 bg-white opacity-10 rounded-full blur-2xl"></div>
+            
+            <h3 class="font-bold text-lg mb-2 flex items-center gap-2"><i class="fas fa-user-plus text-indigo-200"></i> {% trans "Yeni Sınıfa Katıl" %}</h3>
+            <p class="text-indigo-100 text-sm mb-4">{% trans "Öğretmeninizin verdiği katılım kodunu giriniz." %}</p>
+            
+            <form method="post" action="{% url 'join_classroom' %}">
+                {% csrf_token %}
+                <div class="flex flex-col gap-3">
+                    <input type="text" name="code" maxlength="10"
+                           class="w-full px-4 py-3 border-0 rounded-xl text-gray-900 text-base focus:ring-4 focus:ring-indigo-300 font-mono font-bold tracking-widest uppercase text-center placeholder-gray-400"
+                           placeholder="{% trans 'KOD-GİRİN' %}">
+                    <button type="submit" class="w-full py-3 bg-white text-indigo-700 font-bold rounded-xl hover:bg-gray-50 transition-colors shadow-sm active:scale-95 duration-200">{% trans "Katıl" %}</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 {% endif %}

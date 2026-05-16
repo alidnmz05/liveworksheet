@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}Sınıflarım{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Sınıflarım" %}{% endblock %}
 {% block content %}
 <div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-bold">Sınıflarım</h1>
+    <h1 class="text-2xl font-bold">{% trans "Sınıflarım" %}</h1>
     {% if user.is_teacher %}
     <a href="{% url 'classroom_create' %}" class="btn-primary">
-        <i class="fas fa-plus"></i> Yeni Sınıf
+        <i class="fas fa-plus"></i> {% trans "Yeni Sınıf" %}
     </a>
     {% else %}
     <form method="post" action="{% url 'join_classroom' %}" class="flex gap-2">
         {% csrf_token %}
-        <input type="text" name="code" placeholder="Sınıf kodu" maxlength="8"
+        <input type="text" name="code" placeholder="{% trans '{% trans "Sınıf kodu" %}' %}" maxlength="8"
                class="form-input w-36 uppercase tracking-widest font-bold">
-        <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Katıl</button>
+        <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> {% trans "Katıl" %}</button>
     </form>
     {% endif %}
 </div>
@@ -31,7 +32,7 @@
         </div>
         <h3 class="font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors mb-1">{{ classroom.name }}</h3>
         {% if user.is_teacher %}
-        <p class="text-xs text-gray-400"><i class="fas fa-user-graduate mr-1"></i>{{ classroom.students.count }} öğrenci</p>
+        <p class="text-xs text-gray-400"><i class="fas fa-user-graduate mr-1"></i>{{ classroom.students.count }} {% trans "öğrenci" %}</p>
         {% else %}
         <p class="text-xs text-gray-400"><i class="fas fa-chalkboard-teacher mr-1"></i>{{ classroom.teacher.full_name }}</p>
         {% endif %}
@@ -42,14 +43,14 @@
 <div class="card p-16 text-center text-gray-400">
     <i class="fas fa-users text-6xl mb-4"></i>
     {% if user.is_teacher %}
-    <h2 class="text-xl font-semibold mb-2 text-gray-500">Henüz sınıfınız yok</h2>
-    <p class="text-sm mb-6">Öğrencilerinizi bir sınıfa davet edin.</p>
+    <h2 class="text-xl font-semibold mb-2 text-gray-500">{% trans "Henüz sınıfınız yok" %}</h2>
+    <p class="text-sm mb-6">{% trans 'Öğrenciler' %}inizi bir sınıfa davet edin.</p>
     <a href="{% url 'classroom_create' %}" class="btn-primary">
-        <i class="fas fa-plus"></i> Sınıf Oluştur
+        <i class="fas fa-plus"></i> {% trans 'Sınıf Oluştur' %}
     </a>
     {% else %}
-    <h2 class="text-xl font-semibold mb-2 text-gray-500">Henüz bir sınıfa katılmadınız</h2>
-    <p class="text-sm mb-2">Öğretmeninizden sınıf kodunu alın ve yukarıya girin.</p>
+    <h2 class="text-xl font-semibold mb-2 text-gray-500">{% trans "Henüz bir sınıfa katılmadınız" %}</h2>
+    <p class="text-sm mb-2">{% trans "Öğretmeninizden sınıf kodunu alın ve yukarıya girin." %}</p>
     {% endif %}
 </div>
 {% endif %}

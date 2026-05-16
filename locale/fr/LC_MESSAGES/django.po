@@ -1,0 +1,920 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-16 19:20+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: apps/accounts/views.py:16
+msgid "Sürükle & Bırak"
+msgstr "Glisser-déposer"
+
+#: apps/accounts/views.py:16
+msgid "Öğrenciler nesneleri doğru kutucuklara sürükler."
+msgstr "Les élèves font glisser les objets dans les bonnes cases."
+
+#: apps/accounts/views.py:17
+msgid "Çoktan Seçmeli"
+msgstr "Choix multiples"
+
+#: apps/accounts/views.py:17
+msgid "Klasik çoktan seçmeli sorular oluşturun."
+msgstr "Créez des questions classiques à choix multiples."
+
+#: apps/accounts/views.py:18
+msgid "Eşleştirme"
+msgstr "Correspondance"
+
+#: apps/accounts/views.py:18
+msgid "İki sütun arasında öğeleri birbirine bağlayın."
+msgstr "Connectez les éléments entre deux colonnes."
+
+#: apps/accounts/views.py:19
+msgid "Sesli Yanıt"
+msgstr "Réponse vocale"
+
+#: apps/accounts/views.py:19
+msgid "Öğrenciler mikrofon ile sözlü cevap verebilir."
+msgstr "Les étudiants peuvent donner des réponses verbales via le microphone."
+
+#: apps/accounts/views.py:20
+msgid "Video Entegrasyonu"
+msgstr "Intégration vidéo"
+
+#: apps/accounts/views.py:20
+msgid "YouTube/Vimeo videolarını kağıda gömün."
+msgstr "Intégrez des vidéos YouTube/Vimeo sur papier."
+
+#: apps/accounts/views.py:21
+msgid "Anında Puanlama"
+msgstr "Notation instantanée"
+
+#: apps/accounts/views.py:21
+msgid "Sistem cevapları otomatik değerlendirir ve puan verir."
+msgstr ""
+"Le système évalue automatiquement les réponses et attribue des points."
+
+#: apps/worksheets/models.py:22
+msgid "Anaokulu"
+msgstr "Maternelle"
+
+#: apps/worksheets/models.py:23
+msgid "İlkokul"
+msgstr "École primaire"
+
+#: apps/worksheets/models.py:24
+msgid "Ortaokul"
+msgstr "École secondaire"
+
+#: apps/worksheets/models.py:25
+msgid "Lise"
+msgstr "Lycée"
+
+#: apps/worksheets/models.py:26
+msgid "Üniversite"
+msgstr "Université"
+
+#: apps/worksheets/models.py:27
+msgid "Yetişkin"
+msgstr "Adulte"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "Türkçe"
+msgstr "Turc"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "İngilizce"
+msgstr "Anglais"
+
+#: apps/worksheets/models.py:30
+msgid "Almanca"
+msgstr "Allemand"
+
+#: apps/worksheets/models.py:31
+msgid "Fransızca"
+msgstr "Français"
+
+#: apps/worksheets/models.py:31
+msgid "İspanyolca"
+msgstr "Espagnol"
+
+#: apps/worksheets/models.py:31
+msgid "Arapça"
+msgstr "Arabe"
+
+#: apps/worksheets/models.py:32
+msgid "Portekizce"
+msgstr "Portugais"
+
+#: apps/worksheets/models.py:32
+msgid "Rusça"
+msgstr "Russe"
+
+#: apps/worksheets/models.py:32
+msgid "Çince"
+msgstr "Chinois"
+
+#: apps/worksheets/models.py:33
+msgid "İtalyanca"
+msgstr "Italien"
+
+#: apps/worksheets/models.py:33
+msgid "Korece"
+msgstr "coréen"
+
+#: apps/worksheets/models.py:38
+msgid "100'lük Sistem (0–100 puan)"
+msgstr "Système de 100"
+
+#: apps/worksheets/models.py:39
+msgid "10'luk Sistem (0–10 puan)"
+msgstr "Système de 10"
+
+#: apps/worksheets/models.py:65
+msgid "Matematik"
+msgstr "Mathématiques"
+
+#: apps/worksheets/models.py:65 templates/assignments/detail.html:33
+#: templates/submissions/list.html:14
+msgid "Tarih"
+msgstr "Date"
+
+#: apps/worksheets/models.py:65
+msgid "Coğrafya"
+msgstr "Géographie"
+
+#: apps/worksheets/models.py:66
+msgid "Fizik"
+msgstr "Physique"
+
+#: apps/worksheets/models.py:66
+msgid "Kimya"
+msgstr "Chimie"
+
+#: apps/worksheets/models.py:66
+msgid "Biyoloji"
+msgstr "Biologie"
+
+#: apps/worksheets/models.py:66
+msgid "Fen Bilimleri"
+msgstr "Sciences"
+
+#: apps/worksheets/models.py:66
+msgid "Sosyal Bilgiler"
+msgstr "Études sociales"
+
+#: apps/worksheets/models.py:67
+msgid "Hayat Bilgisi"
+msgstr "Sciences de la vie"
+
+#: apps/worksheets/models.py:67
+msgid "Din Kültürü"
+msgstr "Culture religieuse"
+
+#: apps/worksheets/models.py:67
+msgid "Yabancı Dil"
+msgstr "Langue étrangère"
+
+#: apps/worksheets/models.py:67
+msgid "Müzik"
+msgstr "Musique"
+
+#: apps/worksheets/models.py:67
+msgid "Resim"
+msgstr "Image"
+
+#: templates/accounts/classroom_detail.html:8
+msgid "Sınıf Kodu"
+msgstr "Créer une classe"
+
+#: templates/accounts/classroom_detail.html:16
+#: templates/accounts/classroom_list.html:47
+#: templates/worksheets/editor.html:890
+msgid "Öğrenciler"
+msgstr "Étudiant"
+
+#: templates/accounts/classroom_form.html:3
+#: templates/accounts/classroom_form.html:7
+#: templates/accounts/classroom_list.html:49 templates/base.html:147
+msgid "Sınıf Oluştur"
+msgstr "Créer une classe"
+
+#: templates/accounts/classroom_form.html:11
+msgid "Sınıf Adı"
+msgstr "Mes cours"
+
+#: templates/accounts/classroom_form.html:15
+#: templates/workbooks/create.html:15 templates/worksheets/create.html:51
+msgid "Açıklama"
+msgstr "Descriptif"
+
+#: templates/accounts/classroom_form.html:18
+#: templates/accounts/dashboard.html:143 templates/workbooks/create.html:18
+msgid "Oluştur"
+msgstr "Créer"
+
+#: templates/accounts/classroom_list.html:3
+#: templates/accounts/classroom_list.html:6
+#: templates/accounts/dashboard.html:112 templates/base.html:79
+#: templates/base.html:86
+msgid "Sınıflarım"
+msgstr "Mes cours"
+
+#: templates/accounts/classroom_list.html:9
+msgid "Yeni Sınıf"
+msgstr "Rejoignez une nouvelle classe"
+
+#: templates/accounts/classroom_list.html:16
+#: templates/accounts/dashboard.html:233
+msgid "Katıl"
+msgstr "Rejoindre"
+
+#: templates/accounts/classroom_list.html:35
+msgid "öğrenci"
+msgstr "Étudiant"
+
+#: templates/accounts/classroom_list.html:46
+msgid "Henüz sınıfınız yok"
+msgstr "Vous n'avez pas de classe"
+
+#: templates/accounts/classroom_list.html:52
+msgid "Henüz bir sınıfa katılmadınız"
+msgstr "Vous n'avez pas encore de feuilles de calcul"
+
+#: templates/accounts/classroom_list.html:53
+msgid "Öğretmeninizden sınıf kodunu alın ve yukarıya girin."
+msgstr "Saisissez le code de participation donné par votre professeur."
+
+#: templates/accounts/dashboard.html:3 templates/base.html:69
+msgid "Panel"
+msgstr "Panneau"
+
+#: templates/accounts/dashboard.html:8
+msgid "Merhaba,"
+msgstr "Bonjour,"
+
+#: templates/accounts/dashboard.html:12
+msgid "Öğretmen Yönetim Paneli"
+msgstr "Panneau de gestion des enseignants"
+
+#: templates/accounts/dashboard.html:14
+msgid "Öğrenci Kontrol Paneli"
+msgstr "Panneau de contrôle des étudiants"
+
+#: templates/accounts/dashboard.html:29 templates/submissions/list.html:11
+msgid "Çalışma Kağıdı"
+msgstr "Feuille de travail"
+
+#: templates/accounts/dashboard.html:40
+msgid "Toplam Öğrenci"
+msgstr "Total des étudiants"
+
+#: templates/accounts/dashboard.html:51
+msgid "Aktif Ödev"
+msgstr "Devoirs actifs"
+
+#: templates/accounts/dashboard.html:61
+msgid "Son Çalışma Kağıtları"
+msgstr "Derniers documents de travail"
+
+#: templates/accounts/dashboard.html:63 templates/accounts/dashboard.html:114
+msgid "Yeni Ekle"
+msgstr "Ajouter un nouveau"
+
+#: templates/accounts/dashboard.html:79
+msgid "görüntülenme"
+msgstr "vues"
+
+#: templates/accounts/dashboard.html:83 templates/worksheets/list.html:29
+msgid "Düzenle"
+msgstr "Modifier"
+
+#: templates/accounts/dashboard.html:86
+msgid "Görüntüle"
+msgstr "Voir"
+
+#: templates/accounts/dashboard.html:89 templates/worksheets/list.html:35
+msgid "Sil"
+msgstr "Supprimer"
+
+#: templates/accounts/dashboard.html:96
+msgid "Tümünü Gör"
+msgstr "Tout afficher"
+
+#: templates/accounts/dashboard.html:102
+msgid "Çalışma Kağıdı Bulunamadı"
+msgstr "Aucun document de travail trouvé"
+
+#: templates/accounts/dashboard.html:103
+msgid "Öğrencilerinize atamak için ilk materyalinizi hazırlayın."
+msgstr "Préparez votre premier matériel à attribuer à vos élèves."
+
+#: templates/accounts/dashboard.html:104 templates/worksheets/list.html:68
+msgid "İlk Kağıdınızı Oluşturun"
+msgstr "Créez votre premier article"
+
+#: templates/accounts/dashboard.html:130 templates/assignments/detail.html:30
+msgid "Öğrenci"
+msgstr "Étudiant"
+
+#: templates/accounts/dashboard.html:141
+msgid "Sınıfınız Yok"
+msgstr "Vous n'avez pas de classe"
+
+#: templates/accounts/dashboard.html:142
+msgid "Öğrencilerinizi gruplamak için sınıf oluşturun."
+msgstr "Créez des classes pour regrouper vos élèves."
+
+#: templates/accounts/dashboard.html:153
+msgid "Bekleyen Ödevlerim"
+msgstr "Mes missions en attente"
+
+#: templates/accounts/dashboard.html:154
+msgid "Görev"
+msgstr "Quête"
+
+#: templates/accounts/dashboard.html:176
+msgid "Süresi Geçti!"
+msgstr "Expiré!"
+
+#: templates/accounts/dashboard.html:178
+msgid "Teslim"
+msgstr "Livraison"
+
+#: templates/accounts/dashboard.html:181
+msgid "Süresiz"
+msgstr "Indéfini"
+
+#: templates/accounts/dashboard.html:185 templates/assignments/list.html:39
+msgid "Başla"
+msgstr "Démarrer"
+
+#: templates/accounts/dashboard.html:194
+msgid "Harika Haber!"
+msgstr "Excellente nouvelle !"
+
+#: templates/accounts/dashboard.html:195
+msgid "Şu anda bekleyen hiçbir ödeviniz yok."
+msgstr "Vous n'avez actuellement aucune mission en attente."
+
+#: templates/accounts/dashboard.html:201
+msgid "Kayıtlı Sınıflarım"
+msgstr "Mes cours enregistrés"
+
+#: templates/accounts/dashboard.html:224
+msgid "Yeni Sınıfa Katıl"
+msgstr "Rejoignez une nouvelle classe"
+
+#: templates/accounts/dashboard.html:225
+msgid "Öğretmeninizin verdiği katılım kodunu giriniz."
+msgstr "Saisissez le code de participation donné par votre professeur."
+
+#: templates/accounts/dashboard.html:232
+msgid "KOD-GİRİN"
+msgstr "ENTREZ LE CODE"
+
+#: templates/accounts/login.html:3 templates/accounts/login.html:28
+#: templates/accounts/register.html:77 templates/base.html:157
+msgid "Giriş Yap"
+msgstr "Connexion"
+
+#: templates/accounts/login.html:9
+msgid "Tekrar Hoş Geldiniz"
+msgstr "Bienvenue à nouveau"
+
+#: templates/accounts/login.html:10
+msgid "Hesabınıza giriş yapın"
+msgstr "Connectez-vous à votre compte"
+
+#: templates/accounts/login.html:16 templates/accounts/register.html:47
+msgid "E-posta"
+msgstr "Courriel"
+
+#: templates/accounts/login.html:22 templates/accounts/register.html:53
+msgid "Şifre"
+msgstr "Mot de passe"
+
+#: templates/accounts/login.html:33
+msgid "Hesabınız yok mu?"
+msgstr "Vous n'avez pas de compte ?"
+
+#: templates/accounts/login.html:33 templates/accounts/register.html:3
+#: templates/base.html:158
+msgid "Kayıt Ol"
+msgstr "S'inscrire"
+
+#: templates/accounts/profile.html:6
+msgid "Profilim"
+msgstr "Profil"
+
+#: templates/accounts/profile.html:13
+msgid "Profil fotoğrafı"
+msgstr "Photo de profil"
+
+#: templates/accounts/profile.html:17
+msgid "Profil Fotoğrafı"
+msgstr "Photo de profil"
+
+#: templates/accounts/profile.html:22 templates/accounts/register.html:34
+msgid "Ad"
+msgstr "Nom"
+
+#: templates/accounts/profile.html:26 templates/accounts/register.html:40
+msgid "Soyad"
+msgstr "Nom"
+
+#: templates/accounts/profile.html:31
+msgid "Okul/Kurum"
+msgstr "École/Institution"
+
+#: templates/accounts/profile.html:35
+msgid "Ülke"
+msgstr "Pays"
+
+#: templates/accounts/profile.html:39
+msgid "Hakkında"
+msgstr "À propos de"
+
+#: templates/accounts/register.html:9
+msgid "Ücretsiz Hesap Oluştur"
+msgstr "Créez un compte gratuit"
+
+#: templates/accounts/register.html:19
+msgid "Öğretmenim"
+msgstr "Mon professeur"
+
+#: templates/accounts/register.html:26
+msgid "Öğrenciyim"
+msgstr "Je suis étudiant"
+
+#: templates/accounts/register.html:37
+msgid "Adınız"
+msgstr "Votre nom"
+
+#: templates/accounts/register.html:43
+msgid "Soyadınız"
+msgstr "Votre nom de famille"
+
+#: templates/accounts/register.html:56
+msgid "En az 8 karakter"
+msgstr "Au moins 8 caractères"
+
+#: templates/accounts/register.html:59
+msgid "Şifre Tekrar"
+msgstr "Mot de passe à nouveau"
+
+#: templates/accounts/register.html:62
+msgid "Şifreyi tekrar girin"
+msgstr "Ressaisissez le mot de passe"
+
+#: templates/accounts/register.html:72
+msgid "Hesap Oluştur"
+msgstr "Créer un compte"
+
+#: templates/accounts/register.html:77
+msgid "Zaten hesabınız var mı?"
+msgstr "Vous avez déjà un compte ?"
+
+#: templates/assignments/create.html:7 templates/assignments/detail.html:6
+#: templates/workbooks/detail.html:7
+msgid "Geri"
+msgstr "Retour"
+
+#: templates/assignments/create.html:36 templates/assignments/create.html:47
+#: templates/workbooks/detail.html:50 templates/worksheets/create.html:60
+#: templates/worksheets/create.html:69
+msgid "Seçin..."
+msgstr "Sélectionnez..."
+
+#: templates/assignments/detail.html:10
+msgid "Son teslim"
+msgstr "Livraison"
+
+#: templates/assignments/detail.html:19
+msgid "Öğrenci Gönderimleri"
+msgstr "Étudiant"
+
+#: templates/assignments/detail.html:22
+msgid "Önizle"
+msgstr "Aperçu"
+
+#: templates/assignments/detail.html:31 templates/submissions/list.html:12
+msgid "Puan"
+msgstr "Score"
+
+#: templates/assignments/detail.html:32 templates/submissions/list.html:13
+msgid "Doğru/Toplam"
+msgstr "Vrai/Total"
+
+#: templates/assignments/detail.html:43
+msgid "Devam Ediyor"
+msgstr "En cours"
+
+#: templates/assignments/detail.html:53
+msgid "Soru"
+msgstr "Question"
+
+#: templates/assignments/detail.html:62 templates/assignments/list.html:39
+#: templates/submissions/list.html:30
+msgid "Detay"
+msgstr "Détail"
+
+#: templates/assignments/detail.html:70
+msgid "Henüz gönderim yok."
+msgstr "Vous n'avez pas encore de messages."
+
+#: templates/assignments/detail.html:80
+msgid "Taslak Kaydınız Var"
+msgstr "Vous avez un projet d'inscription"
+
+#: templates/assignments/detail.html:82
+msgid "Çözülmeye devam ediliyor"
+msgstr "Continuer à être résolu"
+
+#: templates/assignments/detail.html:86
+msgid "Son Sonucunuz"
+msgstr "Votre dernier résultat"
+
+#: templates/assignments/detail.html:90
+msgid "doğru"
+msgstr "vrai"
+
+#: templates/assignments/detail.html:93
+msgid "Detayları Gör"
+msgstr "Voir mes réponses"
+
+#: templates/assignments/detail.html:104
+msgid "Ödeve Devam Et"
+msgstr "Continuer la mission"
+
+#: templates/assignments/detail.html:106
+msgid "Ödevi Başlat"
+msgstr "Créez un compte gratuit"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:82
+msgid "Ödevler"
+msgstr "Missions"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:89
+msgid "Ödevlerim"
+msgstr "Mes devoirs"
+
+#: templates/assignments/list.html:9
+msgid "Yeni Ödev"
+msgstr "Nouvelle mission"
+
+#: templates/assignments/list.html:28
+msgid "Süresi doldu"
+msgstr "Expiré"
+
+#: templates/assignments/list.html:47
+msgid "Henüz ödev yok"
+msgstr "Pas encore de devoirs"
+
+#: templates/assignments/list.html:49
+msgid "Ödev Oluştur"
+msgstr "Créer une affectation"
+
+#: templates/base.html:73 templates/home.html:8
+msgid "Çalışma Kağıtları"
+msgstr "Feuilles de travail"
+
+#: templates/base.html:76
+msgid "Defterler"
+msgstr "Carnets"
+
+#: templates/base.html:92 templates/submissions/list.html:3
+#: templates/submissions/list.html:5
+msgid "Sonuçlarım"
+msgstr "Mes résultats"
+
+#: templates/base.html:96 templates/library/index.html:3
+msgid "Kütüphane"
+msgstr "Bibliothèque"
+
+#: templates/base.html:143
+msgid "Profil"
+msgstr "Profil"
+
+#: templates/base.html:152
+msgid "Çıkış"
+msgstr "Quitter"
+
+#: templates/base.html:189
+msgid "Etkileşimli Eğitim Platformu"
+msgstr "Plateforme éducative interactive"
+
+#: templates/home.html:8
+msgid "Etkileşimli"
+msgstr "Interactif"
+
+#: templates/home.html:8
+msgid "Oluşturun"
+msgstr "Créer"
+
+#: templates/home.html:11
+msgid ""
+"PDF ve görsellerinizi; sürükle-bırak, çoktan seçmeli, sesli yanıt gibi "
+"interaktif sorularla dönüştürün. Öğrencilerinizi takip edin, anında puan "
+"verin."
+msgstr ""
+"Votre PDF et vos images ; Transformez-le avec des questions interactives "
+"telles que le glisser-déposer, les choix multiples et la réponse vocale. "
+"Suivez vos élèves et donnez des points instantanément."
+
+#: templates/home.html:15
+msgid "Ücretsiz Başla"
+msgstr "Créez un compte gratuit"
+
+#: templates/home.html:18
+msgid "Kütüphaneye Göz At"
+msgstr "Bibliothèque"
+
+#: templates/library/index.html:7
+msgid "Etkileşimli Çalışma Kütüphanesi"
+msgstr "Bibliothèque d'étude interactive"
+
+#: templates/library/index.html:13
+msgid "Konu, etiket veya öğretmen adı..."
+msgstr "Sujet, tag ou nom de l'enseignant..."
+
+#: templates/library/index.html:16
+msgid "Tüm Dersler"
+msgstr "Toutes les leçons"
+
+#: templates/library/index.html:20
+msgid "Tüm Seviyeler"
+msgstr "Tous niveaux"
+
+#: templates/library/index.html:24
+msgid "Tüm Diller"
+msgstr "Toutes les langues"
+
+#: templates/library/index.html:28
+msgid "Ara"
+msgstr "Rechercher"
+
+#: templates/library/index.html:46
+msgid "Öne Çıkan"
+msgstr "En vedette"
+
+#: templates/library/index.html:51 templates/worksheets/list.html:32
+msgid "Çöz"
+msgstr "Résoudre"
+
+#: templates/library/index.html:78
+msgid "Sonuç bulunamadı"
+msgstr "Aucun résultat trouvé"
+
+#: templates/library/index.html:79
+msgid "Farklı anahtar kelimeler deneyin."
+msgstr "Essayez différents mots-clés."
+
+#: templates/submissions/list.html:40
+msgid "Henüz gönderiminiz yok."
+msgstr "Vous n'avez pas encore de messages."
+
+#: templates/workbooks/create.html:3 templates/workbooks/list.html:8
+msgid "Yeni Defter"
+msgstr "Carnets"
+
+#: templates/workbooks/create.html:7
+msgid "Yeni Dijital Defter"
+msgstr "Carnets"
+
+#: templates/workbooks/create.html:11
+msgid "Defter Adı"
+msgstr "Carnets"
+
+#: templates/workbooks/list.html:3 templates/workbooks/list.html:6
+msgid "Defterlerim"
+msgstr "Carnets"
+
+#: templates/workbooks/list.html:32 templates/worksheets/list.html:40
+msgid "Ödev Ver"
+msgstr "Donner des devoirs"
+
+#: templates/workbooks/list.html:41
+msgid "Henüz defter yok"
+msgstr "Pas encore de devoirs"
+
+#: templates/workbooks/list.html:42
+msgid "Defter Oluştur"
+msgstr "Créer un nouveau"
+
+#: templates/worksheets/create.html:3 templates/worksheets/create.html:10
+msgid "Yeni Çalışma Kağıdı"
+msgstr "Feuille de travail"
+
+#: templates/worksheets/create.html:21
+msgid "PDF Dosyası"
+msgstr "Fichier PDF"
+
+#: templates/worksheets/create.html:21
+msgid "(opsiyonel — her sayfa otomatik oluşturulur)"
+msgstr "(facultatif — chaque page est générée automatiquement)"
+
+#: templates/worksheets/create.html:26 templates/worksheets/create.html:167
+msgid "PDF dosyası seçin veya buraya sürükleyin"
+msgstr "Sélectionnez ou faites glisser le fichier PDF ici"
+
+#: templates/worksheets/create.html:27 templates/worksheets/create.html:168
+msgid "Maks. 50 MB"
+msgstr "Max. 50 Mo"
+
+#: templates/worksheets/create.html:34
+msgid "Kaldır"
+msgstr "Supprimer"
+
+#: templates/worksheets/create.html:40
+msgid "veya bilgileri doldurun"
+msgstr "ou remplissez les informations"
+
+#: templates/worksheets/create.html:45
+msgid "Başlık"
+msgstr "Démarrer"
+
+#: templates/worksheets/create.html:48
+msgid "Örn: 2. Sınıf Toplama İşlemi"
+msgstr "Par exemple : Ajout de 2e classe"
+
+#: templates/worksheets/create.html:54
+msgid "Kağıt hakkında kısa bir açıklama"
+msgstr "Une brève description du document"
+
+#: templates/worksheets/create.html:58
+msgid "Ders"
+msgstr "Leçon"
+
+#: templates/worksheets/create.html:67
+msgid "Seviye"
+msgstr "Tous niveaux"
+
+#: templates/worksheets/create.html:78
+msgid "Dil"
+msgstr "Supprimer"
+
+#: templates/worksheets/create.html:86
+msgid "Etiketler"
+msgstr "Balises"
+
+#: templates/worksheets/create.html:89
+msgid "matematik, toplama"
+msgstr "mathématiques, addition"
+
+#: templates/worksheets/create.html:95
+msgid "Puanlama Sistemi"
+msgstr "Système de notation"
+
+#: templates/worksheets/create.html:96
+msgid "(öğrenciye gösterilecek puan)"
+msgstr "(score à montrer à l'élève)"
+
+#: templates/worksheets/create.html:104
+msgid "100'lük Sistem"
+msgstr "Système de 100"
+
+#: templates/worksheets/create.html:105
+msgid "Öğrenciye 0–100 arası puan gösterilir"
+msgstr "L'élève se voit attribuer un score compris entre 0 et 100"
+
+#: templates/worksheets/create.html:108 templates/worksheets/create.html:119
+msgid "Seçili"
+msgstr "Sélectionné"
+
+#: templates/worksheets/create.html:115
+msgid "10'luk Sistem"
+msgstr "Système de 10"
+
+#: templates/worksheets/create.html:116
+msgid "Öğrenciye 0–10 arası puan gösterilir"
+msgstr "L'élève se voit attribuer un score compris entre 0 et 10"
+
+#: templates/worksheets/create.html:127
+msgid "Herkese açık (kütüphaneye eklenebilir)"
+msgstr "Public (peut être ajouté à la bibliothèque)"
+
+#: templates/worksheets/create.html:131
+msgid "Oluştur ve Düzenle"
+msgstr "Créer et modifier"
+
+#: templates/worksheets/create.html:133 templates/worksheets/editor.html:382
+#: templates/worksheets/editor.html:409
+msgid "İptal"
+msgstr "Annuler"
+
+#: templates/worksheets/create.html:155
+msgid "PDF yüklendi — sayfa sayısı işlem sırasında belirlenir."
+msgstr ""
+"PDF téléchargé — le nombre de pages est déterminé au cours du processus."
+
+#: templates/worksheets/create.html:161
+msgid "PDF İşle ve Oluştur"
+msgstr "Créer une affectation"
+
+#: templates/worksheets/create.html:192
+msgid "PDF işleniyor, lütfen bekleyin..."
+msgstr "Le PDF est en cours de traitement, veuillez patienter..."
+
+#: templates/worksheets/list.html:3 templates/worksheets/list.html:6
+msgid "Çalışma Kağıtlarım"
+msgstr "Mes documents de travail"
+
+#: templates/worksheets/list.html:8
+msgid "Yeni Oluştur"
+msgstr "Créer un nouveau"
+
+#: templates/worksheets/list.html:52
+msgid "Herkese Açık"
+msgstr "Publique"
+
+#: templates/worksheets/list.html:52
+msgid "Özel"
+msgstr "Privé"
+
+#: templates/worksheets/list.html:65
+msgid "Henüz çalışma kağıdınız yok"
+msgstr "Vous n'avez pas encore de feuilles de calcul"
+
+#: templates/worksheets/list.html:66
+msgid "PDF veya görselden etkileşimli çalışma kağıtları oluşturun."
+msgstr ""
+"Créez des feuilles de calcul interactives à partir d'un PDF ou d'une image."
+
+#: templates/worksheets/player.html:216
+msgid "10\\'luk Sistem"
+msgstr "Système de 10"
+
+#: templates/worksheets/player.html:216
+msgid "100\\'lük Sistem"
+msgstr "Système de 100"
+
+#: templates/worksheets/player.html:235
+msgid "Harika iş! Tebrikler!"
+msgstr "Super travail ! Félicitations!"
+
+#: templates/worksheets/player.html:235
+msgid "Biraz daha çalışabilirsin."
+msgstr "Vous pouvez travailler un peu plus."
+
+#: templates/worksheets/player.html:242
+msgid "Geçti"
+msgstr "Passé"
+
+#: templates/worksheets/player.html:242
+msgid "Geçemedi"
+msgstr "Impossible de passer"
+
+#: templates/worksheets/player.html:251
+msgid "Cevaplarımı Gör"
+msgstr "Voir mes réponses"
+
+#: templates/worksheets/player.html:255
+msgid "Tekrar Dene"
+msgstr "Réessayez"
+
+#: templates/worksheets/player.html:259
+msgid "Diğer Kağıtlar"
+msgstr "Autres papiers"
+
+#: templates/worksheets/player.html:653
+msgid "Çözmeye Daha Sonra Devam Et"
+msgstr "Continuer à résoudre plus tard"
+
+#: templates/worksheets/player.html:658
+msgid "Gönder ve Puanla"
+msgstr "Soumettre et noter"
+
+#: templates/worksheets/player.html:745
+msgid "Başarılı!"
+msgstr "Réussi!"
+
+#: templates/worksheets/player.html:746
+msgid ""
+"Cevaplarınız taslak olarak kaydedildi. İstediğiniz zaman geri dönüp devam "
+"edebilirsiniz."
+msgstr ""
+"Vos réponses ont été enregistrées sous forme de brouillons. Vous pouvez "
+"revenir en arrière et continuer quand vous le souhaitez."
+
+#: templates/worksheets/player.html:748
+msgid "Tamam"
+msgstr "D'accord"
+
+#~ msgid "Doğru"
+#~ msgstr "vrai"

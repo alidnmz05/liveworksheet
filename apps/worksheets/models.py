@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 import uuid
 import json
 
@@ -18,16 +19,24 @@ class Subject(models.Model):
 
 class Worksheet(models.Model):
     LEVEL_CHOICES = [
-        ('anaokulu', 'Anaokulu'),
-        ('ilkokul', 'İlkokul'),
-        ('ortaokul', 'Ortaokul'),
-        ('lise', 'Lise'),
-        ('universite', 'Üniversite'),
-        ('yetiskin', 'Yetişkin'),
+        ('anaokulu', _('Anaokulu')),
+        ('ilkokul', _('İlkokul')),
+        ('ortaokul', _('Ortaokul')),
+        ('lise', _('Lise')),
+        ('universite', _('Üniversite')),
+        ('yetiskin', _('Yetişkin')),
     ]
     LANGUAGE_CHOICES = [
-        ('tr', 'Türkçe'), ('en', 'İngilizce'), ('de', 'Almanca'),
-        ('fr', 'Fransızca'), ('es', 'İspanyolca'), ('ar', 'Arapça'),
+        ('tr', _('Türkçe')), ('en', _('İngilizce')), ('de', _('Almanca')),
+        ('fr', _('Fransızca')), ('es', _('İspanyolca')), ('ar', _('Arapça')),
+        ('pt', _('Portekizce')), ('ru', _('Rusça')), ('zh-hans', _('Çince')),
+        ('it', _('İtalyanca')), ('ko', _('Korece')),
+    ]
+    GRADING_100 = '100'
+    GRADING_10 = '10'
+    GRADING_CHOICES = [
+        (GRADING_100, _("100'lük Sistem (0–100 puan)")),
+        (GRADING_10, _("10'luk Sistem (0–10 puan)")),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -36,13 +45,27 @@ class Worksheet(models.Model):
     description = models.TextField(blank=True)
     subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True, blank=True)
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES, blank=True)
-    language = models.CharField(max_length=5, choices=LANGUAGE_CHOICES, default='tr')
+    language = models.CharField(max_length=15, choices=LANGUAGE_CHOICES, default='tr')
+    grading_system = models.CharField(
+        max_length=3,
+        choices=GRADING_CHOICES,
+        default=GRADING_100,
+        verbose_name='Puanlama Sistemi',
+        help_text='Öğrenciye gösterilecek puan sistemi'
+    )
     is_public = models.BooleanField(default=True)
     thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
     tags = models.CharField(max_length=500, blank=True, help_text='Virgülle ayrılmış etiketler')
     view_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # Dummy translations for database objects (Subjects) so makemessages picks them up
+    _DUMMY_SUBJECTS = [
+        _('Matematik'), _('Türkçe'), _('İngilizce'), _('Tarih'), _('Coğrafya'),
+        _('Fizik'), _('Kimya'), _('Biyoloji'), _('Fen Bilimleri'), _('Sosyal Bilgiler'),
+        _('Hayat Bilgisi'), _('Din Kültürü'), _('Yabancı Dil'), _('Müzik'), _('Resim')
+    ]
 
     class Meta:
         verbose_name = 'Çalışma Kağıdı'
@@ -57,10 +80,14 @@ class Worksheet(models.Model):
         return [t.strip() for t in self.tags.split(',') if t.strip()]
 
     @property
+    def total_questions_count(self):
+        return Question.objects.filter(page__worksheet=self).exclude(
+            question_type__in=['simple_text', 'play_mp3']
+        ).count()
+
+    @property
     def question_count(self):
-        return self.pages.aggregate(
-            total=models.Sum('questions__count')
-        )['total'] or self.pages.prefetch_related('questions').count()
+        return self.total_questions_count
 
 
 class WorksheetPage(models.Model):

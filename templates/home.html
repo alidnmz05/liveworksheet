@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}LiveWorksheet — Etkileşimli Çalışma Kağıtları{% endblock %}
 {% block content %}
 <!-- Hero -->
 <div class="text-center py-20">
     <h1 class="text-5xl font-extrabold text-gray-900 mb-4">
-        Etkileşimli <span class="text-indigo-600">Çalışma Kağıtları</span> Oluşturun
+        {% trans 'Etkileşimli' %} <span class="text-indigo-600">{% trans 'Çalışma Kağıtları' %}</span> {% trans 'Oluşturun' %}
     </h1>
     <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-8">
-        PDF ve görsellerinizi; sürükle-bırak, çoktan seçmeli, sesli yanıt gibi interaktif sorularla dönüştürün.
-        Öğrencilerinizi takip edin, anında puan verin.
+        {% trans 'PDF ve görsellerinizi; sürükle-bırak, çoktan seçmeli, sesli yanıt gibi interaktif sorularla dönüştürün. Öğrencilerinizi takip edin, anında puan verin.' %}
     </p>
     <div class="flex justify-center gap-4">
         <a href="{% url 'register' %}" class="btn-primary text-base px-6 py-3">
-            <i class="fas fa-rocket"></i> Ücretsiz Başla
+            <i class="fas fa-rocket"></i> {% trans 'Ücretsiz Başla' %}
         </a>
         <a href="{% url 'library_index' %}" class="btn-secondary text-base px-6 py-3">
-            <i class="fas fa-globe"></i> Kütüphaneye Göz At
+            <i class="fas fa-globe"></i> {% trans 'Kütüphaneye Göz At' %}
         </a>
     </div>
 </div>

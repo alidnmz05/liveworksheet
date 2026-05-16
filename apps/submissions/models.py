@@ -14,6 +14,7 @@ class Submission(models.Model):
     total_questions = models.PositiveIntegerField(default=0)
     correct_count = models.PositiveIntegerField(default=0)
     is_graded = models.BooleanField(default=False)
+    is_draft = models.BooleanField(default=False, help_text='Taslak olarak kaydedildiyse (Daha sonra devam et) True')
 
     class Meta:
         verbose_name = 'Gönderim'

@@ -1,41 +1,42 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}Profil{% endblock %}
 {% block content %}
 <div class="max-w-lg mx-auto">
-    <h1 class="text-2xl font-bold mb-6">Profilim</h1>
+    <h1 class="text-2xl font-bold mb-6">{% trans 'Profilim' %}</h1>
     <div class="card p-6">
         <form method="post" enctype="multipart/form-data" class="space-y-4">
             {% csrf_token %}
             {% if user.avatar %}
             <div class="flex items-center gap-4 mb-2">
                 <img src="{{ user.avatar.url }}" class="w-16 h-16 rounded-full object-cover">
-                <span class="text-sm text-gray-500">Profil fotoğrafı</span>
+                <span class="text-sm text-gray-500">{% trans 'Profil fotoğrafı' %}</span>
             </div>
             {% endif %}
             <div>
-                <label class="block text-sm font-medium mb-1">Profil Fotoğrafı</label>
+                <label class="block text-sm font-medium mb-1">{% trans 'Profil Fotoğrafı' %}</label>
                 <input type="file" name="avatar" accept="image/*" class="text-sm text-gray-500">
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium mb-1">Ad</label>
+                    <label class="block text-sm font-medium mb-1">{% trans 'Ad' %}</label>
                     <input type="text" name="first_name" value="{{ user.first_name }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">Soyad</label>
+                    <label class="block text-sm font-medium mb-1">{% trans 'Soyad' %}</label>
                     <input type="text" name="last_name" value="{{ user.last_name }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
                 </div>
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1">Okul/Kurum</label>
+                <label class="block text-sm font-medium mb-1">{% trans 'Okul/Kurum' %}</label>
                 <input type="text" name="school" value="{{ user.school }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1">Ülke</label>
+                <label class="block text-sm font-medium mb-1">{% trans 'Ülke' %}</label>
                 <input type="text" name="country" value="{{ user.country }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
             </div>
             <div>
-                <label class="block text-sm font-medium mb-1">Hakkında</label>
+                <label class="block text-sm font-medium mb-1">{% trans 'Hakkında' %}</label>
                 <textarea name="bio" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">{{ user.bio }}</textarea>
             </div>
             <button type="submit" class="btn-primary w-full justify-center py-2.5">

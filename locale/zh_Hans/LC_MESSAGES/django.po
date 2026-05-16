@@ -1,0 +1,912 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-16 19:20+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps/accounts/views.py:16
+msgid "Sürükle & Bırak"
+msgstr "拖放"
+
+#: apps/accounts/views.py:16
+msgid "Öğrenciler nesneleri doğru kutucuklara sürükler."
+msgstr "学生将物体拖入正确的盒子中。"
+
+#: apps/accounts/views.py:17
+msgid "Çoktan Seçmeli"
+msgstr "多项选择"
+
+#: apps/accounts/views.py:17
+msgid "Klasik çoktan seçmeli sorular oluşturun."
+msgstr "创建经典的多项选择题。"
+
+#: apps/accounts/views.py:18
+msgid "Eşleştirme"
+msgstr "匹配"
+
+#: apps/accounts/views.py:18
+msgid "İki sütun arasında öğeleri birbirine bağlayın."
+msgstr "连接两列之间的项目。"
+
+#: apps/accounts/views.py:19
+msgid "Sesli Yanıt"
+msgstr "语音响应"
+
+#: apps/accounts/views.py:19
+msgid "Öğrenciler mikrofon ile sözlü cevap verebilir."
+msgstr "学生可以通过麦克风进行口头回答。"
+
+#: apps/accounts/views.py:20
+msgid "Video Entegrasyonu"
+msgstr "视频集成"
+
+#: apps/accounts/views.py:20
+msgid "YouTube/Vimeo videolarını kağıda gömün."
+msgstr "在纸上嵌入 YouTube/Vimeo 视频。"
+
+#: apps/accounts/views.py:21
+msgid "Anında Puanlama"
+msgstr "即时评分"
+
+#: apps/accounts/views.py:21
+msgid "Sistem cevapları otomatik değerlendirir ve puan verir."
+msgstr "系统自动评估答案并给出分数。"
+
+#: apps/worksheets/models.py:22
+msgid "Anaokulu"
+msgstr "幼儿园"
+
+#: apps/worksheets/models.py:23
+msgid "İlkokul"
+msgstr "小学"
+
+#: apps/worksheets/models.py:24
+msgid "Ortaokul"
+msgstr "中学"
+
+#: apps/worksheets/models.py:25
+msgid "Lise"
+msgstr "高中"
+
+#: apps/worksheets/models.py:26
+msgid "Üniversite"
+msgstr "大学"
+
+#: apps/worksheets/models.py:27
+msgid "Yetişkin"
+msgstr "成人"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "Türkçe"
+msgstr "土耳其语"
+
+#: apps/worksheets/models.py:30 apps/worksheets/models.py:65
+msgid "İngilizce"
+msgstr "英语"
+
+#: apps/worksheets/models.py:30
+msgid "Almanca"
+msgstr "德语"
+
+#: apps/worksheets/models.py:31
+msgid "Fransızca"
+msgstr "法语"
+
+#: apps/worksheets/models.py:31
+msgid "İspanyolca"
+msgstr "西班牙语"
+
+#: apps/worksheets/models.py:31
+msgid "Arapça"
+msgstr "阿拉伯语"
+
+#: apps/worksheets/models.py:32
+msgid "Portekizce"
+msgstr "葡萄牙语"
+
+#: apps/worksheets/models.py:32
+msgid "Rusça"
+msgstr "俄语"
+
+#: apps/worksheets/models.py:32
+msgid "Çince"
+msgstr "中文"
+
+#: apps/worksheets/models.py:33
+msgid "İtalyanca"
+msgstr "意大利语"
+
+#: apps/worksheets/models.py:33
+msgid "Korece"
+msgstr "韩语"
+
+#: apps/worksheets/models.py:38
+msgid "100'lük Sistem (0–100 puan)"
+msgstr "100 系统"
+
+#: apps/worksheets/models.py:39
+msgid "10'luk Sistem (0–10 puan)"
+msgstr "10 系统"
+
+#: apps/worksheets/models.py:65
+msgid "Matematik"
+msgstr "数学"
+
+#: apps/worksheets/models.py:65 templates/assignments/detail.html:33
+#: templates/submissions/list.html:14
+msgid "Tarih"
+msgstr "日期"
+
+#: apps/worksheets/models.py:65
+msgid "Coğrafya"
+msgstr "地理"
+
+#: apps/worksheets/models.py:66
+msgid "Fizik"
+msgstr "物理"
+
+#: apps/worksheets/models.py:66
+msgid "Kimya"
+msgstr "化学"
+
+#: apps/worksheets/models.py:66
+msgid "Biyoloji"
+msgstr "生物学"
+
+#: apps/worksheets/models.py:66
+msgid "Fen Bilimleri"
+msgstr "科学"
+
+#: apps/worksheets/models.py:66
+msgid "Sosyal Bilgiler"
+msgstr "社会研究"
+
+#: apps/worksheets/models.py:67
+msgid "Hayat Bilgisi"
+msgstr "生命科学"
+
+#: apps/worksheets/models.py:67
+msgid "Din Kültürü"
+msgstr "宗教文化"
+
+#: apps/worksheets/models.py:67
+msgid "Yabancı Dil"
+msgstr "外语"
+
+#: apps/worksheets/models.py:67
+msgid "Müzik"
+msgstr "音乐"
+
+#: apps/worksheets/models.py:67
+msgid "Resim"
+msgstr "图片"
+
+#: templates/accounts/classroom_detail.html:8
+msgid "Sınıf Kodu"
+msgstr "创建类"
+
+#: templates/accounts/classroom_detail.html:16
+#: templates/accounts/classroom_list.html:47
+#: templates/worksheets/editor.html:890
+msgid "Öğrenciler"
+msgstr "学生"
+
+#: templates/accounts/classroom_form.html:3
+#: templates/accounts/classroom_form.html:7
+#: templates/accounts/classroom_list.html:49 templates/base.html:147
+msgid "Sınıf Oluştur"
+msgstr "创建类"
+
+#: templates/accounts/classroom_form.html:11
+msgid "Sınıf Adı"
+msgstr "我的课程"
+
+#: templates/accounts/classroom_form.html:15
+#: templates/workbooks/create.html:15 templates/worksheets/create.html:51
+msgid "Açıklama"
+msgstr "描述"
+
+#: templates/accounts/classroom_form.html:18
+#: templates/accounts/dashboard.html:143 templates/workbooks/create.html:18
+msgid "Oluştur"
+msgstr "创建"
+
+#: templates/accounts/classroom_list.html:3
+#: templates/accounts/classroom_list.html:6
+#: templates/accounts/dashboard.html:112 templates/base.html:79
+#: templates/base.html:86
+msgid "Sınıflarım"
+msgstr "我的课程"
+
+#: templates/accounts/classroom_list.html:9
+msgid "Yeni Sınıf"
+msgstr "加入新班级"
+
+#: templates/accounts/classroom_list.html:16
+#: templates/accounts/dashboard.html:233
+msgid "Katıl"
+msgstr "加入"
+
+#: templates/accounts/classroom_list.html:35
+msgid "öğrenci"
+msgstr "学生"
+
+#: templates/accounts/classroom_list.html:46
+msgid "Henüz sınıfınız yok"
+msgstr "你没有课"
+
+#: templates/accounts/classroom_list.html:52
+msgid "Henüz bir sınıfa katılmadınız"
+msgstr "您还没有任何工作表"
+
+#: templates/accounts/classroom_list.html:53
+msgid "Öğretmeninizden sınıf kodunu alın ve yukarıya girin."
+msgstr "输入老师提供的参与代码。"
+
+#: templates/accounts/dashboard.html:3 templates/base.html:69
+msgid "Panel"
+msgstr "面板"
+
+#: templates/accounts/dashboard.html:8
+msgid "Merhaba,"
+msgstr "你好，"
+
+#: templates/accounts/dashboard.html:12
+msgid "Öğretmen Yönetim Paneli"
+msgstr "教师管理面板"
+
+#: templates/accounts/dashboard.html:14
+msgid "Öğrenci Kontrol Paneli"
+msgstr "学生控制面板"
+
+#: templates/accounts/dashboard.html:29 templates/submissions/list.html:11
+msgid "Çalışma Kağıdı"
+msgstr "工作表"
+
+#: templates/accounts/dashboard.html:40
+msgid "Toplam Öğrenci"
+msgstr "学生总数"
+
+#: templates/accounts/dashboard.html:51
+msgid "Aktif Ödev"
+msgstr "活跃的家庭作业"
+
+#: templates/accounts/dashboard.html:61
+msgid "Son Çalışma Kağıtları"
+msgstr "最新工作论文"
+
+#: templates/accounts/dashboard.html:63 templates/accounts/dashboard.html:114
+msgid "Yeni Ekle"
+msgstr "添加新的"
+
+#: templates/accounts/dashboard.html:79
+msgid "görüntülenme"
+msgstr "意见"
+
+#: templates/accounts/dashboard.html:83 templates/worksheets/list.html:29
+msgid "Düzenle"
+msgstr "编辑"
+
+#: templates/accounts/dashboard.html:86
+msgid "Görüntüle"
+msgstr "查看"
+
+#: templates/accounts/dashboard.html:89 templates/worksheets/list.html:35
+msgid "Sil"
+msgstr "删除"
+
+#: templates/accounts/dashboard.html:96
+msgid "Tümünü Gör"
+msgstr "查看全部"
+
+#: templates/accounts/dashboard.html:102
+msgid "Çalışma Kağıdı Bulunamadı"
+msgstr "未找到工作文件"
+
+#: templates/accounts/dashboard.html:103
+msgid "Öğrencilerinize atamak için ilk materyalinizi hazırlayın."
+msgstr "准备分配给学生的第一份材料。"
+
+#: templates/accounts/dashboard.html:104 templates/worksheets/list.html:68
+msgid "İlk Kağıdınızı Oluşturun"
+msgstr "创建您的第一篇论文"
+
+#: templates/accounts/dashboard.html:130 templates/assignments/detail.html:30
+msgid "Öğrenci"
+msgstr "学生"
+
+#: templates/accounts/dashboard.html:141
+msgid "Sınıfınız Yok"
+msgstr "你没有课"
+
+#: templates/accounts/dashboard.html:142
+msgid "Öğrencilerinizi gruplamak için sınıf oluşturun."
+msgstr "创建班级来对学生进行分组。"
+
+#: templates/accounts/dashboard.html:153
+msgid "Bekleyen Ödevlerim"
+msgstr "我的待处理作业"
+
+#: templates/accounts/dashboard.html:154
+msgid "Görev"
+msgstr "任务"
+
+#: templates/accounts/dashboard.html:176
+msgid "Süresi Geçti!"
+msgstr "已到期！"
+
+#: templates/accounts/dashboard.html:178
+msgid "Teslim"
+msgstr "交货"
+
+#: templates/accounts/dashboard.html:181
+msgid "Süresiz"
+msgstr "不定"
+
+#: templates/accounts/dashboard.html:185 templates/assignments/list.html:39
+msgid "Başla"
+msgstr "开始"
+
+#: templates/accounts/dashboard.html:194
+msgid "Harika Haber!"
+msgstr "好消息！"
+
+#: templates/accounts/dashboard.html:195
+msgid "Şu anda bekleyen hiçbir ödeviniz yok."
+msgstr "您目前没有待处理的作业。"
+
+#: templates/accounts/dashboard.html:201
+msgid "Kayıtlı Sınıflarım"
+msgstr "我保存的课程"
+
+#: templates/accounts/dashboard.html:224
+msgid "Yeni Sınıfa Katıl"
+msgstr "加入新班级"
+
+#: templates/accounts/dashboard.html:225
+msgid "Öğretmeninizin verdiği katılım kodunu giriniz."
+msgstr "输入老师提供的参与代码。"
+
+#: templates/accounts/dashboard.html:232
+msgid "KOD-GİRİN"
+msgstr "输入代码"
+
+#: templates/accounts/login.html:3 templates/accounts/login.html:28
+#: templates/accounts/register.html:77 templates/base.html:157
+msgid "Giriş Yap"
+msgstr "登录"
+
+#: templates/accounts/login.html:9
+msgid "Tekrar Hoş Geldiniz"
+msgstr "欢迎回来"
+
+#: templates/accounts/login.html:10
+msgid "Hesabınıza giriş yapın"
+msgstr "登录您的帐户"
+
+#: templates/accounts/login.html:16 templates/accounts/register.html:47
+msgid "E-posta"
+msgstr "电子邮件"
+
+#: templates/accounts/login.html:22 templates/accounts/register.html:53
+msgid "Şifre"
+msgstr "密码"
+
+#: templates/accounts/login.html:33
+msgid "Hesabınız yok mu?"
+msgstr "没有帐户？"
+
+#: templates/accounts/login.html:33 templates/accounts/register.html:3
+#: templates/base.html:158
+msgid "Kayıt Ol"
+msgstr "注册"
+
+#: templates/accounts/profile.html:6
+msgid "Profilim"
+msgstr "简介"
+
+#: templates/accounts/profile.html:13
+msgid "Profil fotoğrafı"
+msgstr "个人资料照片"
+
+#: templates/accounts/profile.html:17
+msgid "Profil Fotoğrafı"
+msgstr "个人资料照片"
+
+#: templates/accounts/profile.html:22 templates/accounts/register.html:34
+msgid "Ad"
+msgstr "姓名"
+
+#: templates/accounts/profile.html:26 templates/accounts/register.html:40
+msgid "Soyad"
+msgstr "姓氏"
+
+#: templates/accounts/profile.html:31
+msgid "Okul/Kurum"
+msgstr "学校/机构"
+
+#: templates/accounts/profile.html:35
+msgid "Ülke"
+msgstr "国家"
+
+#: templates/accounts/profile.html:39
+msgid "Hakkında"
+msgstr "关于"
+
+#: templates/accounts/register.html:9
+msgid "Ücretsiz Hesap Oluştur"
+msgstr "创建免费帐户"
+
+#: templates/accounts/register.html:19
+msgid "Öğretmenim"
+msgstr "我的老师"
+
+#: templates/accounts/register.html:26
+msgid "Öğrenciyim"
+msgstr "我是学生"
+
+#: templates/accounts/register.html:37
+msgid "Adınız"
+msgstr "你的名字"
+
+#: templates/accounts/register.html:43
+msgid "Soyadınız"
+msgstr "你的姓氏"
+
+#: templates/accounts/register.html:56
+msgid "En az 8 karakter"
+msgstr "至少 8 个字符"
+
+#: templates/accounts/register.html:59
+msgid "Şifre Tekrar"
+msgstr "再次输入密码"
+
+#: templates/accounts/register.html:62
+msgid "Şifreyi tekrar girin"
+msgstr "重新输入密码"
+
+#: templates/accounts/register.html:72
+msgid "Hesap Oluştur"
+msgstr "创建帐户"
+
+#: templates/accounts/register.html:77
+msgid "Zaten hesabınız var mı?"
+msgstr "已经有帐户？"
+
+#: templates/assignments/create.html:7 templates/assignments/detail.html:6
+#: templates/workbooks/detail.html:7
+msgid "Geri"
+msgstr "返回"
+
+#: templates/assignments/create.html:36 templates/assignments/create.html:47
+#: templates/workbooks/detail.html:50 templates/worksheets/create.html:60
+#: templates/worksheets/create.html:69
+msgid "Seçin..."
+msgstr "选择..."
+
+#: templates/assignments/detail.html:10
+msgid "Son teslim"
+msgstr "交货"
+
+#: templates/assignments/detail.html:19
+msgid "Öğrenci Gönderimleri"
+msgstr "学生"
+
+#: templates/assignments/detail.html:22
+msgid "Önizle"
+msgstr "预览"
+
+#: templates/assignments/detail.html:31 templates/submissions/list.html:12
+msgid "Puan"
+msgstr "分数"
+
+#: templates/assignments/detail.html:32 templates/submissions/list.html:13
+msgid "Doğru/Toplam"
+msgstr "真实/总计"
+
+#: templates/assignments/detail.html:43
+msgid "Devam Ediyor"
+msgstr "进行中"
+
+#: templates/assignments/detail.html:53
+msgid "Soru"
+msgstr "问题"
+
+#: templates/assignments/detail.html:62 templates/assignments/list.html:39
+#: templates/submissions/list.html:30
+msgid "Detay"
+msgstr "详细"
+
+#: templates/assignments/detail.html:70
+msgid "Henüz gönderim yok."
+msgstr "您还没有帖子。"
+
+#: templates/assignments/detail.html:80
+msgid "Taslak Kaydınız Var"
+msgstr "您有一个注册草稿"
+
+#: templates/assignments/detail.html:82
+msgid "Çözülmeye devam ediliyor"
+msgstr "继续解决"
+
+#: templates/assignments/detail.html:86
+msgid "Son Sonucunuz"
+msgstr "您的最后结果"
+
+#: templates/assignments/detail.html:90
+msgid "doğru"
+msgstr "真实"
+
+#: templates/assignments/detail.html:93
+msgid "Detayları Gör"
+msgstr "查看我的回答"
+
+#: templates/assignments/detail.html:104
+msgid "Ödeve Devam Et"
+msgstr "继续作业"
+
+#: templates/assignments/detail.html:106
+msgid "Ödevi Başlat"
+msgstr "创建免费帐户"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:82
+msgid "Ödevler"
+msgstr "作业"
+
+#: templates/assignments/list.html:3 templates/assignments/list.html:6
+#: templates/base.html:89
+msgid "Ödevlerim"
+msgstr "我的作业"
+
+#: templates/assignments/list.html:9
+msgid "Yeni Ödev"
+msgstr "新作业"
+
+#: templates/assignments/list.html:28
+msgid "Süresi doldu"
+msgstr "已过期"
+
+#: templates/assignments/list.html:47
+msgid "Henüz ödev yok"
+msgstr "还没有作业"
+
+#: templates/assignments/list.html:49
+msgid "Ödev Oluştur"
+msgstr "创建作业"
+
+#: templates/base.html:73 templates/home.html:8
+msgid "Çalışma Kağıtları"
+msgstr "工作表"
+
+#: templates/base.html:76
+msgid "Defterler"
+msgstr "笔记本"
+
+#: templates/base.html:92 templates/submissions/list.html:3
+#: templates/submissions/list.html:5
+msgid "Sonuçlarım"
+msgstr "我的结果"
+
+#: templates/base.html:96 templates/library/index.html:3
+msgid "Kütüphane"
+msgstr "图书馆"
+
+#: templates/base.html:143
+msgid "Profil"
+msgstr "简介"
+
+#: templates/base.html:152
+msgid "Çıkış"
+msgstr "退出"
+
+#: templates/base.html:189
+msgid "Etkileşimli Eğitim Platformu"
+msgstr "互动教育平台"
+
+#: templates/home.html:8
+msgid "Etkileşimli"
+msgstr "互动"
+
+#: templates/home.html:8
+msgid "Oluşturun"
+msgstr "创建"
+
+#: templates/home.html:11
+msgid ""
+"PDF ve görsellerinizi; sürükle-bırak, çoktan seçmeli, sesli yanıt gibi "
+"interaktif sorularla dönüştürün. Öğrencilerinizi takip edin, anında puan "
+"verin."
+msgstr "您的 PDF 和图像；通过拖放、多项选择、语音回答等交互式问题对其进行改造。关注您的学生并立即给予积分。"
+
+#: templates/home.html:15
+msgid "Ücretsiz Başla"
+msgstr "创建免费帐户"
+
+#: templates/home.html:18
+msgid "Kütüphaneye Göz At"
+msgstr "图书馆"
+
+#: templates/library/index.html:7
+msgid "Etkileşimli Çalışma Kütüphanesi"
+msgstr "互动学习图书馆"
+
+#: templates/library/index.html:13
+msgid "Konu, etiket veya öğretmen adı..."
+msgstr "主题、标签或教师姓名..."
+
+#: templates/library/index.html:16
+msgid "Tüm Dersler"
+msgstr "所有课程"
+
+#: templates/library/index.html:20
+msgid "Tüm Seviyeler"
+msgstr "所有级别"
+
+#: templates/library/index.html:24
+msgid "Tüm Diller"
+msgstr "所有语言​​"
+
+#: templates/library/index.html:28
+msgid "Ara"
+msgstr "搜索"
+
+#: templates/library/index.html:46
+msgid "Öne Çıkan"
+msgstr "精选"
+
+#: templates/library/index.html:51 templates/worksheets/list.html:32
+msgid "Çöz"
+msgstr "解决"
+
+#: templates/library/index.html:78
+msgid "Sonuç bulunamadı"
+msgstr "没有找到结果"
+
+#: templates/library/index.html:79
+msgid "Farklı anahtar kelimeler deneyin."
+msgstr "尝试不同的关键词。"
+
+#: templates/submissions/list.html:40
+msgid "Henüz gönderiminiz yok."
+msgstr "您还没有帖子。"
+
+#: templates/workbooks/create.html:3 templates/workbooks/list.html:8
+msgid "Yeni Defter"
+msgstr "笔记本"
+
+#: templates/workbooks/create.html:7
+msgid "Yeni Dijital Defter"
+msgstr "笔记本"
+
+#: templates/workbooks/create.html:11
+msgid "Defter Adı"
+msgstr "笔记本"
+
+#: templates/workbooks/list.html:3 templates/workbooks/list.html:6
+msgid "Defterlerim"
+msgstr "笔记本"
+
+#: templates/workbooks/list.html:32 templates/worksheets/list.html:40
+msgid "Ödev Ver"
+msgstr "布置作业"
+
+#: templates/workbooks/list.html:41
+msgid "Henüz defter yok"
+msgstr "还没有作业"
+
+#: templates/workbooks/list.html:42
+msgid "Defter Oluştur"
+msgstr "新建"
+
+#: templates/worksheets/create.html:3 templates/worksheets/create.html:10
+msgid "Yeni Çalışma Kağıdı"
+msgstr "工作表"
+
+#: templates/worksheets/create.html:21
+msgid "PDF Dosyası"
+msgstr "PDF 文件"
+
+#: templates/worksheets/create.html:21
+msgid "(opsiyonel — her sayfa otomatik oluşturulur)"
+msgstr "（可选 - 每个页面都会自动生成）"
+
+#: templates/worksheets/create.html:26 templates/worksheets/create.html:167
+msgid "PDF dosyası seçin veya buraya sürükleyin"
+msgstr "在此处选择或拖动 PDF 文件"
+
+#: templates/worksheets/create.html:27 templates/worksheets/create.html:168
+msgid "Maks. 50 MB"
+msgstr "最大限度。 50 MB"
+
+#: templates/worksheets/create.html:34
+msgid "Kaldır"
+msgstr "删除"
+
+#: templates/worksheets/create.html:40
+msgid "veya bilgileri doldurun"
+msgstr "或填写信息"
+
+#: templates/worksheets/create.html:45
+msgid "Başlık"
+msgstr "开始"
+
+#: templates/worksheets/create.html:48
+msgid "Örn: 2. Sınıf Toplama İşlemi"
+msgstr "例如：第二类加法"
+
+#: templates/worksheets/create.html:54
+msgid "Kağıt hakkında kısa bir açıklama"
+msgstr "关于论文的简要描述"
+
+#: templates/worksheets/create.html:58
+msgid "Ders"
+msgstr "教训"
+
+#: templates/worksheets/create.html:67
+msgid "Seviye"
+msgstr "所有级别"
+
+#: templates/worksheets/create.html:78
+msgid "Dil"
+msgstr "删除"
+
+#: templates/worksheets/create.html:86
+msgid "Etiketler"
+msgstr "标签"
+
+#: templates/worksheets/create.html:89
+msgid "matematik, toplama"
+msgstr "数学，加法"
+
+#: templates/worksheets/create.html:95
+msgid "Puanlama Sistemi"
+msgstr "评分系统"
+
+#: templates/worksheets/create.html:96
+msgid "(öğrenciye gösterilecek puan)"
+msgstr "（向学生显示分数）"
+
+#: templates/worksheets/create.html:104
+msgid "100'lük Sistem"
+msgstr "100 系统"
+
+#: templates/worksheets/create.html:105
+msgid "Öğrenciye 0–100 arası puan gösterilir"
+msgstr "向学生显示 0 到 100 之间的分数"
+
+#: templates/worksheets/create.html:108 templates/worksheets/create.html:119
+msgid "Seçili"
+msgstr "已选择"
+
+#: templates/worksheets/create.html:115
+msgid "10'luk Sistem"
+msgstr "10 系统"
+
+#: templates/worksheets/create.html:116
+msgid "Öğrenciye 0–10 arası puan gösterilir"
+msgstr "向学生显示 0 到 10 之间的分数"
+
+#: templates/worksheets/create.html:127
+msgid "Herkese açık (kütüphaneye eklenebilir)"
+msgstr "公共（可以添加到库中）"
+
+#: templates/worksheets/create.html:131
+msgid "Oluştur ve Düzenle"
+msgstr "创建和编辑"
+
+#: templates/worksheets/create.html:133 templates/worksheets/editor.html:382
+#: templates/worksheets/editor.html:409
+msgid "İptal"
+msgstr "取消"
+
+#: templates/worksheets/create.html:155
+msgid "PDF yüklendi — sayfa sayısı işlem sırasında belirlenir."
+msgstr "上传的 PDF — 页数在此过程中确定。"
+
+#: templates/worksheets/create.html:161
+msgid "PDF İşle ve Oluştur"
+msgstr "创建作业"
+
+#: templates/worksheets/create.html:192
+msgid "PDF işleniyor, lütfen bekleyin..."
+msgstr "PDF 正在处理，请稍候..."
+
+#: templates/worksheets/list.html:3 templates/worksheets/list.html:6
+msgid "Çalışma Kağıtlarım"
+msgstr "我的工作文件"
+
+#: templates/worksheets/list.html:8
+msgid "Yeni Oluştur"
+msgstr "新建"
+
+#: templates/worksheets/list.html:52
+msgid "Herkese Açık"
+msgstr "公共"
+
+#: templates/worksheets/list.html:52
+msgid "Özel"
+msgstr "私人"
+
+#: templates/worksheets/list.html:65
+msgid "Henüz çalışma kağıdınız yok"
+msgstr "您还没有任何工作表"
+
+#: templates/worksheets/list.html:66
+msgid "PDF veya görselden etkileşimli çalışma kağıtları oluşturun."
+msgstr "从 PDF 或图像创建交互式工作表。"
+
+#: templates/worksheets/player.html:216
+msgid "10\\'luk Sistem"
+msgstr "10 系统"
+
+#: templates/worksheets/player.html:216
+msgid "100\\'lük Sistem"
+msgstr "100 系统"
+
+#: templates/worksheets/player.html:235
+msgid "Harika iş! Tebrikler!"
+msgstr "干得好！恭喜！"
+
+#: templates/worksheets/player.html:235
+msgid "Biraz daha çalışabilirsin."
+msgstr "你可以多工作一点。"
+
+#: templates/worksheets/player.html:242
+msgid "Geçti"
+msgstr "通过"
+
+#: templates/worksheets/player.html:242
+msgid "Geçemedi"
+msgstr "无法通过"
+
+#: templates/worksheets/player.html:251
+msgid "Cevaplarımı Gör"
+msgstr "查看我的回答"
+
+#: templates/worksheets/player.html:255
+msgid "Tekrar Dene"
+msgstr "再试一次"
+
+#: templates/worksheets/player.html:259
+msgid "Diğer Kağıtlar"
+msgstr "其他论文"
+
+#: templates/worksheets/player.html:653
+msgid "Çözmeye Daha Sonra Devam Et"
+msgstr "稍后继续解决"
+
+#: templates/worksheets/player.html:658
+msgid "Gönder ve Puanla"
+msgstr "提交并评分"
+
+#: templates/worksheets/player.html:745
+msgid "Başarılı!"
+msgstr "成功的！"
+
+#: templates/worksheets/player.html:746
+msgid ""
+"Cevaplarınız taslak olarak kaydedildi. İstediğiniz zaman geri dönüp devam "
+"edebilirsiniz."
+msgstr "您的答案已保存为草稿。您可以随时返回并继续。"
+
+#: templates/worksheets/player.html:748
+msgid "Tamam"
+msgstr "好的"
+
+#~ msgid "Doğru"
+#~ msgstr "真实"

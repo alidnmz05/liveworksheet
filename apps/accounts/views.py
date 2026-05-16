@@ -6,18 +6,19 @@ from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from .models import User, Classroom
 from .forms import RegisterForm, ProfileForm, ClassroomForm
+from django.utils.translation import gettext_lazy as _
 
 
 def home_view(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
     features = [
-        ('fas fa-mouse-pointer', 'Sürükle & Bırak', 'Öğrenciler nesneleri doğru kutucuklara sürükler.'),
-        ('fas fa-list-ul', 'Çoktan Seçmeli', 'Klasik çoktan seçmeli sorular oluşturun.'),
-        ('fas fa-link', 'Eşleştirme', 'İki sütun arasında öğeleri birbirine bağlayın.'),
-        ('fas fa-microphone', 'Sesli Yanıt', 'Öğrenciler mikrofon ile sözlü cevap verebilir.'),
-        ('fab fa-youtube', 'Video Entegrasyonu', 'YouTube/Vimeo videolarını kağıda gömin.'),
-        ('fas fa-bolt', 'Anında Puanlama', 'Sistem cevapları otomatik değerlendirir ve puan verir.'),
+        ('fas fa-mouse-pointer', _('Sürükle & Bırak'), _('Öğrenciler nesneleri doğru kutucuklara sürükler.')),
+        ('fas fa-list-ul', _('Çoktan Seçmeli'), _('Klasik çoktan seçmeli sorular oluşturun.')),
+        ('fas fa-link', _('Eşleştirme'), _('İki sütun arasında öğeleri birbirine bağlayın.')),
+        ('fas fa-microphone', _('Sesli Yanıt'), _('Öğrenciler mikrofon ile sözlü cevap verebilir.')),
+        ('fab fa-youtube', _('Video Entegrasyonu'), _('YouTube/Vimeo videolarını kağıda gömün.')),
+        ('fas fa-bolt', _('Anında Puanlama'), _('Sistem cevapları otomatik değerlendirir ve puan verir.')),
     ]
     return render(request, 'home.html', {'features': features})
 

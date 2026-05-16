@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load l10n worksheet_tags %}
+{% load l10n worksheet_tags i18n %}
 
 {% block title %}{{ worksheet.title }}{% endblock %}
 {% block main_class %}{% endblock %}
@@ -206,39 +206,62 @@
          class="fixed inset-0 z-50 flex items-center justify-center p-4"
          style="background: rgba(0,0,0,0.55);">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm text-center p-8"
-             :class="score >= 60 ? 'border-4 border-green-400' : 'border-4 border-orange-400'">
+             :class="isPassing ? 'border-4 border-green-400' : 'border-4 border-orange-400'">
             <!-- İkon -->
-            <div class="text-6xl mb-3" x-text="score >= 60 ? '🎉' : '📚'"></div>
-            <!-- Puan -->
-            <div class="text-6xl font-extrabold mb-1"
-                 :class="score >= 60 ? 'text-green-600' : 'text-orange-500'">
-                <span x-text="score"></span>%
+            <div class="text-6xl mb-3" x-text="isPassing ? '🎉' : '📚'"></div>
+
+            <!-- Sistem Etiketi -->
+            <div class="text-xs font-semibold uppercase tracking-widest mb-1"
+                 :class="isPassing ? 'text-green-500' : 'text-orange-400'"
+                 x-text="gradingSystem === '10' ? '{% trans "10\'luk Sistem" %}' : '{% trans "100\'lük Sistem" %}'">
             </div>
-            <!-- Doğru/Toplam -->
-            <p class="text-gray-500 text-sm mt-1">
-                <span x-text="correctCount"></span> / <span x-text="totalCount"></span> puan
-            </p>
+
+            <!-- Ana Puan -->
+            <div class="text-6xl font-extrabold mb-1"
+                 :class="isPassing ? 'text-green-600' : 'text-orange-500'">
+                <!-- 100'lük: sadece sayı, % yok -->
+                <span x-show="gradingSystem === '100'">
+                    <span x-text="displayScore"></span>
+                    <span class="text-3xl font-bold opacity-50">/ 100</span>
+                </span>
+                <!-- 10'luk: x.x / 10 -->
+                <span x-show="gradingSystem === '10'">
+                    <span x-text="scoreLabel"></span>
+                </span>
+            </div>
+
             <!-- Mesaj -->
             <p class="mt-3 text-lg font-semibold text-gray-700"
-               x-text="score >= 60 ? 'Harika iş! Tebrikler!' : 'Biraz daha çalışabilirsin.'"></p>
+               x-text="isPassing ? '{% trans "Harika iş! Tebrikler!" %}' : '{% trans "Biraz daha çalışabilirsin." %}'">
+            </p>
+
+            <!-- Geçti / Geçemedi -->
+            <div class="mt-2">
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold"
+                      :class="isPassing ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'"
+                      x-text="isPassing ? '✓ {% trans "Geçti" %}' : '✗ {% trans "Geçemedi" %}'">
+                </span>
+            </div>
+
             <!-- Butonlar -->
             <div class="flex flex-col gap-2 mt-6">
                 <button @click="submitted = false; window.scrollTo({top:0, behavior:'smooth'})"
                         class="w-full py-2 rounded-lg font-semibold text-sm"
-                        :class="score >= 60 ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-orange-100 text-orange-700 hover:bg-orange-200'">
-                    <i class="fas fa-eye mr-1"></i> Cevaplarımı Gör
+                        :class="isPassing ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-orange-100 text-orange-700 hover:bg-orange-200'">
+                    <i class="fas fa-eye mr-1"></i> {% trans "Cevaplarımı Gör" %}
                 </button>
                 <a href="{% url 'worksheet_play' worksheet.pk %}"
                    class="w-full py-2 rounded-lg bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-semibold text-sm block">
-                    <i class="fas fa-redo mr-1"></i> Tekrar Dene
+                    <i class="fas fa-redo mr-1"></i> {% trans "Tekrar Dene" %}
                 </a>
                 <a href="{% url 'library_index' %}"
                    class="w-full py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold text-sm block">
-                    <i class="fas fa-globe mr-1"></i> Diğer Kağıtlar
+                    <i class="fas fa-globe mr-1"></i> {% trans "Diğer Kağıtlar" %}
                 </a>
             </div>
         </div>
     </div>
+
 
     <!-- Pages -->
     {% localize off %}
@@ -623,10 +646,16 @@
 
 
     <!-- Submit button -->
-    <div x-show="!submitted" class="flex justify-center mt-8">
+    <div x-show="!submitted" class="flex justify-center gap-4 mt-8">
+        {% if user.is_authenticated %}
+        <button @click="saveDraft()"
+                class="btn-secondary text-base px-6 py-3">
+            <i class="fas fa-save mr-2"></i>{% trans "Çözmeye Daha Sonra Devam Et" %}
+        </button>
+        {% endif %}
         <button @click="submitAnswers()"
                 class="btn-primary text-base px-8 py-3">
-            <i class="fas fa-paper-plane mr-2"></i>Gönder ve Puanla
+            <i class="fas fa-paper-plane mr-2"></i>{% trans "Gönder ve Puanla" %}
         </button>
     </div>
     <div x-show="submitted" x-cloak class="flex justify-center gap-3 mt-8">
@@ -646,6 +675,7 @@ const CSRF = '{{ csrf_token }}';
 const WORKSHEET_ID = '{{ worksheet.pk }}';
 const urlParams = new URLSearchParams(window.location.search);
 const ASSIGNMENT_ID = urlParams.get('assignment');
+const DRAFT_ANSWERS = {{ draft_answers_json|safe|default:"{}" }};
 
 let selectedLeft = null;
 const matchingAnswers = {};
@@ -657,10 +687,70 @@ function worksheetPlayer() {
     return {
         submitted: false,
         score: 0,
+        displayScore: 0,
+        gradingSystem: '100',
         correctCount: 0,
         totalCount: 0,
+        get passingScore() { return this.gradingSystem === '10' ? 6 : 60; },
+        get isPassing() { return this.displayScore >= this.passingScore; },
+        get scoreUnit() { return this.gradingSystem === '10' ? '/ 10' : '%'; },
+        get scoreLabel() {
+            const n = parseFloat(this.displayScore) || 0;
+            if (this.gradingSystem === '10') return n.toFixed(1) + ' / 10';
+            return Math.round(n) + '%';
+        },
         init() {
-            // scalePages() etc.
+            if (Object.keys(DRAFT_ANSWERS).length > 0) {
+                this.restoreDraft();
+            }
+        },
+        restoreDraft() {
+            Object.entries(DRAFT_ANSWERS).forEach(([qId, ans]) => {
+                const container = document.querySelector(`.question-container[data-question-id="${qId}"]`);
+                if (!container) return;
+                const type = container.dataset.type;
+                if (type === 'fill_blank' || type === 'open_answer') {
+                    const input = document.getElementById('ans-' + qId);
+                    if (input) input.value = ans;
+                } else if (type === 'dropdown') {
+                    const select = document.getElementById('ans-' + qId);
+                    if (select) select.value = ans;
+                } else if (type === 'multiple_choice') {
+                    const r = container.querySelector(`input[name="q${qId}"][value="${ans}"]`);
+                    if (r) r.checked = true;
+                } else if (type === 'checkboxes') {
+                    if (Array.isArray(ans)) {
+                        ans.forEach(val => {
+                            const c = container.querySelector(`input[name="q${qId}"][value="${val}"]`);
+                            if (c) c.checked = true;
+                        });
+                    }
+                }
+            });
+        },
+        async saveDraft() {
+            const answers = collectAnswers();
+            const resp = await fetch(`/submissions/worksheet/${WORKSHEET_ID}/submit/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': CSRF, 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    answers,
+                    assignment_id: ASSIGNMENT_ID,
+                    is_draft: true
+                })
+            });
+            const data = await resp.json();
+            if(data.success) {
+                Swal.fire({
+                    title: "{% trans 'Başarılı!' %}",
+                    text: "{% trans 'Cevaplarınız taslak olarak kaydedildi. İstediğiniz zaman geri dönüp devam edebilirsiniz.' %}",
+                    icon: 'success',
+                    confirmButtonText: "{% trans 'Tamam' %}",
+                    confirmButtonColor: '#4f46e5',
+                }).then(() => {
+                    window.location.href = "{% url 'dashboard' %}";
+                });
+            }
         },
         async submitAnswers() {
             const answers = collectAnswers();
@@ -674,6 +764,8 @@ function worksheetPlayer() {
             });
             const data = await resp.json();
             this.score = data.score;
+            this.displayScore = data.display_score ?? data.score;
+            this.gradingSystem = data.grading_system ?? '100';
             this.correctCount = data.correct;
             this.totalCount = data.total;
             this.submitted = true;
