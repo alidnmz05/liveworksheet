@@ -21,6 +21,18 @@ def submit_worksheet(request, worksheet_pk):
         return JsonResponse({'error': 'Geçersiz veri formatı.'}, status=400)
 
     assignment_id = data.get('assignment_id') or None
+    if not assignment_id and request.user.is_authenticated:
+        from apps.assignments.models import Assignment
+        pending_assignment = Assignment.objects.filter(
+            worksheet=worksheet,
+            classrooms__students=request.user
+        ).exclude(
+            submissions__student=request.user,
+            submissions__is_draft=False
+        ).order_by('-created_at').first()
+        if pending_assignment:
+            assignment_id = pending_assignment.id
+
     is_draft = data.get('is_draft', False)
 
     with transaction.atomic():

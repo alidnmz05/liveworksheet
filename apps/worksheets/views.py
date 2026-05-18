@@ -215,6 +215,18 @@ def worksheet_play(request, pk):
         'embeds'
     )
     assignment_id = request.GET.get('assignment')
+    if not assignment_id and request.user.is_authenticated:
+        from apps.assignments.models import Assignment
+        pending_assignment = Assignment.objects.filter(
+            worksheet=worksheet,
+            classrooms__students=request.user
+        ).exclude(
+            submissions__student=request.user,
+            submissions__is_draft=False
+        ).order_by('-created_at').first()
+        if pending_assignment:
+            assignment_id = pending_assignment.id
+
     draft_answers_json = "{}"
     if request.user.is_authenticated:
         from apps.submissions.models import Submission
@@ -241,6 +253,7 @@ def worksheet_play(request, pk):
         'worksheet': worksheet,
         'pages': pages,
         'draft_answers_json': draft_answers_json,
+        'assignment_id': assignment_id,
     })
 
 

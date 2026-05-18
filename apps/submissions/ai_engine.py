@@ -15,6 +15,129 @@ except Exception as e:
     ST_MODEL = None
     AI_ENABLED = False
 
+def detect_contradiction(text1: str, text2: str):
+    """
+    Türkçe cümlelerde mantıksal çelişki (zıt anlam veya olumsuzluk) tespiti yapar.
+    Örnek: "büyük bir şehirdir" ve "küçük bir şehirdir" veya "şehir değildir".
+    Döndürür: (çelişki_var_mı: bool, açıklama: str)
+    """
+    words1 = re.findall(r'\b\w+\b', text1.lower())
+    words2 = re.findall(r'\b\w+\b', text2.lower())
+    
+    has_deyil1 = any(w in ('değil', 'değildir') for w in words1)
+    has_deyil2 = any(w in ('değil', 'değildir') for w in words2)
+    
+    def extract_verbs_polarity(words_list):
+        verbs = {}
+        for w in words_list:
+            # -mıyor / -miyor
+            m = re.match(r'^(\w+)(mıyor|miyor|muyor|müyor|mıyo|miyo|muyo|müyo)$', w)
+            if m:
+                verbs[m.group(1)] = 'neg'
+                continue
+            m = re.match(r'^(\w+)(ıyor|iyor|uyor|üyor|ıyo|iyo|uyo|üyo)$', w)
+            if m:
+                stem = m.group(1)
+                if stem not in verbs:
+                    verbs[stem] = 'pos'
+                continue
+                
+            # -madı / -medi
+            m = re.match(r'^(\w+)(madı|medi|madılar|mediler)$', w)
+            if m:
+                verbs[m.group(1)] = 'neg'
+                continue
+            m = re.match(r'^(\w+)(dı|di|du|dü|tı|ti|tu|tü|dılar|diler|tılar|tiler)$', w)
+            if m:
+                stem = m.group(1)
+                if not stem.endswith('ma') and not stem.endswith('me'):
+                    if stem not in verbs:
+                        verbs[stem] = 'pos'
+                continue
+
+            # -maz / -mez
+            m = re.match(r'^(\w+)(maz|mez|mazlar|mezler)$', w)
+            if m:
+                verbs[m.group(1)] = 'neg'
+                continue
+            m = re.match(r'^(\w+)(ar|er|ır|ir|ur|ür|arlar|erler)$', w)
+            if m:
+                stem = m.group(1)
+                if stem not in verbs:
+                    verbs[stem] = 'pos'
+                continue
+        return verbs
+
+    verbs1 = extract_verbs_polarity(words1)
+    verbs2 = extract_verbs_polarity(words2)
+    
+    for stem in verbs1:
+        if stem in verbs2:
+            if verbs1[stem] != verbs2[stem]:
+                return True, f"Fiil olumsuzluk çelişkisi: '{stem}' fiili bir tarafta olumlu, diğer tarafta olumsuz."
+
+    ANTONYM_PAIRS = [
+        ('büyük', 'küçük'),
+        ('iyi', 'kötü'),
+        ('doğru', 'yanlış'),
+        ('var', 'yok'),
+        ('evet', 'hayır'),
+        ('sıcak', 'soğuk'),
+        ('hızlı', 'yavaş'),
+        ('yüksek', 'alçak'),
+        ('kolay', 'zor'),
+        ('erken', 'geç'),
+        ('önce', 'sonra'),
+        ('alt', 'üst'),
+        ('iç', 'dış'),
+        ('açık', 'kapalı'),
+        ('taze', 'bayat'),
+        ('fakir', 'zengin'),
+        ('genç', 'yaşlı'),
+        ('güzel', 'çirkin'),
+        ('kalın', 'ince'),
+        ('uzun', 'kısa'),
+        ('ucuz', 'pahalı'),
+        ('akıllı', 'deli'),
+        ('pozitif', 'negatif'),
+        ('artı', 'eksi'),
+        ('doğu', 'batı'),
+        ('kuzey', 'güney'),
+        ('aktif', 'pasif'),
+        ('yararlı', 'zararlı'),
+        ('faydalı', 'zararlı'),
+        ('temiz', 'kirli'),
+        ('siyah', 'beyaz'),
+        ('ak', 'kara'),
+        ('gece', 'gündüz'),
+        ('tatlı', 'acı'),
+        ('cesur', 'korkak'),
+        ('dost', 'düşman'),
+    ]
+
+    antonym_checked = False
+    for a, b in ANTONYM_PAIRS:
+        has_a1 = any(w.startswith(a) for w in words1)
+        has_a2 = any(w.startswith(a) for w in words2)
+        has_b1 = any(w.startswith(b) for w in words1)
+        has_b2 = any(w.startswith(b) for w in words2)
+        
+        if (has_a1 and has_b2) or (has_b1 and has_a2):
+            antonym_checked = True
+            pol1 = 'A' if (has_a1 and not has_deyil1) or (has_b1 and has_deyil1) else 'B'
+            pol2 = 'A' if (has_a2 and not has_deyil2) or (has_b2 and has_deyil2) else 'B'
+            
+            if pol1 != pol2:
+                return True, f"Zıt anlam çelişkisi: '{a}' ve '{b}' kelimeleri zıt bağlamlarda kullanılmış."
+
+    if not antonym_checked and has_deyil1 != has_deyil2:
+        common = set(words1) & set(words2)
+        if len(common) >= 1:
+            return True, "Olumsuzluk çelişkisi: Cümlelerden biri 'değil' ile olumsuzlaştırılmış."
+
+    return False, ""
+
+
 def evaluate_open_answer(reference_answer: str, student_answer: str, threshold: float = 0.65):
     """
     Öğrenci cevabını Derin Öğrenme (Deep Learning) Vektör Analizi ile değerlendirir.
@@ -29,6 +152,15 @@ def evaluate_open_answer(reference_answer: str, student_answer: str, threshold: 
 
     if ref_clean == stu_clean:
         return {'ai_score': 1.0, 'is_correct': True, 'feedback': 'Mükemmel eşleşme ile doğru cevap.'}
+
+    # 0. Mantıksal Çelişki (Zıt Anlam ve Olumsuzluk) Kontrolü
+    contradiction_detected, contradiction_reason = detect_contradiction(ref_clean, stu_clean)
+    if contradiction_detected:
+        return {
+            'ai_score': 0.30,
+            'is_correct': False,
+            'feedback': f"Cevabınız, beklenen doğru yargıyla mantıksal olarak çelişiyor ({contradiction_reason})."
+        }
 
     if AI_ENABLED:
         try:
