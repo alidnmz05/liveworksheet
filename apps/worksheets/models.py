@@ -193,6 +193,12 @@ class Question(models.Model):
     # Puan
     points = models.PositiveIntegerField(default=1, help_text='Bu soru kaç puan değerinde?')
 
+    # Öğrenme Kazanımı & Yapay Zeka Etiketi
+    learning_objective = models.CharField(
+        max_length=500, blank=True,
+        help_text='Yapay Zeka öneri motoru için öğrenme kazanımı/etiketi (Örn: "Kesirlerde Toplama", "Geçmiş Zaman Kişi Ekleri")'
+    )
+
     # Stil
     font_size = models.PositiveIntegerField(default=14)
     bg_color = models.CharField(max_length=7, default='#ffffff')

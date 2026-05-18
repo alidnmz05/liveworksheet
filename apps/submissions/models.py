@@ -16,6 +16,10 @@ class Submission(models.Model):
     is_graded = models.BooleanField(default=False)
     is_draft = models.BooleanField(default=False, help_text='Taslak olarak kaydedildiyse (Daha sonra devam et) True')
 
+    # Yapay Zeka (AI) Etiketleri
+    ai_score = models.FloatField(null=True, blank=True, help_text='Yapay zekanın performansa verdiği genel güven/başarı skoru')
+    ai_feedback = models.TextField(blank=True, help_text='Yapay zekanın öğrenciye özel genel geri bildirimi')
+
     class Meta:
         verbose_name = 'Gönderim'
         verbose_name_plural = 'Gönderimler'
@@ -53,6 +57,10 @@ class Answer(models.Model):
     correct_items = models.PositiveIntegerField(default=0)
     total_items = models.PositiveIntegerField(default=1)
 
+    # Yapay Zeka (AI) Soru Bazlı Değerlendirme
+    ai_score = models.FloatField(null=True, blank=True, help_text='Bu soruya özel AI Semantik Benzerlik oranı (örn: 0.85)')
+    ai_feedback = models.TextField(blank=True, help_text='Bu soruya özel "Cevabın doğru ama şu detayı atlamışsın" notu')
+
     class Meta:
         unique_together = ('submission', 'question')
 
@@ -67,7 +75,29 @@ class Answer(models.Model):
             # Hem | hem de / ayracını destekle
             raw_accepted = q.correct_answer.replace('/', '|').split('|')
             accepted = [a.strip().lower() for a in raw_accepted if a.strip()]
-            self.is_correct = given in accepted if accepted else (given == '')
+            
+            exact_match = given in accepted if accepted else (given == '')
+            
+            if exact_match:
+                self.is_correct = True
+                self.ai_score = 1.0
+                self.ai_feedback = "Tam eşleşme ile doğru cevap."
+            elif accepted and given:
+                # Birebir eşleşmediyse Yapay Zeka anlamsal (veya harf) toleransı versin:
+                from .ai_engine import evaluate_open_answer
+                best_ai_result = None
+                for acc in accepted:
+                    res = evaluate_open_answer(acc, given)
+                    if not best_ai_result or res['ai_score'] > best_ai_result['ai_score']:
+                        best_ai_result = res
+                
+                self.ai_score = best_ai_result['ai_score']
+                self.ai_feedback = best_ai_result['feedback']
+                # AI kısa metinlerde (tek kelime) tolerans yaparken dikkatli olmalı ama şimdilik sistem mantığını devreye alıyoruz.
+                self.is_correct = best_ai_result['is_correct']
+            else:
+                self.is_correct = False
+                
             self.total_items = 1
             self.correct_items = 1 if self.is_correct else 0
         elif q.question_type in (Q.TYPE_MULTIPLE_CHOICE, Q.TYPE_DROPDOWN, Q.TYPE_WORD_CHOICE):
@@ -122,8 +152,26 @@ class Answer(models.Model):
                 self.is_correct = False
             self.total_items = 1
             self.correct_items = 1 if self.is_correct else 0
-        elif q.question_type in (Q.TYPE_SPEECH, Q.TYPE_OPEN_ANSWER,
-                                  Q.TYPE_PLAY_MP3, Q.TYPE_SIMPLE_TEXT):
+        elif q.question_type == Q.TYPE_OPEN_ANSWER:
+            # Açık Uçlu sorular için Semantik AI Değerlendirmesi
+            # Eğer öğretmenin girdiği bir 'correct_answer' varsa, AI çalışır.
+            if q.correct_answer:
+                from .ai_engine import evaluate_open_answer
+                ai_result = evaluate_open_answer(q.correct_answer, self.given_answer)
+                
+                self.ai_score = ai_result['ai_score']
+                self.ai_feedback = ai_result['feedback']
+                self.is_correct = ai_result['is_correct']
+                
+                self.total_items = 1
+                self.correct_items = 1 if self.is_correct else 0
+            else:
+                # Referans cevap yoksa AI değerlendiremez, manuel değerlendirme
+                self.is_correct = None
+                self.total_items = 0
+                self.correct_items = 0
+
+        elif q.question_type in (Q.TYPE_SPEECH, Q.TYPE_PLAY_MP3, Q.TYPE_SIMPLE_TEXT):
             # Manuel değerlendirme veya cevap gerekmez — puandan hariç
             self.is_correct = None
             self.total_items = 0

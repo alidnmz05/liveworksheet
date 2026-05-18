@@ -147,6 +147,64 @@
 </div>
 {% else %}
 <!-- Student Dashboard -->
+
+<!-- AI Recommendations Section -->
+<div class="mb-10">
+    <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-purple-200">
+            <i class="fas fa-brain"></i>
+        </div>
+        <h2 class="text-2xl font-extrabold text-gray-900 tracking-tight">{% trans "Yapay Zeka Önerileri" %}</h2>
+        <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full font-bold ml-2">Sana Özel</span>
+    </div>
+    
+    {% if ai_recommendations %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for worksheet in ai_recommendations %}
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-purple-100 hover:shadow-xl hover:shadow-purple-100 hover:-translate-y-1 transition-all duration-300 group">
+            <div class="h-32 bg-slate-100 relative overflow-hidden">
+                {% if worksheet.thumbnail %}
+                <img src="{{ worksheet.thumbnail.url }}" alt="{{ worksheet.title }}" class="w-full h-full object-cover blur-sm group-hover:blur-0 transition-all duration-500 opacity-60 group-hover:opacity-100">
+                {% else %}
+                <div class="w-full h-full bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center">
+                    <i class="fas fa-file-alt text-4xl text-purple-200"></i>
+                </div>
+                {% endif %}
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                <div class="absolute bottom-3 left-4">
+                    <span class="bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">
+                        {{ worksheet.subject.name|default:"Genel" }}
+                    </span>
+                </div>
+            </div>
+            <div class="p-5">
+                <h3 class="font-bold text-gray-900 truncate mb-1" title="{{ worksheet.title }}">{{ worksheet.title }}</h3>
+                <p class="text-sm text-gray-500 mb-4 line-clamp-2">{% trans "Eksiklerini kapatmak veya kendini geliştirmek için bunu çözmelisin." %}</p>
+                <div class="flex items-center justify-between">
+                    <div class="text-xs text-slate-400 font-medium">
+                        <i class="far fa-eye mr-1"></i> {{ worksheet.view_count }}
+                    </div>
+                    <a href="{% url 'worksheet_detail' worksheet.pk %}" class="text-sm font-bold text-purple-600 hover:text-purple-800 bg-purple-50 px-3 py-1.5 rounded-lg hover:bg-purple-100 transition-colors">
+                        {% trans "Hemen Çöz" %} <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 border border-purple-100/50 flex items-center gap-6">
+        <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex flex-shrink-0 items-center justify-center text-purple-500 text-2xl">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div>
+            <h3 class="font-bold bordertext-gray-900 text-lg mb-1">Mükemmelsin!</h3>
+            <p class="text-gray-600">Şu an sistemde sana önereceğimiz eksik bir konun veya materyal bulunmuyor. Yeni testler çözdükçe yapay zeka seni analiz etmeye devam edecek.</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <div class="lg:col-span-2">
         <div class="flex items-center justify-between mb-6">

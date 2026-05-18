@@ -92,6 +92,8 @@ def submit_worksheet(request, worksheet_pk):
                 'question_id': a.question_id,
                 'is_correct': a.is_correct,
                 'correct_answer': a.question.get_correct_answer_text(),
+                'ai_score': a.ai_score,
+                'ai_feedback': a.ai_feedback,
             }
             for a in submission.answers.select_related('question')
         ]

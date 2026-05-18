@@ -75,6 +75,8 @@ def dashboard_view(request):
     else:
         from apps.assignments.models import Assignment
         from apps.submissions.models import Submission
+        from .ai_recommender import get_personalized_recommendations
+        
         context['my_assignments'] = Assignment.objects.filter(
             classrooms__students=user
         ).distinct().order_by('-due_date')[:5]
@@ -82,6 +84,9 @@ def dashboard_view(request):
             student=user
         ).order_by('-submitted_at')[:5]
         context['enrolled_classrooms'] = user.enrolled_classrooms.all()
+        
+        # Yapay Zeka Önerileri
+        context['ai_recommendations'] = get_personalized_recommendations(user)
     return render(request, 'accounts/dashboard.html', context)
 
 
