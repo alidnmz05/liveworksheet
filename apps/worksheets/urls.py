@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('ai-tutor/query/', views.ai_tutor_query, name='ai_tutor_query'),
     path('', views.worksheet_list, name='worksheet_list'),
     path('create/', views.worksheet_create, name='worksheet_create'),
     path('<uuid:pk>/editor/', views.worksheet_editor, name='worksheet_editor'),

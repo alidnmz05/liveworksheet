@@ -67,6 +67,7 @@ def dashboard_view(request):
         from apps.worksheets.models import Worksheet
         from apps.assignments.models import Assignment
         context['my_worksheets'] = Worksheet.objects.filter(author=user).order_by('-created_at')[:6]
+        context['total_worksheets'] = Worksheet.objects.filter(author=user).count()
         context['my_classrooms'] = Classroom.objects.filter(teacher=user)
         context['my_assignments'] = Assignment.objects.filter(created_by=user).order_by('-created_at')[:5]
         context['total_students'] = User.objects.filter(

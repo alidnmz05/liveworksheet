@@ -598,3 +598,44 @@ def api_media_embed_duplicate(request, embed_pk):
         'width': new_embed.width,
         'height': new_embed.height,
     })
+
+
+@login_required
+@require_POST
+def ai_tutor_query(request):
+    """Yapay Zeka Asistanı için çalışma kağıtları önerir."""
+    from django.db.models import Q
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Geçersiz veri formatı.'}, status=400)
+
+    level = data.get('level', '').strip()
+    topic = data.get('topic', '').strip()
+
+    query = Q(is_public=True)
+    if level:
+        query &= Q(level__iexact=level)
+    if topic:
+        query &= (
+            Q(title__icontains=topic) |
+            Q(description__icontains=topic) |
+            Q(tags__icontains=topic) |
+            Q(subject__name__icontains=topic)
+        )
+
+    results = Worksheet.objects.filter(query).select_related('subject', 'author')[:5]
+
+    worksheets_data = []
+    for ws in results:
+        worksheets_data.append({
+            'id': str(ws.id),
+            'title': ws.title,
+            'subject': ws.subject.name if ws.subject else 'Genel',
+            'author': ws.author.full_name,
+            'question_count': ws.question_count,
+            'thumbnail': ws.thumbnail.url if ws.thumbnail else None,
+            'url': f"/worksheets/{ws.id}/play/"
+        })
+
+    return JsonResponse({'success': True, 'worksheets': worksheets_data})
