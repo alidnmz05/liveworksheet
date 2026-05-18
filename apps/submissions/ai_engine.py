@@ -138,6 +138,104 @@ def detect_contradiction(text1: str, text2: str):
     return False, ""
 
 
+def detect_theoretical_mismatch(text1: str, text2: str):
+    """
+    Teorik ve bilimsel kavramların birbirinin yerine yanlış kullanımı (kavram yanılgısı) durumunu inceler.
+    Örnek: Referansta 'mitokondri' varken öğrencide 'mitokondri' olmayıp 'ribozom' veya 'kloroplast' olması.
+    Döndürür: (mismatch_var: bool, aciklama: str)
+    """
+    words1 = set(re.findall(r'\b\w+\b', text1.lower()))
+    words2 = set(re.findall(r'\b\w+\b', text2.lower()))
+
+    # Rakip Kavram Grupları (300 çalışma kağıdındaki tüm branş ve konuları kapsayan devasa akademik kütüphane)
+    THEORY_GROUPS = [
+        # --- BİYOLOJİ & FEN BİLİMLERİ ---
+        # Organeller
+        {'mitokondri', 'kloroplast', 'ribozom', 'lizozom', 'golgi', 'koful', 'sentrozom', 'çekirdek'},
+        # Hücre Bölünmeleri
+        {'mitoz', 'mayoz'},
+        # Hücre Türleri
+        {'bitki', 'hayvan'},
+        # Üreme Hücreleri
+        {'vücut', 'üreme', 'sperm', 'yumurta'},
+        # DNA Nükleotitleri
+        {'adenin', 'timin', 'guanin', 'sitozin', 'urasil'},
+
+        # --- FİZİK ---
+        # Newton Yasaları
+        {'etki', 'tepki', 'eylemsizlik'},
+        # Elektrik ve Manyetizma
+        {'gauss', 'coulomb', 'amper', 'volt', 'ohm', 'faraday'},
+        # Fiziksel Nicelikler
+        {'hız', 'ivme', 'konum', 'kuvvet', 'kütle', 'ağırlık', 'iş', 'güç', 'enerji'},
+        # Enerji Tipleri
+        {'potansiyel', 'kinetik'},
+        # İletkenlik
+        {'iletken', 'yalıtkan'},
+        # Zeminler
+        {'mermer', 'çakıl', 'cam', 'toprak', 'tahta', 'pürüzlü', 'pürüzsüz'},
+
+        # --- KİMYA ---
+        # Maddenin Halleri
+        {'katı', 'sıvı', 'gaz'},
+        # Hal Değişimleri
+        {'erime', 'donma', 'buharlaşma', 'yoğuşma'},
+        # Kimyasal Karakterler
+        {'asit', 'baz', 'tuz'},
+        # Kimyasal Bağlar
+        {'iyonik', 'kovalent', 'metalik'},
+        # Karışım Çeşitleri
+        {'homojen', 'heterojen'},
+
+        # --- MATEMATİK ---
+        # Temel İşlemler
+        {'toplama', 'çıkarma', 'çarpma', 'bölme'},
+        # Sayı Kümeleri ve Yapıları
+        {'rasyonel', 'irrasyonel', 'tamsayı', 'doğal sayı', 'üslü', 'köklü'},
+        # Orantı Çeşitleri
+        {'doğru', 'ters'},
+        # Kalkülüs
+        {'türev', 'integral', 'limit'},
+
+        # --- TÜRKÇE ---
+        # Anlam İlişkileri
+        {'eş anlam', 'zıt anlam', 'sesteş', 'anlamdaş'},
+        # Paragrafta Anlam
+        {'ana fikir', 'ana düşünce', 'yardımcı fikir'},
+        # Noktalama İşaretleri
+        {'nokta', 'virgül', 'soru işareti', 'ünlem işareti', 'iki nokta', 'noktalı virgül'},
+
+        # --- İNGİLİZCE ---
+        # İngilizce Zamanlar (Tenses)
+        {'present', 'past', 'future', 'continuous'},
+        # Kelime Yapısı
+        {'synonym', 'antonym'},
+
+        # --- SOSYAL BİLGİLER & TARİH & COĞRAFYA ---
+        # Anadolu Uygarlıkları
+        {'hititler', 'frigler', 'lidyalılar', 'urartular', 'iyonlar'},
+        # Türkiye'nin Coğrafi Bölgeleri
+        {'karadeniz', 'akdeniz', 'ege', 'marmara', 'iç anadolu', 'doğu anadolu', 'güneydoğu anadolu'},
+        # Astronomi
+        {'güneş', 'ay'}
+    ]
+
+    for group in THEORY_GROUPS:
+        # Referansta bu gruptan hangi kelimeler var?
+        ref_terms = group & words1
+        if ref_terms:
+            # Öğrenci cevabında referanstaki doğru kelimelerden HİÇBİRİ yoksa
+            if not (ref_terms & words2):
+                # Ama öğrenci cevabında bu gruptan BAŞKA bir yanlış kelime varsa!
+                wrong_terms = (group - ref_terms) & words2
+                if wrong_terms:
+                    correct_str = ", ".join(f"'{r}'" for r in ref_terms)
+                    wrong_str = ", ".join(f"'{w}'" for w in wrong_terms)
+                    return True, f"Teorik Kavram Yanılgısı: Beklenen bilimsel kavram {correct_str} iken, bunun yerine yanlışlıkla {wrong_str} kavramını kullandınız."
+
+    return False, ""
+
+
 def evaluate_open_answer(reference_answer: str, student_answer: str, threshold: float = 0.65):
     """
     Öğrenci cevabını Derin Öğrenme (Deep Learning) Vektör Analizi ile değerlendirir.
@@ -160,6 +258,15 @@ def evaluate_open_answer(reference_answer: str, student_answer: str, threshold: 
             'ai_score': 0.30,
             'is_correct': False,
             'feedback': f"Cevabınız, beklenen doğru yargıyla mantıksal olarak çelişiyor ({contradiction_reason})."
+        }
+
+    # 0.5. Teorik/Bilimsel Kavram Yanılgısı Kontrolü
+    mismatch_detected, mismatch_reason = detect_theoretical_mismatch(ref_clean, stu_clean)
+    if mismatch_detected:
+        return {
+            'ai_score': 0.35,
+            'is_correct': False,
+            'feedback': mismatch_reason
         }
 
     if AI_ENABLED:
