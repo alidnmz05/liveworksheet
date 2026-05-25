@@ -1,46 +1,62 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block title %}Profil{% endblock %}
+{% block title %}{% trans 'Profil' %}{% endblock %}
 {% block content %}
-<div class="max-w-lg mx-auto">
-    <h1 class="text-2xl font-bold mb-6">{% trans 'Profilim' %}</h1>
-    <div class="card p-6">
-        <form method="post" enctype="multipart/form-data" class="space-y-4">
+<div class="max-w-lg">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">{% trans 'Profilim' %}</h1>
+            <p class="text-sm text-gray-500 mt-1">{% trans "Kişisel bilgilerinizi güncelleyin." %}</p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-card p-7">
+        <form method="post" enctype="multipart/form-data" class="space-y-5">
             {% csrf_token %}
-            {% if user.avatar %}
-            <div class="flex items-center gap-4 mb-2">
-                <img src="{{ user.avatar.url }}" class="w-16 h-16 rounded-full object-cover">
-                <span class="text-sm text-gray-500">{% trans 'Profil fotoğrafı' %}</span>
+
+            <!-- Avatar -->
+            <div class="flex items-center gap-4 pb-5 border-b border-gray-50">
+                {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" class="w-16 h-16 rounded-2xl object-cover shadow-sm border border-gray-100">
+                {% else %}
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold shadow-sm">
+                    {{ user.first_name|first|upper|default:user.email|first|upper }}
+                </div>
+                {% endif %}
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans 'Profil Fotoğrafı' %}</label>
+                    <input type="file" name="avatar" accept="image/*" class="text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-indigo-50 file:text-indigo-600 file:font-semibold hover:file:bg-indigo-100 cursor-pointer">
+                </div>
             </div>
-            {% endif %}
-            <div>
-                <label class="block text-sm font-medium mb-1">{% trans 'Profil Fotoğrafı' %}</label>
-                <input type="file" name="avatar" accept="image/*" class="text-sm text-gray-500">
-            </div>
+
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium mb-1">{% trans 'Ad' %}</label>
-                    <input type="text" name="first_name" value="{{ user.first_name }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans 'Ad' %}</label>
+                    <input type="text" name="first_name" value="{{ user.first_name }}" class="form-input">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-1">{% trans 'Soyad' %}</label>
-                    <input type="text" name="last_name" value="{{ user.last_name }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans 'Soyad' %}</label>
+                    <input type="text" name="last_name" value="{{ user.last_name }}" class="form-input">
                 </div>
             </div>
+
             <div>
-                <label class="block text-sm font-medium mb-1">{% trans 'Okul/Kurum' %}</label>
-                <input type="text" name="school" value="{{ user.school }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans 'Okul / Kurum' %}</label>
+                <input type="text" name="school" value="{{ user.school }}" class="form-input" placeholder="{% trans 'Okul veya kurum adı' %}">
             </div>
+
             <div>
-                <label class="block text-sm font-medium mb-1">{% trans 'Ülke' %}</label>
-                <input type="text" name="country" value="{{ user.country }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans 'Ülke' %}</label>
+                <input type="text" name="country" value="{{ user.country }}" class="form-input" placeholder="{% trans 'Ülke' %}">
             </div>
+
             <div>
-                <label class="block text-sm font-medium mb-1">{% trans 'Hakkında' %}</label>
-                <textarea name="bio" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400">{{ user.bio }}</textarea>
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans 'Hakkında' %}</label>
+                <textarea name="bio" rows="3" class="form-input resize-none" placeholder="{% trans 'Kendinizden bahsedin...' %}">{{ user.bio }}</textarea>
             </div>
-            <button type="submit" class="btn-primary w-full justify-center py-2.5">
-                <i class="fas fa-save mr-1"></i>Güncelle
+
+            <button type="submit" class="btn-primary w-full justify-center py-3">
+                <i class="fas fa-check text-xs"></i> {% trans 'Kaydet' %}
             </button>
         </form>
     </div>

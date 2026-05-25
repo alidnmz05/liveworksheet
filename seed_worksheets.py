@@ -20,7 +20,9 @@ def seed_database_300():
     print("🚀 300 Yapay Zeka Uyumlu Çalışma Kağıdı Tohumlama İşlemi Başlatıldı...")
 
     # 1. Yazar Kullanıcıyı Bul veya Oluştur
-    author = User.objects.filter(is_superuser=True).first()
+    author = User.objects.filter(email='ogretmentest@gmail.com').first()
+    if not author:
+        author = User.objects.filter(is_superuser=True).first()
     if not author:
         author = User.objects.filter(role='teacher').first()
     if not author:
@@ -208,8 +210,8 @@ def seed_database_300():
         # 5. Kaydı Veritabanına Yaz
         worksheet, created = Worksheet.objects.get_or_create(
             title=final_title,
+            author=author,
             defaults={
-                "author": author,
                 "description": description,
                 "subject": subject_obj,
                 "level": level,

@@ -2,109 +2,129 @@
 {% load i18n %}
 {% block title %}{{ assignment.title }}{% endblock %}
 {% block content %}
-<div class="mb-6">
-    <a href="{% url 'assignment_list' %}" class="text-sm text-gray-500 hover:text-indigo-600"><i class="fas fa-arrow-left mr-1"></i>{% trans "Geri" %}</a>
-    <h1 class="text-2xl font-bold mt-2">{{ assignment.title }}</h1>
-    {% if assignment.due_date %}
-    <p class="text-sm text-gray-400 mt-1">
-        {% trans "Son teslim" %}: <span class="{% if assignment.is_overdue %}text-red-500 font-medium{% endif %}">{{ assignment.due_date|date:"d M Y H:i" }}</span>
-    </p>
-    {% endif %}
-</div>
 
-{% if user.is_teacher %}
-<!-- Teacher view: submission list -->
-<div class="card overflow-hidden">
-    <div class="px-5 py-3 border-b bg-gray-50 flex items-center justify-between">
-        <h2 class="font-semibold">{% trans "Öğrenci Gönderimleri" %} ({{ submissions.count }})</h2>
-        {% if assignment.worksheet %}
-        <a href="{% url 'worksheet_play' assignment.worksheet.pk %}" target="_blank" class="btn-secondary text-xs">
-            <i class="fas fa-eye mr-1"></i>{% trans "Önizle" %}
+<!-- Back + Header -->
+<div class="mb-8">
+    <a href="{% url 'assignment_list' %}" class="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-indigo-600 transition-colors mb-4 font-medium">
+        <i class="fas fa-arrow-left text-[10px]"></i>{% trans "Geri" %}
+    </a>
+    <div class="flex items-start justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">{{ assignment.title }}</h1>
+            {% if assignment.due_date %}
+            <p class="text-sm mt-1.5 flex items-center gap-1.5
+                {% if assignment.is_overdue %}text-red-500{% else %}text-gray-400{% endif %}">
+                <i class="far fa-clock text-xs"></i>
+                {% trans "Son teslim" %}: {{ assignment.due_date|date:"d M Y H:i" }}
+                {% if assignment.is_overdue %}<span class="bg-red-50 border border-red-100 text-red-500 text-xs font-bold px-2 py-0.5 rounded-lg">{% trans "Süre Doldu" %}</span>{% endif %}
+            </p>
+            {% else %}
+            <p class="text-sm mt-1.5 text-emerald-500 flex items-center gap-1.5">
+                <i class="fas fa-infinity text-xs"></i> {% trans "Süresiz ödev" %}
+            </p>
+            {% endif %}
+        </div>
+        {% if user.is_teacher and assignment.worksheet %}
+        <a href="{% url 'worksheet_play' assignment.worksheet.pk %}" target="_blank" class="btn-secondary text-xs flex-shrink-0">
+            <i class="fas fa-eye text-xs"></i>{% trans "Önizle" %}
         </a>
         {% endif %}
     </div>
+</div>
+
+{% if user.is_teacher %}
+<!-- Teacher: submissions table -->
+<div class="bg-white rounded-2xl border border-gray-100 shadow-card overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-50 flex items-center justify-between">
+        <h2 class="font-bold text-gray-900">{% trans "Öğrenci Gönderimleri" %}</h2>
+        <span class="badge bg-indigo-50 text-indigo-600 border border-indigo-100">{{ submissions.count }} {% trans "gönderim" %}</span>
+    </div>
     {% if submissions %}
-    <table class="w-full text-sm">
-        <thead class="bg-gray-50 text-left">
-            <tr>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Öğrenci" %}</th>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Puan" %}</th>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Doğru/Toplam" %}</th>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Tarih" %}</th>
-                <th class="px-5 py-3 font-medium text-gray-500"></th>
-            </tr>
-        </thead>
-        <tbody class="divide-y">
-            {% for sub in submissions %}
-            <tr class="hover:bg-gray-50">
-                <td class="px-5 py-3">{{ sub.student.full_name }}</td>
-                <td class="px-5 py-3">
-                    {% if sub.is_draft %}
-                    <span class="text-blue-500 font-semibold text-xs"><i class="fas fa-spinner fa-spin mr-1"></i>{% trans "Devam Ediyor" %}</span>
-                    {% else %}
-                    <span class="font-bold {% if sub.score >= 60 %}text-green-600{% else %}text-orange-500{% endif %}">
-                        {{ sub.score|floatformat:0 }}%
-                    </span>
-                    {% endif %}
-                </td>
-                <td class="px-5 py-3">
-                    {% if sub.is_draft %}
-                    <span class="text-xs text-blue-500 font-medium">
-                        <i class="fas fa-edit mr-1"></i>{{ sub.answers.count }}/{{ sub.worksheet.total_questions_count }} {% trans "Soru" %}
-                    </span>
-                    {% else %}
-                    {{ sub.correct_count }}/{{ sub.total_questions }}
-                    {% endif %}
-                </td>
-                <td class="px-5 py-3 text-gray-400">{{ sub.submitted_at|date:"d M Y H:i" }}</td>
-                <td class="px-5 py-3">
-                    {% if not sub.is_draft %}
-                    <a href="{% url 'submission_detail' sub.pk %}" class="text-indigo-600 hover:underline text-xs">{% trans "Detay" %}</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gray-50 bg-gray-50/50">
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Öğrenci" %}</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Puan" %}</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Doğru/Toplam" %}</th>
+                    <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Tarih" %}</th>
+                    <th class="px-6 py-3"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {% for sub in submissions %}
+                <tr class="hover:bg-gray-50/50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                                {{ sub.student.first_name|first|upper }}
+                            </div>
+                            <span class="font-medium text-gray-800">{{ sub.student.full_name }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if sub.is_draft %}
+                        <span class="badge bg-blue-50 text-blue-600 border border-blue-100"><i class="fas fa-spinner fa-spin text-[9px] mr-1"></i>{% trans "Devam" %}</span>
+                        {% else %}
+                        <span class="font-bold text-base {% if sub.score >= 60 %}text-emerald-600{% else %}text-orange-500{% endif %}">{{ sub.score|floatformat:0 }}%</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-gray-500">
+                        {% if sub.is_draft %}<span class="text-xs text-blue-500">{{ sub.answers.count }}/{{ sub.worksheet.total_questions_count }}{% else %}{{ sub.correct_count }}/{{ sub.total_questions }}{% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-gray-400 text-xs">{{ sub.submitted_at|date:"d M Y H:i" }}</td>
+                    <td class="px-6 py-4">
+                        {% if not sub.is_draft %}
+                        <a href="{% url 'submission_detail' sub.pk %}" class="badge bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-100 transition-colors">{% trans "Detay" %}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% else %}
-    <div class="p-8 text-center text-gray-400 text-sm">{% trans "Henüz gönderim yok." %}</div>
+    <div class="p-12 text-center">
+        <i class="fas fa-inbox text-3xl text-gray-200 mb-3 block"></i>
+        <p class="text-sm text-gray-400">{% trans "Henüz gönderim yok." %}</p>
+    </div>
     {% endif %}
 </div>
 
 {% else %}
 <!-- Student view -->
 {% if submissions %}
-<div class="card p-5 mb-6">
-    {% with sub=submissions.first %}
+{% with sub=submissions.first %}
+<div class="bg-white rounded-2xl border border-gray-100 shadow-card p-6 mb-6">
     {% if sub.is_draft %}
-        <h2 class="font-semibold mb-3">{% trans "Taslak Kaydınız Var" %}</h2>
-        <div class="flex items-center gap-6">
-            <div class="text-blue-500 font-semibold"><i class="fas fa-save mr-1"></i> {% trans "Çözülmeye devam ediliyor" %}</div>
-            <div class="text-xs text-gray-400">{{ sub.submitted_at|date:"d M H:i" }}</div>
+    <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+            <i class="fas fa-save text-blue-500 text-xl"></i>
         </div>
+        <div>
+            <p class="font-bold text-gray-900">{% trans "Taslak Kaydınız Var" %}</p>
+            <p class="text-xs text-gray-400 mt-0.5">{{ sub.submitted_at|date:"d M H:i" }}</p>
+        </div>
+    </div>
     {% else %}
-        <h2 class="font-semibold mb-3">{% trans "Son Sonucunuz" %}</h2>
-        <div class="flex items-center gap-6">
-            <div class="text-4xl font-bold {% if sub.score >= 60 %}text-green-600{% else %}text-orange-500{% endif %}">{{ sub.score|floatformat:0 }}%</div>
-            <div>
-                <div class="text-sm">{{ sub.correct_count }}/{{ sub.total_questions }} {% trans "doğru" %}</div>
-                <div class="text-xs text-gray-400">{{ sub.submitted_at|date:"d M H:i" }}</div>
-            </div>
-            <a href="{% url 'submission_detail' sub.pk %}" class="btn-secondary text-xs ml-auto">{% trans "Detayları Gör" %}</a>
+    <div class="flex items-center gap-5">
+        <div class="text-4xl font-extrabold {% if sub.score >= 60 %}text-emerald-600{% else %}text-orange-500{% endif %}">{{ sub.score|floatformat:0 }}%</div>
+        <div class="flex-1">
+            <p class="text-sm font-semibold text-gray-700">{{ sub.correct_count }}/{{ sub.total_questions }} {% trans "doğru" %}</p>
+            <p class="text-xs text-gray-400 mt-0.5">{{ sub.submitted_at|date:"d M H:i" }}</p>
         </div>
+        <a href="{% url 'submission_detail' sub.pk %}" class="btn-secondary text-xs">{% trans "Detayları Gör" %}</a>
+    </div>
     {% endif %}
-    {% endwith %}
 </div>
+{% endwith %}
 {% endif %}
 
 {% if assignment.worksheet %}
 <a href="{% url 'worksheet_play' assignment.worksheet.pk %}?assignment={{ assignment.pk }}"
-   class="btn-primary text-base px-8 py-3 inline-block">
-    {% if submissions and submissions.first.is_draft %}
-    <i class="fas fa-play mr-2"></i>{% trans "Ödeve Devam Et" %}
-    {% else %}
-    <i class="fas fa-play mr-2"></i>{% trans "Ödevi Başlat" %}
-    {% endif %}
+   class="btn-primary text-base px-8 py-3.5 shadow-lg shadow-indigo-200/60">
+    <i class="fas fa-play text-xs"></i>
+    {% if submissions and submissions.first.is_draft %}{% trans "Ödeve Devam Et" %}{% else %}{% trans "Ödevi Başlat" %}{% endif %}
 </a>
 {% endif %}
 {% endif %}

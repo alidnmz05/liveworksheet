@@ -2,35 +2,59 @@
 {% load i18n %}
 {% block title %}{{ classroom.name }}{% endblock %}
 {% block content %}
-<div class="max-w-3xl mx-auto">
-    <h1 class="text-2xl font-bold mb-2">{{ classroom.name }}</h1>
-    <div class="flex items-center gap-3 mb-6">
-        <span class="text-sm text-gray-500">{% trans 'Sınıf Kodu' %}:</span>
-        <code class="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-lg tracking-widest">{{ classroom.code }}</code>
-        <button onclick="navigator.clipboard.writeText('{{ classroom.code }}')" class="text-xs text-gray-400 hover:text-indigo-600">
-            <i class="fas fa-copy"></i> Kopyala
-        </button>
+
+<div class="max-w-2xl">
+    <!-- Header -->
+    <div class="mb-8">
+        <a href="{% url 'classroom_list' %}" class="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-indigo-600 transition-colors mb-4 font-medium">
+            <i class="fas fa-arrow-left text-[10px]"></i>{% trans "Sınıflarım" %}
+        </a>
+        <div class="flex items-start justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">{{ classroom.name }}</h1>
+                <p class="text-sm text-gray-400 mt-1.5">{{ classroom.students.count }} {% trans "öğrenci" %}</p>
+            </div>
+            <!-- Class code badge + copy -->
+            <div class="flex items-center gap-2 bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2.5">
+                <div>
+                    <p class="text-[10px] text-indigo-400 font-semibold uppercase tracking-widest mb-0.5">{% trans "Sınıf Kodu" %}</p>
+                    <code class="text-xl font-extrabold text-indigo-700 tracking-[.15em]">{{ classroom.code }}</code>
+                </div>
+                <button onclick="navigator.clipboard.writeText('{{ classroom.code }}'); this.innerHTML='<i class=\'fas fa-check\'></i>'; setTimeout(()=>this.innerHTML='<i class=\'fas fa-copy\'></i>',1500)"
+                        class="ml-2 w-8 h-8 rounded-lg bg-white border border-indigo-100 flex items-center justify-center text-indigo-400 hover:text-indigo-600 hover:border-indigo-300 transition-all"
+                        title="{% trans 'Kopyala' %}">
+                    <i class="fas fa-copy text-xs"></i>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="card overflow-hidden">
-        <div class="px-5 py-3 border-b bg-gray-50">
-            <h2 class="font-semibold">{% trans 'Öğrenciler' %} ({{ classroom.students.count }})</h2>
+
+    <!-- Students card -->
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-card overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-50">
+            <h2 class="font-bold text-gray-900">{% trans "Öğrenciler" %}</h2>
         </div>
         {% if classroom.students.all %}
-        <div class="divide-y">
+        <div class="divide-y divide-gray-50">
             {% for student in classroom.students.all %}
-            <div class="px-5 py-3 flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-semibold text-indigo-600">
+            <div class="px-6 py-4 flex items-center gap-3.5 hover:bg-gray-50/50 transition-colors">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                     {{ student.first_name|first|upper|default:student.email|first|upper }}
                 </div>
-                <div>
-                    <div class="text-sm font-medium">{{ student.full_name }}</div>
-                    <div class="text-xs text-gray-400">{{ student.email }}</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-semibold text-gray-800 truncate">{{ student.full_name }}</p>
+                    <p class="text-xs text-gray-400 truncate">{{ student.email }}</p>
                 </div>
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <div class="p-8 text-center text-gray-400 text-sm">Henüz öğrenci yok. Kodu paylaşın!</div>
+        <div class="p-12 text-center">
+            <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user-graduate text-3xl text-gray-200"></i>
+            </div>
+            <p class="text-sm text-gray-400">{% trans "Henüz öğrenci yok. Kodu paylaşın!" %}</p>
+        </div>
         {% endif %}
     </div>
 </div>

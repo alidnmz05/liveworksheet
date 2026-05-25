@@ -2,42 +2,59 @@
 {% load i18n %}
 {% block title %}{% trans "Sonuçlarım" %}{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-bold mb-6">{% trans "Sonuçlarım" %}</h1>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{% trans "Sonuçlarım" %}</h1>
+        <p class="text-sm text-gray-500 mt-1">{% trans "Tamamladığınız tüm çalışma kağıtlarının sonuçları." %}</p>
+    </div>
+</div>
+
 {% if submissions %}
-<div class="card overflow-hidden">
-    <table class="w-full text-sm">
-        <thead class="bg-gray-50 text-left">
-            <tr>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Çalışma Kağıdı" %}</th>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Puan" %}</th>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Doğru/Toplam" %}</th>
-                <th class="px-5 py-3 font-medium text-gray-500">{% trans "Tarih" %}</th>
-                <th class="px-5 py-3"></th>
-            </tr>
-        </thead>
-        <tbody class="divide-y">
-            {% for sub in submissions %}
-            <tr class="hover:bg-gray-50">
-                <td class="px-5 py-3">{{ sub.worksheet.title|default:"—" }}</td>
-                <td class="px-5 py-3">
-                    <span class="font-bold {% if sub.score >= 60 %}text-green-600{% else %}text-orange-500{% endif %}">
-                        {{ sub.score|floatformat:0 }}
-                    </span>
-                </td>
-                <td class="px-5 py-3">{{ sub.correct_count }}/{{ sub.total_questions }}</td>
-                <td class="px-5 py-3 text-gray-400">{{ sub.submitted_at|date:"d M Y" }}</td>
-                <td class="px-5 py-3">
-                    <a href="{% url 'submission_detail' sub.pk %}" class="text-indigo-600 hover:underline text-xs">{% trans "Detay" %}</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="bg-white rounded-2xl border border-gray-100 shadow-card overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gray-100 bg-gray-50/50">
+                    <th class="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Çalışma Kağıdı" %}</th>
+                    <th class="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Puan" %}</th>
+                    <th class="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Doğru/Toplam" %}</th>
+                    <th class="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wide">{% trans "Tarih" %}</th>
+                    <th class="px-6 py-3.5"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {% for sub in submissions %}
+                <tr class="hover:bg-gray-50/50 transition-colors">
+                    <td class="px-6 py-4">
+                        <span class="font-medium text-gray-800">{{ sub.worksheet.title|default:"—" }}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-base font-extrabold {% if sub.score >= 60 %}text-emerald-600{% else %}text-orange-500{% endif %}">{{ sub.score|floatformat:0 }}%</span>
+                            <div class="flex-1 max-w-[80px] h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full rounded-full {% if sub.score >= 60 %}bg-emerald-400{% else %}bg-orange-400{% endif %}" style="width:{{ sub.score|floatformat:0 }}%"></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500">{{ sub.correct_count }}/{{ sub.total_questions }}</td>
+                    <td class="px-6 py-4 text-gray-400 text-xs">{{ sub.submitted_at|date:"d M Y" }}</td>
+                    <td class="px-6 py-4">
+                        <a href="{% url 'submission_detail' sub.pk %}" class="badge bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-100 transition-colors">{% trans "Detay" %}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% else %}
-<div class="card p-12 text-center text-gray-400">
-    <i class="fas fa-chart-bar text-4xl mb-3"></i>
-    <p>{% trans "Henüz gönderiminiz yok." %}</p>
+<div class="card p-20 text-center">
+    <div class="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+        <i class="fas fa-chart-bar text-4xl text-indigo-300"></i>
+    </div>
+    <h2 class="text-lg font-bold text-gray-800 mb-2">{% trans "Henüz sonuç yok" %}</h2>
+    <p class="text-sm text-gray-500">{% trans "Çalışma kağıtlarını çözdukçe sonuçlarınız burada görünecek." %}</p>
 </div>
 {% endif %}
 {% endblock %}

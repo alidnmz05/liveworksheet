@@ -1,81 +1,127 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block title %}{% trans "Kayıt Ol" %}{% endblock %}
+{% block main_class %}{% endblock %}
 {% block content %}
-<div class="max-w-md mx-auto mt-10">
-    <div class="card p-8">
-        <div class="text-center mb-8">
-            <i class="fas fa-user-plus text-4xl text-indigo-600 mb-3"></i>
-            <h1 class="text-2xl font-bold">{% trans "Ücretsiz Hesap Oluştur" %}</h1>
+<div class="flex min-h-[calc(100vh-4rem)]">
+
+    <!-- Left branding panel -->
+    <div class="hidden lg:flex w-[420px] flex-shrink-0 bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 flex-col justify-center p-12 relative overflow-hidden">
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-24 -right-12 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl"></div>
         </div>
-        <form method="post">
+        <div class="relative">
+            <div class="flex items-center gap-2.5 mb-10">
+                <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+                    <i class="fas fa-book-open text-white text-base"></i>
+                </div>
+                <span class="text-white font-bold text-lg tracking-tight">LiveWorksheet</span>
+            </div>
+            <h2 class="text-3xl font-extrabold text-white leading-snug mb-4">
+                {% trans "Ücretle hemen" %}<br>{% trans "başlayın" %}
+            </h2>
+            <p class="text-indigo-200 text-sm leading-relaxed mb-8">
+                {% trans "Kayıt olmak ücretsiz ve çok hızlı. Saniyeler içinde ilk çalışmanızı hazırlamaya başlayabilirsiniz." %}
+            </p>
+            <!-- Stats grid -->
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white/10 rounded-xl p-4 border border-white/10">
+                    <div class="text-2xl font-extrabold text-white mb-0.5">1.000+</div>
+                    <div class="text-xs text-indigo-200">{% trans "Çalışma Kağıdı" %}</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4 border border-white/10">
+                    <div class="text-2xl font-extrabold text-white mb-0.5">50+</div>
+                    <div class="text-xs text-indigo-200">{% trans "Dil Desteği" %}</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4 border border-white/10">
+                    <div class="text-2xl font-extrabold text-white mb-0.5">%100</div>
+                    <div class="text-xs text-indigo-200">{% trans "Ücretsiz" %}</div>
+                </div>
+                <div class="bg-white/10 rounded-xl p-4 border border-white/10">
+                    <div class="text-2xl font-extrabold text-white mb-0.5">AI</div>
+                    <div class="text-xs text-indigo-200">{% trans "Destekli" %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="flex-1 flex items-center justify-center px-6 py-10 overflow-y-auto">
+    <div class="w-full max-w-md">
+    <div class="text-center mb-8">
+        <div class="lg:hidden inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-900 mb-4">
+            <i class="fas fa-book-open text-white text-2xl"></i>
+        </div>
+        <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">{% trans "Ücretsiz Hesap Oluştur" %}</h1>
+        <p class="text-sm text-gray-400 mt-1">{% trans "Saniyeler içinde başlayın" %}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-gray-100 shadow-card p-7">
+        <form method="post" class="space-y-4">
             {% csrf_token %}
+
             <!-- Role selector -->
-            <div class="flex gap-3 mb-6">
-                <label class="flex-1 cursor-pointer">
+            <div class="flex gap-3 mb-2">
+                <label class="flex-1 cursor-pointer group">
                     <input type="radio" name="role" value="teacher" class="hidden peer" checked>
-                    <div class="border-2 border-gray-200 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 rounded-xl p-4 text-center transition-all">
-                        <i class="fas fa-chalkboard-teacher text-2xl text-indigo-500 mb-2"></i>
-                        <div class="font-semibold text-sm">{% trans "Öğretmenim" %}</div>
+                    <div class="border border-gray-200 peer-checked:border-indigo-500 peer-checked:bg-indigo-50/60 rounded-xl p-4 text-center transition-all duration-200 hover:border-indigo-300">
+                        <i class="fas fa-chalkboard-teacher text-xl text-slate-400 peer-checked:text-blue-600 mb-1.5 block"></i>
+                        <div class="font-semibold text-sm text-gray-700">{% trans "Öğretmenim" %}</div>
                     </div>
                 </label>
-                <label class="flex-1 cursor-pointer">
+                <label class="flex-1 cursor-pointer group">
                     <input type="radio" name="role" value="student" class="hidden peer">
-                    <div class="border-2 border-gray-200 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 rounded-xl p-4 text-center transition-all">
-                        <i class="fas fa-user-graduate text-2xl text-indigo-500 mb-2"></i>
-                        <div class="font-semibold text-sm">{% trans "Öğrenciyim" %}</div>
+                    <div class="border border-gray-200 peer-checked:border-blue-500 peer-checked:bg-blue-50/60 rounded-xl p-4 text-center transition-all duration-200 hover:border-blue-300">
+                        <i class="fas fa-user-graduate text-xl text-slate-400 peer-checked:text-blue-600 mb-1.5 block"></i>
+                        <div class="font-semibold text-sm text-gray-700">{% trans "Öğrenciyim" %}</div>
                     </div>
                 </label>
             </div>
 
-            <div class="space-y-4">
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Ad" %}</label>
-                        <input type="text" name="first_name" required
-                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                               placeholder="{% trans 'Adınız' %}">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Soyad" %}</label>
-                        <input type="text" name="last_name" required
-                               class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                               placeholder="{% trans 'Soyadınız' %}">
-                    </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans "Ad" %}</label>
+                    <input type="text" name="first_name" required class="form-input" placeholder="{% trans 'Adınız' %}">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "E-posta" %}</label>
-                    <input type="email" name="email" required
-                           class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                           placeholder="ornek@mail.com">
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans "Soyad" %}</label>
+                    <input type="text" name="last_name" required class="form-input" placeholder="{% trans 'Soyadınız' %}">
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Şifre" %}</label>
-                    <input type="password" name="password1" required minlength="8"
-                           class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                           placeholder="{% trans 'En az 8 karakter' %}">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Şifre Tekrar" %}</label>
-                    <input type="password" name="password2" required
-                           class="w-full px-3 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                           placeholder="{% trans 'Şifreyi tekrar girin' %}">
-                </div>
-                {% if form.errors %}
-                <div class="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
-                    {% for field, errors in form.errors.items %}
-                        {% for error in errors %}<div>{{ error }}</div>{% endfor %}
-                    {% endfor %}
-                </div>
-                {% endif %}
-                <button type="submit" class="w-full btn-primary justify-center py-2.5">
-                    <i class="fas fa-rocket"></i> {% trans "Hesap Oluştur" %}
-                </button>
             </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans "E-posta" %}</label>
+                <input type="email" name="email" required autocomplete="email" class="form-input" placeholder="ornek@mail.com">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans "Şifre" %}</label>
+                <input type="password" name="password1" required minlength="8" autocomplete="new-password"
+                       class="form-input" placeholder="{% trans 'En az 8 karakter' %}">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{% trans "Şifre Tekrar" %}</label>
+                <input type="password" name="password2" required autocomplete="new-password"
+                       class="form-input" placeholder="{% trans 'Şifreyi tekrar girin' %}">
+            </div>
+
+            {% if form.errors %}
+            <div class="bg-red-50 border border-red-200 rounded-xl p-3.5 text-sm text-red-700 flex items-start gap-2">
+                <i class="fas fa-exclamation-circle mt-0.5 flex-shrink-0"></i>
+                <div>{% for field, errors in form.errors.items %}{% for error in errors %}<div>{{ error }}</div>{% endfor %}{% endfor %}</div>
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn-primary w-full justify-center py-3">
+                <i class="fas fa-rocket text-xs"></i> {% trans "Hesap Oluştur" %}
+            </button>
         </form>
-        <p class="text-center text-sm text-gray-500 mt-6">
-            {% trans "Zaten hesabınız var mı?" %} <a href="{% url 'login' %}" class="text-indigo-600 font-medium hover:underline">{% trans "Giriş Yap" %}</a>
-        </p>
+    </div>
+
+    <p class="text-center text-sm text-gray-400 mt-5">
+        {% trans "Zaten hesabınız var mı?" %}
+        <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:text-blue-700 ml-1">{% trans "Giriş Yap" %}</a>
+    </p>
+    </div>
     </div>
 </div>
 {% endblock %}

@@ -20,7 +20,12 @@ def home_view(request):
         ('fab fa-youtube', _('Video Entegrasyonu'), _('YouTube/Vimeo videolarını kağıda gömün.')),
         ('fas fa-bolt', _('Anında Puanlama'), _('Sistem cevapları otomatik değerlendirir ve puan verir.')),
     ]
-    return render(request, 'home.html', {'features': features})
+    steps = [
+        ('1', 'fas fa-upload', _('PDF veya Görsel Yükle'), _('Mevcut materyalinizi platforma yükleyin; sistem sayfaları otomatik ayırır.')),
+        ('2', 'fas fa-plus-circle', _('Soru Ekle'), _('Görsel üzerine tıklayarak sürükle-bırak, çoktan seçmeli, metin gibi soru tiplerini yerleştirin.')),
+        ('3', 'fas fa-paper-plane', _('Paylaş & Takip Et'), _('Sınıfınıza ödev olarak gönderin; öğrenci cevaplarını ve puanları anlık izleyin.')),
+    ]
+    return render(request, 'home.html', {'features': features, 'steps': steps})
 
 
 def register_view(request):
@@ -51,7 +56,13 @@ def login_view(request):
             return redirect(next_url)
         else:
             messages.error(request, 'E-posta veya şifre hatalı.')
-    return render(request, 'accounts/login.html')
+    login_features = [
+        ('fas fa-mouse-pointer', _('Sürükle & bırak sorular')),
+        ('fas fa-bolt', _('Anında otomatik puanlama')),
+        ('fas fa-brain', _('Yapay zeka öneri motoru')),
+        ('fas fa-users', _('Sınıf & ödev yönetimi')),
+    ]
+    return render(request, 'accounts/login.html', {'login_features': login_features})
 
 
 def logout_view(request):

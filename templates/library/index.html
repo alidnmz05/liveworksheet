@@ -2,70 +2,86 @@
 {% load i18n %}
 {% block title %}{% trans "Kütüphane" %}{% endblock %}
 {% block content %}
-<!-- Search header -->
-<div class="mb-6">
-    <h1 class="text-2xl font-bold mb-4">{% trans "Etkileşimli Çalışma Kütüphanesi" %}</h1>
-    <form method="get" class="flex flex-col sm:flex-row gap-3">
-        <div class="relative flex-1">
-            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            <input type="text" name="q" value="{{ query }}"
-                   class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                   placeholder="{% trans 'Konu, etiket veya öğretmen adı...' %}">
-        </div>
-        <select name="subject" class="px-3 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            <option value="">{% trans "Tüm Dersler" %}</option>
-            {% for s in subjects %}<option value="{{ s.pk }}">{% trans s.name %}</option>{% endfor %}
-        </select>
-        <select name="level" class="px-3 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            <option value="">{% trans "Tüm Seviyeler" %}</option>
-            {% for val, lbl in level_choices %}<option value="{{ val }}">{{ lbl }}</option>{% endfor %}
-        </select>
-        <select name="language" class="px-3 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400">
-            <option value="">{% trans "Tüm Diller" %}</option>
-            {% for val, lbl in language_choices %}<option value="{{ val }}">{{ lbl }}</option>{% endfor %}
-        </select>
-        <button type="submit" class="btn-primary">
-            <i class="fas fa-search"></i> {% trans "Ara" %}
-        </button>
-    </form>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{% trans "Etkileşimli Çalışma Kütüphanesi" %}</h1>
+        <p class="text-sm text-gray-500 mt-1">{% trans "Binlerce hazır çalışma kağıdını keşfedin ve çözmeye başlayın." %}</p>
+    </div>
 </div>
+
+<!-- Search Bar -->
+<form method="get" class="bg-white rounded-2xl border border-gray-100 shadow-card p-4 mb-8 flex flex-col sm:flex-row gap-3">
+    <div class="relative flex-1">
+        <i class="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+        <input type="text" name="q" value="{{ query }}"
+               class="form-input pl-10"
+               placeholder="{% trans 'Konu, etiket veya öğretmen adı...' %}">
+    </div>
+    <select name="subject" class="form-select sm:w-44">
+        <option value="">{% trans "Tüm Dersler" %}</option>
+        {% for s in subjects %}<option value="{{ s.pk }}" {% if s.pk|stringformat:"s" == request.GET.subject %}selected{% endif %}>{% trans s.name %}</option>{% endfor %}
+    </select>
+    <select name="level" class="form-select sm:w-44">
+        <option value="">{% trans "Tüm Seviyeler" %}</option>
+        {% for val, lbl in level_choices %}<option value="{{ val }}" {% if val == request.GET.level %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+    </select>
+    <select name="language" class="form-select sm:w-40">
+        <option value="">{% trans "Tüm Diller" %}</option>
+        {% for val, lbl in language_choices %}<option value="{{ val }}" {% if val == request.GET.language %}selected{% endif %}>{{ lbl }}</option>{% endfor %}
+    </select>
+    <button type="submit" class="btn-primary whitespace-nowrap">
+        <i class="fas fa-search text-xs"></i> {% trans "Ara" %}
+    </button>
+</form>
 
 <!-- Results -->
 {% if items %}
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
     {% for item in items %}
-    <div class="card hover:shadow-md transition-shadow group">
-        <div class="relative aspect-[4/3] bg-gradient-to-br from-indigo-50 to-purple-100 flex items-center justify-center overflow-hidden">
+    <div class="group bg-white rounded-2xl border border-gray-100 shadow-card overflow-hidden hover:shadow-card-md hover:-translate-y-0.5 transition-all duration-300">
+        <!-- Thumbnail -->
+        <div class="relative aspect-[4/3] bg-gradient-to-br from-slate-50 to-indigo-50/50 flex items-center justify-center overflow-hidden">
             {% if item.worksheet.thumbnail %}
-            <img src="{{ item.worksheet.thumbnail.url }}" class="w-full h-full object-cover">
+            <img src="{{ item.worksheet.thumbnail.url }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             {% else %}
-            <i class="fas fa-file-alt text-5xl text-indigo-200"></i>
-            {% endif %}
-            {% if item.featured %}
-            <div class="absolute top-2 left-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-0.5 rounded-full">
-                <i class="fas fa-star mr-1"></i>{% trans "Öne Çıkan" %}
+            <div class="flex flex-col items-center gap-2 text-indigo-100">
+                <i class="fas fa-file-alt text-5xl"></i>
             </div>
             {% endif %}
-            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <a href="{% url 'worksheet_play' item.worksheet.pk %}" class="bg-indigo-600 text-white rounded-lg px-4 py-2 text-sm font-medium">
-                    <i class="fas fa-play mr-1"></i>{% trans "Çöz" %}
+
+            <!-- Featured badge -->
+            {% if item.featured %}
+            <div class="absolute top-3 left-3 flex items-center gap-1 bg-amber-400/95 text-amber-900 text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm backdrop-blur-sm">
+                <i class="fas fa-star text-[9px]"></i>{% trans "Öne Çıkan" %}
+            </div>
+            {% endif %}
+
+            <!-- Play overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/65 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-5">
+                <a href="{% url 'worksheet_play' item.worksheet.pk %}" 
+                   class="flex items-center gap-2 bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-xs font-bold hover:bg-indigo-700 transition-colors shadow-lg">
+                    <i class="fas fa-play"></i>{% trans "Hemen Çöz" %}
                 </a>
             </div>
         </div>
+
+        <!-- Card Body -->
         <div class="p-4">
-            <h3 class="font-semibold text-sm mb-1 truncate">{{ item.worksheet.title }}</h3>
-            <p class="text-xs text-gray-500 mb-2">{{ item.worksheet.author.full_name }}</p>
+            <h3 class="font-semibold text-sm text-gray-900 truncate mb-0.5" title="{{ item.worksheet.title }}">{{ item.worksheet.title }}</h3>
+            <p class="text-xs text-gray-400 mb-3 truncate">{{ item.worksheet.author.full_name }}</p>
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3 text-xs text-gray-400">
-                    <span><i class="fas fa-eye mr-1"></i>{{ item.worksheet.view_count }}</span>
+                    <span class="flex items-center gap-1"><i class="far fa-eye text-[10px]"></i> {{ item.worksheet.view_count }}</span>
                     <button onclick="likeItem({{ item.pk }}, this)"
                             class="flex items-center gap-1 hover:text-red-500 transition-colors like-btn"
                             data-item="{{ item.pk }}">
-                        <i class="fas fa-heart"></i><span>{{ item.like_count }}</span>
+                        <i class="fas fa-heart text-[10px]"></i><span>{{ item.like_count }}</span>
                     </button>
                 </div>
                 {% if item.worksheet.subject %}
-                <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">{{ item.worksheet.subject.name }}</span>
+                <span class="badge bg-indigo-50 text-indigo-600 border border-indigo-100">{{ item.worksheet.subject.name }}</span>
                 {% endif %}
             </div>
         </div>
@@ -73,10 +89,12 @@
     {% endfor %}
 </div>
 {% else %}
-<div class="card p-16 text-center text-gray-400">
-    <i class="fas fa-search text-5xl mb-4"></i>
-    <h2 class="text-xl font-semibold mb-2 text-gray-500">{% trans "Sonuç bulunamadı" %}</h2>
-    <p class="text-sm">{% trans "Farklı anahtar kelimeler deneyin." %}</p>
+<div class="card p-20 text-center">
+    <div class="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+        <i class="fas fa-search text-4xl text-gray-300"></i>
+    </div>
+    <h2 class="text-lg font-bold text-gray-800 mb-2">{% trans "Sonuç bulunamadı" %}</h2>
+    <p class="text-sm text-gray-500">{% trans "Farklı anahtar kelimeler deneyin." %}</p>
 </div>
 {% endif %}
 {% endblock %}

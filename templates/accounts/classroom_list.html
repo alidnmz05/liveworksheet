@@ -2,55 +2,73 @@
 {% load i18n %}
 {% block title %}{% trans "Sınıflarım" %}{% endblock %}
 {% block content %}
-<div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-bold">{% trans "Sınıflarım" %}</h1>
+
+<!-- Page Header -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{% trans "Sınıflarım" %}</h1>
+        <p class="text-sm text-gray-500 mt-1">
+            {% if user.is_teacher %}{% trans "Öğrencilerinizi sınıflara göre yönetin." %}{% else %}{% trans "Katıldığınız sınıfları buradan takip edin." %}{% endif %}
+        </p>
+    </div>
     {% if user.is_teacher %}
     <a href="{% url 'classroom_create' %}" class="btn-primary">
-        <i class="fas fa-plus"></i> {% trans "Yeni Sınıf" %}
+        <i class="fas fa-plus text-xs"></i> {% trans "Yeni Sınıf" %}
     </a>
     {% else %}
-    <form method="post" action="{% url 'join_classroom' %}" class="flex gap-2">
+    <form method="post" action="{% url 'join_classroom' %}" class="flex items-center gap-2">
         {% csrf_token %}
-        <input type="text" name="code" placeholder="{% trans '{% trans "Sınıf kodu" %}' %}" maxlength="8"
-               class="form-input w-36 uppercase tracking-widest font-bold">
-        <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> {% trans "Katıl" %}</button>
+        <input type="text" name="code" placeholder="{% trans 'Sınıf kodu' %}" maxlength="8"
+               class="form-input w-36 uppercase tracking-widest font-bold text-center">
+        <button type="submit" class="btn-primary whitespace-nowrap">
+            <i class="fas fa-sign-in-alt text-xs"></i> {% trans "Katıl" %}
+        </button>
     </form>
     {% endif %}
 </div>
 
 {% if classrooms %}
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
     {% for classroom in classrooms %}
-    <a href="{% url 'classroom_detail' classroom.pk %}" class="card p-5 hover:shadow-md transition-shadow group block">
-        <div class="flex items-start justify-between mb-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center">
-                <i class="fas fa-users text-indigo-600"></i>
+    <a href="{% url 'classroom_detail' classroom.pk %}"
+       class="group bg-white rounded-2xl border border-gray-100 shadow-card p-6 hover:shadow-card-md hover:-translate-y-0.5 transition-all duration-300 block">
+        <div class="flex items-start justify-between mb-5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <i class="fas fa-chalkboard text-indigo-600 text-xl"></i>
             </div>
             {% if user.is_teacher %}
-            <code class="text-xs bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded tracking-widest">{{ classroom.code }}</code>
+            <code class="text-[11px] bg-indigo-50 text-indigo-600 font-bold px-2.5 py-1 rounded-lg tracking-widest border border-indigo-100">{{ classroom.code }}</code>
             {% endif %}
         </div>
-        <h3 class="font-semibold text-gray-800 group-hover:text-indigo-600 transition-colors mb-1">{{ classroom.name }}</h3>
+        <h3 class="font-bold text-gray-900 text-base mb-1.5 group-hover:text-indigo-600 transition-colors truncate">{{ classroom.name }}</h3>
         {% if user.is_teacher %}
-        <p class="text-xs text-gray-400"><i class="fas fa-user-graduate mr-1"></i>{{ classroom.students.count }} {% trans "öğrenci" %}</p>
+        <p class="text-xs text-gray-400 flex items-center gap-1.5">
+            <i class="fas fa-user-graduate text-[10px]"></i>
+            <span>{{ classroom.students.count }} {% trans "öğrenci" %}</span>
+        </p>
         {% else %}
-        <p class="text-xs text-gray-400"><i class="fas fa-chalkboard-teacher mr-1"></i>{{ classroom.teacher.full_name }}</p>
+        <p class="text-xs text-gray-400 flex items-center gap-1.5">
+            <i class="fas fa-chalkboard-teacher text-[10px]"></i>
+            <span>{{ classroom.teacher.full_name }}</span>
+        </p>
         {% endif %}
     </a>
     {% endfor %}
 </div>
 {% else %}
-<div class="card p-16 text-center text-gray-400">
-    <i class="fas fa-users text-6xl mb-4"></i>
+<div class="card p-20 text-center">
+    <div class="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+        <i class="fas fa-users text-4xl text-indigo-300"></i>
+    </div>
     {% if user.is_teacher %}
-    <h2 class="text-xl font-semibold mb-2 text-gray-500">{% trans "Henüz sınıfınız yok" %}</h2>
-    <p class="text-sm mb-6">{% trans 'Öğrenciler' %}inizi bir sınıfa davet edin.</p>
+    <h2 class="text-lg font-bold text-gray-800 mb-2">{% trans "Henüz sınıfınız yok" %}</h2>
+    <p class="text-sm text-gray-500 mb-6">{% trans "Öğrencilerinizi bir araya getirmek için sınıf oluşturun." %}</p>
     <a href="{% url 'classroom_create' %}" class="btn-primary">
-        <i class="fas fa-plus"></i> {% trans 'Sınıf Oluştur' %}
+        <i class="fas fa-plus text-xs"></i> {% trans "Sınıf Oluştur" %}
     </a>
     {% else %}
-    <h2 class="text-xl font-semibold mb-2 text-gray-500">{% trans "Henüz bir sınıfa katılmadınız" %}</h2>
-    <p class="text-sm mb-2">{% trans "Öğretmeninizden sınıf kodunu alın ve yukarıya girin." %}</p>
+    <h2 class="text-lg font-bold text-gray-800 mb-2">{% trans "Henüz bir sınıfa katılmadınız" %}</h2>
+    <p class="text-sm text-gray-500">{% trans "Öğretmeninizden sınıf kodunu alın ve yukarıya girin." %}</p>
     {% endif %}
 </div>
 {% endif %}
