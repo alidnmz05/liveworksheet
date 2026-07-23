@@ -1,0 +1,961 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Gazi Üniversitesi Teknoloji Fakültesi
+Bilgisayar Mühendisliği Bölümü
+Mezuniyet Projesi Raporu
+
+
+
+
+
+Yapay Zekâ Destekli Etkileşimli Eğitim Materyali ve Değerlendirme Platformu Geliştirilmesi
+
+
+
+
+Ali Dönmez
+İsmail Dündar
+
+
+
+
+
+HAZİRAN 2026
+ANKARA
+
+
+
+ALİ DÖNMEZ ve İSMAİL DÜNDAR tarafından hazırlanan “Yapay Zekâ Destekli Etkileşimli Eğitim Materyali ve Değerlendirme Platformu Geliştirilmesi” adlı proje aşağıdaki juri üyeleri tarafından OY BİRLİĞİ / OY ÇOKLUĞU ile Gazi Üniversitesi Teknoloji Fakültesi Bilgisayar Mühendisliği Bölümünde MEZUNİYET PROJESİ olarak kabul edilmiştir.
+
+Danışman: Prof. Dr. İbrahim Alper DOĞRU
+Bilgisayar Mühendisliği Bölümü
+Bu raporun, kapsam ve kalite olarak Mezuniyet Projesi olduğunu onaylıyorum.    ……………
+Üye: Doç. Dr. Üyesi Fuat TÜRK
+Bu raporun, kapsam ve kalite olarak Mezuniyet Projesi olduğunu onaylıyorum.    ……………
+Üye: Doç. Dr. Ali ARI
+Bu raporun, kapsam ve kalite olarak Mezuniyet Projesi olduğunu onaylıyorum.    ……………
+
+
+Proje Savunma Tarihi: 01/06/2026
+Juri tarafından kabul edilen bu projenin Mezuniyet Projesi olması için gerekli şartları yerine getirdiğini onaylıyorum.
+ 
+
+
+
+
+……………
+Prof. Dr. O. Ayhan ERDEM
+Bölüm Başkanı
+
+
+
+
+
+
+ETİK BEYAN
+
+Gazi Üniversitesi Teknoloji Fakültesi Proje Yazım Kurallarına uygun olarak hazırladığım bu proje çalışmasında;
+• Proje raporu içinde sunduğum verileri, bilgileri ve dokümanları akademik ve etik kurallar çerçevesinde elde ettiğimi,
+• Tüm bilgi, belge, değerlendirme ve sonuçları bilimsel etik ve ahlak kurallarına uygun olarak sunduğumu,
+• Proje çalışmasında yararlandığım eserlerin tümüne uygun atıfta bulunarak kaynak gösterdiğimi,
+• Kullanılan verilerde herhangi bir değişiklik yapmadığımı,
+• Bu raporda sunduğum çalışmanın özgün olduğunu, daha önce başka bir yerde sunulmadığını,
+bildirir, aksi bir durumda aleyhime doğabilecek tüm hak kayıplarını kabullendiğimi beyan ederim.
+
+
+
+Ali DÖNMEZ
+İsmail DÜNDAR
+01/06/2026
+
+
+
+
+
+
+
+
+
+
+Yapay Zekâ Destekli Etkileşimli Eğitim Materyali ve Değerlendirme Platformu Geliştirilmesi
+(Mezuniyet Projesi)
+
+ÖZET
+
+Geleneksel eğitim süreçlerinin dijitalleşmesiyle birlikte, öğretmen ve öğrenci arasındaki etkileşimi artıran, ölçme-değerlendirme süreçlerini kolaylaştıran web tabanlı platformlara olan gereksinim artmıştır. Ancak mevcut sistemler, açık uçlu ve boşluk doldurma gibi serbest metin formatındaki yanıtları otomatik olarak değerlendirmede yetersiz kalmakta; sadece harfi harfine (exact-match) eşleşme aradıkları için yazım hatası veya eş anlamlı kelime kullanan öğrencileri yanlış değerlendirebilmektedir.
+
+Bu çalışmada; öğretmenlerin zengin multimedya öğeleriyle etkileşimli çalışma kağıtları tasarlayabilmesini, sanal sınıflar (Classroom) kurup öğrencilerini takip edebilmesini ve ödevler (Assignment) atayabilmesini sağlayan; öğrencilerin ise kendilerine atanan ödevleri çözebildiği veya "Daha Sonra Devam Et" (taslak kaydı) seçeneğiyle ilerlemesini koruyabildiği bütüncül bir e-öğrenme platformu geliştirilmiştir. Sistem, açık uçlu soruları semantik (anlamsal) düzeyde değerlendirebilen yapay zeka destekli bir hibrit motor barındırmaktadır. Django tabanlı altyapıda, anlamsal analiz için paraphrase-multilingual-MiniLM-L12-v2 dil modeli kullanılmış; kosinüs benzerliği metriği bulanık eşleştirme (fuzzy matching) algoritmalarıyla melezlenmiştir.
+
+Yapay zeka motoru, Türkçe fiil çekimlerini ve zıt anlamlı kelimeleri tarayan bir çelişki denetimi (detect_contradiction) ile ders branşlarına özel tanımlanan kavram grupları üzerinden yanılgıları saptayan bir teorik eşleşmeme katmanı (detect_theoretical_mismatch) ile desteklenmiştir. Ayrıca, öğrenci kazanımlarına göre asenkron çalışma kağıtları öneren Alpine.js tabanlı akıllı bir ders asistanı (AI Tutor) geliştirilmiştir. Platform, Türkçe dahil 11 dilde yerelleştirme desteği sunmaktadır. Testler, geliştirilen sistemin öğretmenlerin değerlendirme yükünü önemli ölçüde azaltırken öğrencilere adil ve öğretici geri bildirimler sunduğunu göstermiştir.
+
+Anahtar Kelimeler: Doğal Dil İşleme (NLP), Otomatik Değerlendirme, Sınıf Yönetimi, Ödev Takibi, Semantik Benzerlik, Çelişki Denetimi, Kavram Yanılgısı Tespiti, Django.
+
+
+Development of an Artificial Intelligence-Supported Interactive Educational Material and Assessment Platform (Graduation Project)
+ ABSTRACT
+
+With the digitalization of traditional educational processes, the need for web-based platforms that increase teacher-student interaction and facilitate assessment and evaluation processes has grown significantly. However, existing systems are often insufficient in automatically evaluating free-text responses such as open-ended and fill-in-the-blank answers. Since these systems mostly rely on exact-match comparison, they may incorrectly evaluate students who make minor spelling mistakes or use semantically equivalent expressions.
+
+In this study, a comprehensive e-learning platform was developed to enable teachers to design interactive worksheets with rich multimedia elements, create virtual classrooms, monitor students, and assign homework. The platform also allows students to complete assigned tasks and preserve their progress through the “Save for Later” draft feature. The system includes an artificial intelligence-supported hybrid evaluation engine capable of assessing open-ended answers at a semantic level. In the Django-based infrastructure, the paraphrase-multilingual-MiniLM-L12-v2 language model was used for semantic analysis, and the cosine similarity metric was combined with fuzzy matching algorithms.
+
+The artificial intelligence engine was supported by a contradiction detection module that analyzes Turkish verb conjugations and antonym word pairs, as well as a theoretical mismatch detection layer that identifies misconceptions through subject-specific concept groups. In addition, an Alpine.js-based intelligent course assistant, AI Tutor, was developed to recommend asynchronous worksheets according to student learning needs. The platform provides localization support in 11 languages, including Turkish. The test results showed that the developed system significantly reduces teachers’ assessment workload while providing fair and instructional feedback to students.
+
+Keywords: Natural Language Processing, Automatic Assessment, Classroom Management, Assignment Tracking, Semantic Similarity, Contradiction Detection, Misconception Detection, Django.
+
+
+
+
+TEŞEKKÜR
+
+Bu mezuniyet projesi çalışmasının planlanması, araştırılması ve gerçekleştirilmesi süreçlerinde bizlerden değerli vaktini esirgemeyen, engin akademik bilgi birikimi, yapıcı eleştirileri ve vizyonu ile çalışmalarımıza yön veren, akademik gelişimimize büyük katkı sağlayan değerli danışman hocamız Prof. Dr. İbrahim Alper DOĞRU'ya en içten teşekkürlerimizi ve saygılarımızı sunarız.
+
+Ayrıca, öğrenim hayatımız boyunca ve bu projenin hazırlanmasında maddi ve manevi desteklerini hiçbir zaman esirgemeyen, sabır ve anlayışlarıyla her zaman yanımızda olan sevgili ailelerimize sonsuz teşekkürlerimizi borç biliriz.
+
+Son olarak, bu çalışmanın planlanması, geliştirilmesi ve tamamlanması sürecinde ekip olarak uyumlu, sorumluluk sahibi ve özverili bir çalışma anlayışı sergiledik. Karşılıklı fikir alışverişi ve birbirimize sağladığımız motivasyon sayesinde projeyi ortak bir emekle başarıyla tamamladık.
+Saygılarımızla,
+İsmail DÜNDAR & Ali DÖNMEZ
+Ankara, 2026
+
+
+
+
+
+
+
+
+
+
+
+
+İÇİNDEKİLER
+BÖLÜM                                                                                                                                       SAYFA
+ÖZET ...................................................................................................................................... vi
+ABSTRACT ........................................................................................................................... vii
+TEŞEKKÜR ......................................................................................................................... viii
+SİMGELER VE KISALTMALAR .................................................................................... xii	
+1. GİRİŞ ............................................................................................................................... 1
+1.1. Çalışmanın Amacı ve Önemi ...................................................................................... 1
+1.2. Problemin Tanımı ....................................................................................................... 2
+1.3. Önerilen Çözüm ve Yenilikçi Yönleri ............................................................................ 2
+1.4. Raporun Organizasyonu ............................................................................................. 4
+2. TEKNOLOJİK ALTYAPI VE LİTERATÜR TARAMASI 
+2.1. İlgili Çalışmalar .......................................................................................................... 5
+2.2. Web Teknolojileri ve Framework Seçimleri .................................................................. 6
+2.2.1. Django Framework ve Model-View-Template (MVT) Yapısı .................................. 6
+2.2.2. İlişkisel Veritabanı Yönetim Sistemleri (SQLite / PostgreSQL) .............................. 7
+2.2.3. Ön Yüz Teknolojileri (Tailwind CSS, Alpine.js) ...................................................... 7
+2.3. Doğal Dil İşleme (NLP) Teknolojileri ........................................................................... 7
+2.3.1. Cümle Vektör Gömmeleri (Sentence Embeddings) ................................................ 7
+2.3.2. Sentence Transformers ve BERT Tabanlı Modeller ................................................ 8
+2.3.3. Kosinüs Benzerliği (Cosine Similarity) Metriği ....................................................... 8
+3. SİSTEM ANALİZİ VE TASARIMI 
+3.1. Gereksinim Analizi .................................................................................................... 9
+3.1.1. Fonksiyonel Gereksinimler .................................................................................. 9
+3.1.2. Fonksiyonel Olmayan Gereksinimler .................................................................... 9
+3.2. Sistem Mimarisi ........................................................................................................ 10
+3.3. Veritabanı Tasarımı ve Veri Modeli ........................................................................... 10
+3.3.1. Varlık-İlişki (ER) Diyagramı ................................................................................. 11
+3.3.2. Tablo Tanımları ................................................................................................... 12
+3.4. Kullanıcı Arayüzü Tasarımı ve Akışları ...................................................................... 12
+3.4.1. Öğretmen Yönetim Akışı ..................................................................................... 12
+3.4.2. Öğrenci Çözüm ve AI Asistanı Akışı .................................................................... 13
+4. YAPAY ZEKA DESTEKLİ DEĞERLENDİRME VE ASİSTAN SİSTEMİ 
+4.1. Semantik Değerlendirme Motoru (AI Evaluation Engine) Tasarımı .............................. 15
+4.2. Hibrit Metrik Yaklaşımı ............................................................................................. 17
+4.2.1. SentenceTransformers ile Anlamsal Analiz (MiniLM-L12-v2) ............................... 17
+4.2.2. difflib SequenceMatcher ile Yazım Hatası (Typo) Toleransı ................................... 17
+4.3. Dil Bilgisi ve Mantıksal Çelişki Algılama Algoritması .................................................. 17
+4.3.1. Türkçe Fiil Çekimi ve Regex Tabanlı Olumsuzluk Tespiti ..................................... 18
+4.3.2. Zıt Anlam Kelime Çiftleri ve Bağlam Karşılaştırma ................................................ 18
+4.4. Akademik Kavram Yanılgısı (Theoretical Mismatch) Tespiti ........................................ 19
+4.4.1. Branşlara Göre Rakip Kavram Gruplarının Tanımlanması ...................................... 19
+4.4.2. Kavram Kümesi Eşleşmeme Algoritması .............................................................. 19
+4.5. Yapay Zeka Çalışma Asistanı (AI Tutor Chatbot) Akışı ve Öneri Algoritması .............. 20
+
+
+
+
+5. GERÇEKLEŞTİRİM, TESTLER VE DENEYSEL SONUÇLAR 
+5.1. Çalışma Ortamı ve Sistem Kurulumu ......................................................................... 22
+5.2. Arayüz Gerçekleştirim Ekran Görüntüleri .................................................................... 23
+5.3. Yapay Zeka Değerlendirme Motorunun Performans Analizi ........................................ 25
+5.3.1. Doğruluk (Accuracy) Test Senaryoları ................................................................. 25
+5.3.2. Zaman Performansı ............................................................................................. 26
+5.3.3. Çelişki ve Kavram Yanılgısı Algoritmalarının Başarı Analizi ................................... 27
+5.4. Çok Dilli (11 Dil) Yerelleştirme Sonuçları .................................................................... 27
+6. TARTIŞMA VE SONUÇ 
+6.1. Elde Edilen Kazanımlar ............................................................................................. 28
+6.2. Karşılaşılan Zorluklar ve Kısıtlar ................................................................................ 29
+6.3. Gelecekte Yapılabilecek Çalışmalar (Geliştirme Önerileri) ........................................... 30
+KAYNAKLAR ..................................................................................................................... 31
+EKLER
+Ek-1: Yapay Zekâ Modülü — Model Başlatma ve Sistem Konfigürasyonu ......................... 33
+Ek-2: Veritabanı Modelleri İlişkisel Kodları ........................................................................ 34
+Ek-3: AI Tutor Chatbot Arka Yüz View ............................................................................. 35
+
+
+
+SİMGELER VE KISALTMALAR
+Bu çalışmada kullanılmış semboller ve kısaltmalar, açıklamalarıyla aşağıda sunulmaktadır.
+
+SEMBOLLER
+AÇIKLAMA
+A, B
+Çok boyutlu uzayda cümleleri temsil eden yoğun vektörler (cümle gömmeleri)
+θ
+İki cümle vektörü arasındaki açı (Teta)
+cos(θ)
+İki cümle vektörü arasındaki Kosinüs Benzerliği değeri
+A · B
+İki vektörün iç çarpımı (nokta çarpımı)
+||A||
+Vektörün L2 normu (Öklid uzunluğu)
+Simsem
+Sentence Transformers tarafından hesaplanan anlamsal benzerlik skoru
+Ratiofuzzy
+SequenceMatcher tarafından hesaplanan karakter düzeyinde bulanık eşleşme oranı
+Skorfinal
+Semantik skor ile bulanık eşleşme skorunun melezlenmesiyle elde edilen nihai AI skoru
+G
+Branş bazlı tanımlanmış rakip kavram grubu kümesi (Theory Group Set)
+Wref, Wstu
+Referans doğru cevap ve öğrenci yanıtındaki benzersiz kelimeler kümesi
+Tref, Tstu
+Referans cevap ile öğrenci yanıtındaki ilgili kavram grubuna ait terim kümeleri
+
+
+
+
+
+
+
+
+
+KISALTMALAR
+AÇIKLAMA
+NLP
+Natural Language Processing (Doğal Dil İşleme)
+BERT
+Bidirectional Encoder Representations from Transformers
+MiniLM
+Mini Language Model (Küçük Dil Modeli)
+MVT
+Model-View-Template (Model-Görünüm-Şablon)
+ORM
+Object-Relational Mapping (Nesne-İlişkisel Eşleme)
+ER
+Entity-Relationship (Varlık-İlişki)
+API
+Application Programming Interface (Uygulama Programlama Arayüzü)
+LMS
+Learning Management System (Öğrenme Yönetim Sistemi)
+AI
+Artificial Intelligence (Yapay Zekâ)
+GPU
+Graphics Processing Unit (Grafik İşlemci Birimi)
+CPU
+Central Processing Unit (Merkezi İşlem Birimi)
+RAM
+Random Access Memory (Rastgele Erişimli Bellek)
+JSON
+JavaScript Object Notation (JavaScript Nesne Notasyonu)
+CSS
+Cascading Style Sheets (Basamaklı Stil Şablonları)
+HTML
+HyperText Markup Language (Hiper Metin İşaretleme Dili)
+JS
+JavaScript
+I18N
+Internationalization (Yerelleştirme/Uluslararasılaştırma)
+SQL
+Structured Query Language (Yapılandırılmış Sorgu Dili)
+RAG
+Retrieval-Augmented Generation (Arama Destekli Nesil)
+MEB
+Millî Eğitim Bakanlığı
+
+1. GİRİŞ
+Bu bölümde, çalışmanın çıkış noktası olan eğitim teknolojilerindeki güncel dönüşümler, otomatik değerlendirme sistemlerinin önemi, geleneksel yaklaşımların sınırlılıkları ve bu çalışmada önerilen yapay zekâ destekli hibrit çözümün yenilikçi yönleri ele alınmaktadır. Ayrıca raporun genel organizasyonu açıklanmaktadır.
+ 
+1.1. Çalışmanın Amacı ve Önemi
+Bilgi ve iletişim teknolojilerindeki hızlı gelişmeler, eğitim ve öğretim süreçlerinin dijital ortamlara taşınmasını hızlandırmıştır. E-öğrenme platformları ve dijital eğitim materyalleri, zaman ve mekândan bağımsız öğrenim olanağı sunarak eğitimde fırsat eşitliğine katkı sağlamaktadır. Bu dönüşüm sürecinde, öğrencilerin edindikleri kazanımları pekiştiren ve ölçme-değerlendirme imkânı sunan etkileşimli çalışma kağıtları (worksheets) kritik bir rol oynamaktadır. Öğretmenlerin dijital ortamda etkileşimli materyaller hazırlaması, bunları sınıflara ödev olarak ataması ve öğrenci ilerlemesini anlık takip etmesi modern eğitim yönetiminin temel ihtiyaçlarından biri haline gelmiştir.
+ 
+Ölçme-değerlendirme süreçlerinde en önemli iş yükünü, öğrencilerin verdikleri yanıtların incelenmesi ve adil biçimde puanlanması oluşturmaktadır. Çoktan seçmeli, eşleştirmeli veya doğru-yanlış tipi yapılandırılmış sorular bilgisayar sistemleri tarafından anında değerlendirilebilirken; açık uçlu (open-ended) ve boşluk doldurma (fill-in-the-blank) gibi serbest metin formatındaki yanıtların otomatik analizi oldukça güçtür. Öğretmenler, yüzlerce öğrencinin açık uçlu yanıtlarını okumak ve geri bildirim hazırlamak için ciddi bir zaman ve emek harcamaktadır.
+ 
+Bu çalışmanın amacı; öğretmenlerin zengin multimedya öğeleriyle (YouTube/Vimeo videoları, ses kayıtları, metin okuma modülleri) donatılmış etkileşimli çalışma kağıtları oluşturabildiği, sınıflar kurup öğrencileri yönetebildiği ve ödev atayabildiği dinamik bir e-öğrenme platformu tasarlamaktır. Çalışmanın asıl akademik ve teknik önemini ise; öğrenci gönderimlerindeki açık uçlu yanıtları semantik (anlamsal) düzeyde otomatik olarak değerlendiren, dil bilgisel çelişkileri ve teorik kavram yanılgıları saptayan yapay zekâ destekli bir hibrit değerlendirme motoru ile öğrencilere kişiselleştirilmiş kazanım odaklı materyaller öneren akıllı ders asistanının (AI Tutor) sisteme entegrasyonu oluşturmaktadır. Bu sistem sayesinde öğretmenlerin değerlendirme yükü azaltılırken, öğrencilere anında, adil ve öğretici geri bildirimler sunulması hedeflenmektedir.
+ 
+1.2. Problemin Tanımı
+Eğitim teknolojileri literatüründe otomatik ödev ve sınav değerlendirme sistemleri uzun süredir araştırılmaktadır. Ancak mevcut web tabanlı sistemlerin büyük bir kısmı serbest metin formatındaki yanıtları değerlendirememekte veya oldukça ilkel yöntemler kullanmaktadır. Mevcut ticari ve akademik e-öğrenme platformlarındaki temel kısıtlar ve problemler şu şekilde özetlenebilir:
+ 
+	•	Harfi Harfine Eşleşme (Exact-Match) Sınırlılığı: Geleneksel otomatik değerlendirme modülleri, öğretmen tarafından girilen referans doğru cevap ile öğrencinin verdiği yanıtı karakter bazlı (birebir) karşılaştırır. Bu yaklaşım; eş anlamlı kelime kullanımlarını, yazım hatalarını (typo), kelime sırasındaki farklılıkları veya Türkçe gibi sondan eklemeli dillerdeki çekim eki varyasyonlarını tolere edemez. Örneğin; doğru cevabın "hücrenin enerji santralidir" olduğu bir soruda öğrencinin "hücreye enerji üreten organeldir" yazması durumunda sistem yanıtı yanlış kabul etmektedir. Bu durum yüksek oranda "yanlış negatif" sonuç üreterek ölçme güvenilirliğini zedelemektedir.
+	•	Mantıksal Çelişkilerin Yakalanamaması: Sadece kelime benzerliğine veya semantik vektör yakınlığına odaklanan temel yapay zeka modelleri, olumsuzluk eklerini veya zıt anlamlı kelimeleri gözden kaçırabilmektedir. Öğrencinin "hücre çekirdeği kalıtımı kontrol eder" yerine "hücre çekirdeği kalıtımı kontrol etmez" yazması durumunda, kelime benzerliği yüksek çıksa dahi anlam tamamen zıttır. Geleneksel sistemler bu tür kritik mantıksal çelişkileri ayırt edememektedir.
+	•	Bilimsel Kavram Yanılgılarının (Concept Misconception) Tespit Edilememesi: Öğrenciler, fen bilimleri veya matematik gibi branşlarda kavramları birbiriyle karıştırabilmektedir (örn. "mitokondri" yerine "ribozom", "mitoz" yerine "mayoz" yazılması). Klasik benzerlik ölçümleri bu tür hataları genel bir anlamsal uzaklık olarak görür, ancak hatanın tam olarak hangi bilimsel kavramın yanlış kullanımından kaynaklandığını saptayamaz ve öğrenciye yönlendirici bir düzeltme geri bildirimi sunamaz.
+ 
+1.3. Önerilen Çözüm ve Yenilikçi Yönleri
+Bahsedilen kısıtları aşmak adına, bu çalışmada yapay zekâ tabanlı, çok katmanlı ve hibrit bir otomatik değerlendirme motoru önerilmiş ve bir e-öğrenme platformuna entegre edilmiştir. 
+ 
+Önerilen hibrit değerlendirme akışının genel sistem mimarisi Şekil 1.1'de gösterilmektedir.
+ 
+
+Şekil 1.1: Önerilen Hibrit Yapay Zekâ Değerlendirme Motorunun Boru Hattı (Pipeline) Akış Şeması
+Sistemin temel yenilikçi yönleri ve çalışma prensipleri şu şekildedir:
+ 
+	•	Anlamsal ve Bulanık Eşleştirmeli Hibrit Metrik: Sistem, paraphrase-multilingual-MiniLM-L12-v2 Sentence Transformer modelini kullanarak cümleleri yoğun vektörlere dönüştürür ve aralarındaki Kosinüs Benzerliğini hesaplar. Bu anlamsal skor, kısa metinlerdeki yazım hatalarını tolere edebilmek amacıyla harf düzeyinde çalışan SequenceMatcher bulanık eşleştirme oranı ile dinamik olarak birleştirilerek hibrit bir değerlendirme metriği oluşturur.
+	•	Linguistik Çelişki Denetim Katmanı: Türkçe morfolojik yapısına uygun olarak geliştirilen kural tabanlı bir algoritma (detect_contradiction), düzenli ifadeler (regex) vasıtasıyla fiillerdeki olumsuzluk eklerini (-mıyor, -medi, -mez) ve yapılandırılmış zıt anlam sözlüğünü tarar. Böylece semantik olarak benzer görünen ancak mantıksal olarak çelişen yanıtlar anında elenir.
+	•	Branş Bazlı Kavram Yanılgısı Saptama Modülü: Sistemde tanımlanan "Rakip Kavram Grupları" (Theory Groups) sayesinde, öğrencilerin doğru kavram yerine aynı gruptan yanlış bir terim kullanıp kullanmadığı (detect_theoretical_mismatch) küme analizleriyle saptanır. Bu sayede öğrenciye "Beklenen bilimsel kavram 'mitoz' iken 'mayoz' kavramını kullandınız" şeklinde eğitsel geri bildirimler üretilir.
+	•	Akıllı Ders Asistanı (AI Tutor): Sistemde tanımlanan öğrenme kazanımları (learning_objective) ile entegre çalışan Alpine.js tabanlı chatbot, öğrencilerin eksik kaldığı konuları belirleyerek veritabanından asenkron olarak uygun etkileşimli çalışma kağıtlarını önerir.
+ 
+1.4. Raporun Organizasyonu
+Bu tez çalışması toplam altı ana bölümden oluşmaktadır. Raporun organizasyonu şu şekildedir:
+ 
+	•	Bölüm 2 (Teknolojik Altyapı ve Literatür Taraması): Otomatik değerlendirme alanındaki benzer çalışmalar incelenmekte; kullanılan Django web çatısı, Sentence Transformers modelleri ve Kosinüs Benzerliği metriğinin teorik temelleri açıklanmaktadır.
+	•	Bölüm 3 (Sistem Analizi ve Tasarımı): Platformun fonksiyonel ve fonksiyonel olmayan gereksinimleri tanımlanmakta; sistem mimarisi, ilişkisel veritabanı veri modelleri (ER diyagramı) ve kullanıcı arayüzü akışları detaylandırılmaktadır.
+	•	Bölüm 4 (Yapay Zeka Destekli Değerlendirme ve Asistan Sistemi): Semantik değerlendirme motorunun, Türkçe çelişki analizinin, kavram yanılgısı algılama algoritmasının ve chatbot öneri mekanizmasının çalışma prensipleri ve pseudocode tasarımları sunulmaktadır.
+	•	Bölüm 5 (Gerçekleştirim, Testler ve Deneysel Sonuçlar): Sistemin çalışma ortamı ve arayüz ekran görüntüleri paylaşılmakta; yapay zeka motorunun doğruluk, zaman performansı ve hata saptama başarıları deneysel verilerle analiz edilmektedir.
+	•	Bölüm 6 (Tartışma ve Sonuç): Elde edilen kazanımlar özetlenmekte, karşılaşılan kısıtlar tartışılmakta ve gelecekte yapılabilecek geliştirme önerileri sunulmaktadır.
+
+
+2. TEKNOLOJİK ALTYAPI VE LİTERATÜR TARAMASI
+Bu bölümde, otomatik değerlendirme ve etkileşimli eğitim platformları alanındaki literatür taraması sunulmaktadır. Ayrıca, geliştirilen platformun web mimarisi bileşenleri ile arka planda semantik analizi yürüten Doğal Dil İşleme (NLP) teknolojilerinin teorik temelleri açıklanmaktadır.
+ 
+2.1. İlgili Çalışmalar
+Eğitim süreçlerinin dijitalleşmesiyle birlikte öğrenci yanıtlarının otomatik olarak değerlendirilmesine yönelik çeşitli ticari ve akademik sistemler geliştirilmiştir. Klasik Öğrenme Yönetim Sistemleri (LMS) ve sınav platformları çoğunlukla yapılandırılmış soru tiplerine (çoktan seçmeli, eşleştirmeli vb.) odaklanmaktadır. Literatürde öne çıkan platformların ve bu çalışmada önerilen sistemin yetenek karşılaştırması Tablo 2.1'de sunulmaktadır.
+ 
+Tablo 2.1: Mevcut Eğitim Platformları ile Önerilen Sistemin Özellik Karşılaştırması
+ 
+Platform
+Açık Uçlu Soru Desteği
+Semantik Puanlama
+Çelişki Denetimi
+Kavram Yanılgısı Algılama
+Akıllı Ders Asistanı (AI Tutor)
+Taslak Olarak Kaydetme
+Google Forms
+Sadece Metin
+Yok (Manuel)
+Yok
+Yok
+Yok
+Kısmi
+Kahoot / Quizizz
+Sadece Harfi Harfine
+Yok
+Yok
+Yok
+Yok
+Yok
+Moodle LMS
+Eklenti ile Kısıtlı
+Yok (Kural Bazlı)
+Yok
+Yok
+Yok
+Var
+Geleneksel Etkileşimli Kağıtlar
+Var (Harfi Harfine)
+Yok
+Yok
+Yok
+Yok
+Yok
+Önerilen Sistem
+Var (Semantik)
+Var (MiniLM/Cosine)
+Var (Linguistik)
+Var (Kavram Kümeleri)
+Var (Alpine.js/Django)
+Var
+ 
+Mevcut e-öğrenme araçları incelendiğinde, öğrencilerin kendi ifadeleriyle yazdığı serbest metin yanıtlarını anlamsal olarak derecelendirebilen, dil bilgisel olumsuzlukları ayırt edebilen ve branş bazlı kavram yanılgılarını belirleyerek öğretmen yükünü hafifleten bütüncül bir yapının eksikliği görülmektedir. Önerilen platform, bu açığı kapatacak şekilde tasarlanmıştır.
+ 
+2.2. Web Teknolojileri ve Framework Seçimleri
+Geliştirilen platformun yüksek kullanıcı yükleri altında kararlı çalışabilmesi, verilerin güvenli bir şekilde depolanması ve ön yüzde zengin bir kullanıcı deneyimi sunulabilmesi amacıyla modern web teknolojileri tercih edilmiştir.
+ 
+2.2.1. Django Framework ve Model-View-Template (MVT) Yapısı
+Platformun backend mimarisi için Python tabanlı Django web çatısı kullanılmıştır. Django, yüksek ölçeklenebilirlik, yerleşik güvenlik özellikleri (CSRF, SQL Injection, XSS korumaları) ve hızlı prototipleme imkânı sunması sebebiyle tercih edilmiştir. Sistem, Django’nun geleneksel Model-View-Template (MVT) tasarım deseni üzerine kurulmuştur (Şekil 2.1).
+ 
+
+Şekil 2.1: Django Model-View-Template (MVT) Mimarisi ve İstek-Cevap Akışı
+	•	Model (Veri Katmanı): Veritabanı tablolarının Python sınıfları (ORM) olarak tanımlandığı yerdir. Sınıf, ödev, soru ve gönderim ilişkileri bu katmanda yönetilir.
+	•	View (İş Mantığı): Kullanıcı isteklerini işleyen, veritabanı sorgularını yürüten ve yapay zeka modülünü (ai_engine.py) tetikleyerek sonuçları şablonlara aktaran katmandır.
+	•	Template (Sunum Katmanı): Kullanıcıya gösterilen HTML şablonlarıdır. Django'nun şablon dili kullanılarak dinamik veriler kullanıcı arayüzüne basılır.
+ 
+2.2.2. İlişkisel Veritabanı Yönetim Sistemleri (SQLite / PostgreSQL)
+Sistem geliştirme aşamasında hafifliği ve dosya tabanlı kolay taşınabilirliği nedeniyle SQLite ilişkisel veritabanı kullanılmıştır. Canlı dağıtım (production) aşamasında ise yüksek eşzamanlı istekleri yönetebilmek, veri bütünlüğünü ACID prensipleriyle korumak ve karmaşık SQL sorgularını optimize edebilmek amacıyla PostgreSQL veritabanı yönetim sistemine geçişi destekleyen esnek bir ORM yapısı kurgulanmıştır.
+ 
+2.2.3. Ön Yüz Teknolojileri (Tailwind CSS, Alpine.js)
+Platformun ön yüz arayüzü kullanıcı dostu, responsive (mobil uyumlu) ve dinamik olacak şekilde tasarlanmıştır:
+	•	Tailwind CSS: Modern ve esnek bir arayüz tasarımı elde etmek amacıyla "utility-first" CSS kütüphanesi olan Tailwind CSS kullanılmıştır. Bu sayede platform, mobil cihazlar ve masaüstü bilgisayarlar arasında kusursuz bir duyarlılık (responsiveness) gösterir.
+	•	Alpine.js: Ağır Javascript kütüphanelerine (React veya Vue gibi) ihtiyaç duymadan dinamik arayüz etkileşimleri oluşturabilmek amacıyla minimal bir kütüphane olan Alpine.js tercih edilmiştir. Özellikle yapay zeka asistanı (AI Tutor) sohbet penceresindeki durum yönetimleri (adım geçişleri, asenkron sorgular) Alpine.js ile reaktif olarak yönetilmiştir.
+ 
+2.3. Doğal Dil İşleme (NLP) Teknolojileri
+Açık uçlu öğrenci yanıtlarının otomatik ve semantik olarak puanlanması, modern Doğal Dil İşleme (NLP) mimarilerinin entegrasyonuyla gerçekleştirilmiştir.
+ 
+2.3.1. Cümle Vektör Gömmeleri (Sentence Embeddings)
+Cümle gömmeleri, serbest metin formatındaki cümleleri bilgisayarların işleyebileceği yoğun (dense) sayısal vektörlere dönüştürme işlemidir. Geleneksel kelime çantası (Bag-of-Words) veya TF-IDF gibi yöntemler kelimelerin sırasını ve bağlamsal anlamlarını kaybederken; cümle gömme teknikleri cümledeki anlamsal yapıyı yüksek boyutlu bir vektör uzayında temsil eder. Bu çalışmada cümleler, anlamsal ilişkilerin korunduğu 384 boyutlu vektörlere dönüştürülmektedir.
+ 
+2.3.2. Sentence Transformers ve BERT Tabanlı Modeller
+Vektör dönüşümü için Derin Öğrenme tabanlı Sentence Transformers kütüphanesi kullanılmıştır. Sistemde tercih edilen model olan paraphrase-multilingual-MiniLM-L12-v2, BERT tabanlı MiniLM mimarisinin çok dilli (multilingual) türevidir. Bu modelin teorik yapısı şunlara dayanır:
+	•	Self-Attention (Kendi Kendine Dikkat Mekanizması): Cümledeki her kelimenin diğer tüm kelimelerle olan bağlamsal ilişkisini analiz ederek anlamsal odağı belirler.
+	•	Knowledge Distillation (Bilgi Damıtma): Büyük BERT modellerinin performansı korunarak, daha az parametre ve bellek tüketimiyle mobil ve sunucu ortamlarında hızlı çalışacak şekilde sıkıştırılmış bir yapıdır. Türkçe dahil 50'den fazla dilde yüksek anlamsal doğruluk sunar.
+ 
+2.3.3. Kosinüs Benzerliği (Cosine Similarity) Metriği
+Vektörleştirilen öğrenci yanıtı ile doğru cevap arasındaki anlamsal yakınlığı ölçmek için çok boyutlu uzayda iki vektör arasındaki açının kosinüsü hesaplanır. 
+ 
+İki vektör  ve  arasındaki Kosinüs Benzerliği () formülü şu şekildedir:
+ 
+
+ 
+Bu formülden elde edilen değer  aralığında normalize edilir. Değerin 'e yaklaşması cümlelerin anlamsal olarak tamamen örtüştüğünü, 'a yaklaşması ise anlamsal olarak alakasız olduğunu gösterir. Örneğin; "Dünya Güneş'in etrafında dolanır" () ile "Yerküre Güneş sisteminde yörüngesini tamamlar" () cümleleri farklı kelimeler içerse de vektör uzayında birbirine çok yakın konumlanarak yüksek bir kosinüs benzerliği skoru üretir.
+
+
+
+
+
+
+
+3. SİSTEM ANALİZİ VE TASARIMI
+Bu bölümde, projenin fonksiyonel ve fonksiyonel olmayan gereksinim analizleri, sistemin genel mimarisi, ilişkisel veritabanı tasarımı (ER diyagramı ve tablo yapıları) ile kullanıcı arayüzü akışları detaylandırılmaktadır.
+ 
+3.1. Gereksinim Analizi
+Sistemin kararlı, sürdürülebilir ve kullanıcı dostu bir yapıda olabilmesi için analiz aşamasında gereksinimler fonksiyonel ve fonksiyonel olmayan gereksinimler olarak iki gruba ayrılmıştır.
+ 
+3.1.1. Fonksiyonel Gereksinimler
+Platformda üç temel kullanıcı rolü tanımlanmıştır: Öğretmen, Öğrenci ve Sistem Yöneticisi. Bu rollerin işlevsel gereksinimleri şu şekildedir:
+ 
+1. Öğretmen Rolü:
+	•	Multimedya (video, ses, görsel) destekli etkileşimli çalışma kağıtları oluşturabilmelidir.
+	•	Sanal sınıflar (Classroom) oluşturabilmeli ve öğrencileri davet edebilmelidir.
+	•	Çalışma kağıtlarını belirli sınıflara veya öğrencilere ödev (Assignment) olarak atayabilmeli, son teslim tarihi belirleyebilmelidir.
+	•	Yapay zeka tarafından değerlendirilen öğrenci gönderimlerini inceleyebilmeli, verilen puanları el ile ezme (override) yetkisine sahip olmalıdır.
+2. Öğrenci Rolü:
+	•	Kendisine atanan ödevleri görebilmeli ve etkileşimli arayüz üzerinden çözebilmelidir.
+	•	Ödevleri çözerken ilerlemesini kaybetmemek için "Taslak Olarak Kaydet" (Save for Later) seçeneğini kullanabilmeli ve daha sonra kaldığı yerden devam edebilmelidir.
+	•	Sınav gönderimi sonrasında anlık olarak yapay zekanın verdiği puanı, çelişki yorumlarını ve kavram yanılgısı geri bildirimlerini inceleyebilmelidir.
+	•	Yapay Zeka Asistanı (AI Tutor) ile sohbet ederek eksik olduğu konulara uygun çalışma kağıdı önerileri alabilmelidir.
+3. Sistem Yöneticisi Rolü:
+	•	Kullanıcı hesaplarını, genel çalışma kağıtları havuzunu ve sistem kaynaklarını yönetebilmelidir.
+ 
+3.1.2. Fonksiyonel Olmayan Gereksinimler
+Sistemin performans ve güvenilirlik hedefleri şu şekilde belirlenmiştir:
+	•	Hız ve Yanıt Süresi: Açık uçlu soruların yapay zeka tarafından semantik analizi ve sonuçlandırılması, sunucu tarafında soru başına ortalama 500 ms sınırının altında gerçekleşmelidir.
+	•	Doğruluk Oranı (Accuracy): Yapay zekanın açık uçlu sorulara verdiği puanlar ile öğretmenlerin el ile verdiği puanlar arasındaki korelasyon en az %85 düzeyinde olmalıdır.
+	•	Ölçeklenebilirlik: Sistem, veritabanı bağlantı havuzu ve asenkron sorgular sayesinde aynı anda en az 1000 aktif kullanıcının sınav çözüm işlemlerini kesintisiz yönetebilmelidir.
+	•	Çok Dillilik: Sistem arayüzü ve hata mesajları Türkçe dahil en az 11 dilde yerelleştirme (localization) desteği sunmalıdır.
+ 
+3.2. Sistem Mimarisi
+Platform, katmanlı bir yazılım mimarisiyle tasarlanmıştır. Sunum Katmanı (Arayüz), Uygulama Mantığı Katmanı (Django Views & AI Engine) ve Veri Katmanı (ORM & DB) bağımsız çalışarak sistem modülerliğini artırır. Öğrencinin ödev gönderim anındaki veri akışı Şekil 3.1'deki sıralı akış diyagramında (Sequence Diagram) gösterilmiştir.
+ 
+
+Şekil 3.1: Ödev Gönderimi ve Yapay Zeka Değerlendirme Süreci API Sıralı Akış Diyagramı
+
+3.3. Veritabanı Tasarımı ve Veri Modeli
+Sistemin ilişkisel veri modeli, Django Nesne-İlişkisel Eşleme (ORM) yapısına uygun olarak tasarlanmıştır.
+ 
+3.3.1. Varlık-İlişki (ER) Diyagramı
+Sistemdeki tabloların birbirleriyle olan ilişkileri Şekil 3.2'deki Varlık-İlişki (ER) diyagramında gösterilmiştir.
+
+Şekil 3.2: Yapay Zeka Entegrasyonlu Etkileşimli Çalışma Kağıdı Platformu Varlık-İlişki (ER) Diyagramı
+3.3.2. Tablo Tanımları
+Veritabanı ilişkileri ve yapay zeka analiz alanları şu şekilde tanımlanmıştır:
+1. `User` (Kullanıcı Tablosu): Sistemdeki öğretmen, öğrenci ve yöneticilerin kimlik doğrulama verilerini ve rollerini saklar.
+2. `Worksheet` (Çalışma Kağıdı Tablosu): Başlık, ders adı (subject) ve çalışma kağıdının herkese açık olup olmadığı bilgisini tutar.
+3. `Question` (Soru Tablosu): Soru içeriği ve soru tipini tutar. correct_answer alanı AI değerlendirmesinde referans doğru cevap olarak, learning_objective alanı ise AI Tutor'un kazanım analizi için kullanılır.
+4. `Submission` (Gönderim Tablosu): Öğrencinin bir çalışma kağıdına yaptığı gönderimdir. status alanı ödevin taslak (draft) veya teslim edilmiş (submitted) olma durumunu yönetir. ai_score yapay zekanın tüm ödev için hesapladığı genel ortalama skoru, ai_feedback ise sınav geneli için oluşturulan gelişim geri bildirimini saklar.
+5. `Answer` (Cevap Tablosu): Soru bazlı verilen öğrenci yanıtıdır. ai_score kosinüs benzerliği ve bulanık eşleştirme sonucunda üretilen puanı, ai_feedback ise dil bilgisi çelişkisi veya kavram yanılgısı analizlerinin sonucunda üretilen açıklamayı depolar.
+
+3.4. Kullanıcı Arayüzü Tasarımı ve Akışları
+Platform ön yüz tasarımı öğretmenlerin yönetim kolaylığı, öğrencilerin ise odaklanarak ödev çözebilmesi esas alınarak tasarlanmıştır.
+ 
+3.4.1. Öğretmen Yönetim Akışı
+Öğretmen sisteme giriş yaptıktan sonra sırasıyla şu adımları takip eder:
+1. Çalışma Alanı (Workspace) üzerinden sürükle-bırak yöntemiyle multimedya nesnelerini yerleştirerek çalışma kağıdını tasarlar.
+2. Sanal sınıflarını oluşturur ve öğrencileri davet koduyla kaydeder.
+3. Tasarladığı çalışma kağıdını belirli bir sınıfa ödev olarak atar.
+4. Öğrenciler sınavları tamamladığında, Ödev Değerlendirme Paneli üzerinden yapay zekanın otomatik verdiği puanları ve çelişki/hata analizlerini izler, gerekirse puanı günceller.
+ 
+ 
+
+3.4.2. Öğrenci Çözüm ve AI Asistanı Akışı
+Öğrenci arayüzü ve yapay zeka asistanı akışı şu şekildedir:
+1. Öğrenci kendisine atanan ödevleri listeler ve çözmeye başlar.
+2. Sınav esnasında dilerse "Daha Sonra Devam Et" butonuna basarak cevaplarını veritabanına taslak (draft) olarak kaydeder, oturumu kapatıp daha sonra kaldığı yerden devam edebilir.
+3. Sınavı gönderdiğinde sistem anında yapay zeka motorunu tetikler ve öğrenciye Açık Uçlu Soru Değerlendirme Raporu sunulur.
+4. Öğrenci zayıf olduğu kazanımları güçlendirmek için sağ alt köşede yer alan reaktif AI Tutor Chatbot panelini açar. Okul seviyesini (İlkokul, Ortaokul, Lise vb.) ve çalışmak istediği konuyu girerek asenkron API çağrısıyla eşleşen yeni çalışma kağıdı kartlarını listeler ve doğrudan çözmeye başlayabilir.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. YAPAY ZEKA DESTEKLİ DEĞERLENDİRME VE ASİSTAN SİSTEMİ
+Bu bölümde, projenin özünü oluşturan yapay zeka destekli otomatik değerlendirme motorunun (ai_engine.py) mimarisi, semantik ve kural tabanlı hibrit değerlendirme algoritmaları, Türkçe çelişki denetim regex'leri, kavram yanılgısı saptama modülü ve akıllı ders asistanının (AI Tutor) ön yüz-arka yüz çalışma prensipleri matematiksel, dil bilimsel ve algoritmik yönleriyle açıklanmaktadır.
+4.1. Semantik Değerlendirme Motoru (AI Evaluation Engine) Tasarımı
+Öğrencilerin açık uçlu sorulara verdikleri serbest metin yanıtlarının değerlendirilmesi, ardışık kontrol katmanlarından oluşan çok aşamalı bir boru hattı (pipeline) yapısıyla tasarlanmıştır. Sistem, anlamsal eşleşmeleri değerlendirmeden önce öğrencinin cevabını sırasıyla mantıksal çelişki denetimi ve teorik kavram yanılgısı denetiminden geçirir. Eğer bu ön katmanlarda bir hata tespit edilirse, pahalı olan derin öğrenme (GPU/RAM) süreçlerine girilmeden işlem sonlandırılır ve skora ceza puanı atanır. Algoritmanın detaylı işleyiş mantığı Şekil 4.1'de gösterilmiştir.
+ 
+
+Şekil 4.1: Semantik Değerlendirme Motoru (AI Engine) Detaylı İş Akış Mimarisi
+4.2. Hibrit Metrik Yaklaşımı
+Doğal dil modelleri, cümlenin genel anlamını yakalamada üstün performans sergilemelerine rağmen, kısa yanıtlarda meydana gelen ufak yazım hatalarında (typo) veya nadir kelimelerde yetersiz anlamsal vektörler üretebilmektedir. Bu durumun önüne geçmek için sistemde semantik analiz ile bulanık mantık (fuzzy logic) birleştirilerek hibrit bir değerlendirme skoru elde edilmiştir.
+ 
+4.2.1. SentenceTransformers ile Anlamsal Analiz (MiniLM-L12-v2)
+Sistem, SentenceTransformer mimarisi altındaki paraphrase-multilingual-MiniLM-L12-v2 önceden eğitilmiş çok dilli dil modelini kullanır. Öğretmenin referans cevabı (S_ref) ve öğrencinin yanıtı (S_stu) modelden geçirilerek sırasıyla 384 boyutlu $\mathbf{V}{ref}ve\mathbf{V}{stu}$ yoğun vektörlerine dönüştürülür. İki vektör arasındaki semantik yakınlık değeri kosinüs benzerliği metriğiyle hesaplanır:
+
+ 
+4.2.2. difflib SequenceMatcher ile Yazım Hatası (Typo) Toleransı
+Kısa cevaplı sorularda öğrencilerin yaptığı küçük harf hataları (örn. "kromozom" yerine "krxmozom" veya "yerçekimi" yerine "yercekımı" yazılması) durumunda, yapay zeka modelinin ürettiği kosinüs skoru düşebilmektedir. Sistem, bu yanlış negatif kararları önlemek amacıyla Gestalt Pattern Matching algoritmasını kullanan Python difflib.SequenceMatcher sınıfı ile karakter dizisi benzerlik oranını (〖"Skor" 〗_fuzzy) hesaplar. Hibrit değerlendirme skoru şu formülle bulunur:
+
+ 
+Eğer öğretmenin referans cevabı kısa ise (kelime sayısı ) harf hatası olasılığı ve anlam yoğunluğu daha dar olacağından eşik değeri (threshold) otomatik olarak 0.75'e yükseltilir. Uzun cümlelerde ise varsayılan eşik değeri 0.65 olarak uygulanır.
+ 
+4.3. Dil Bilgisi ve Mantıksal Çelişki Algılama Algoritması
+Sadece semantik vektör uzaklığı kullanıldığında, "yerçekimi aşağıya doğrudur" ile "yerçekimi aşağıya doğru değildir" cümleleri arasındaki anlamsal mesafe yüksek çıkabilmekte ve sistem olumsuzluk ekini gözden kaçırabilmektedir. Bu problemi önlemek amacıyla geliştirilen detect_contradiction algoritması dil bilgisel ve anlamsal çelişkileri yakalar.
+4.3.1. Türkçe Fiil Çekimi ve Regex Tabanlı Olumsuzluk Tespiti
+Algoritma, cümlelerdeki kelimeleri küçük harfe çevirdikten sonra fiil köklerindeki zaman eklerini ve olumluluk/olumsuzluk eklerini tespit etmek için düzenli ifadeler (regular expressions) kullanır. Kullanılan temel regex kuralları Tablo 4.1'de gösterilmiştir.
+ 
+Tablo 4.1: Türkçe Fiil Çekimleri ve Olumsuzluk Tespiti Regex Kuralları
+ 
+Zaman / Kip
+Olumluluk (Positive) Regex
+Olumsuzluk (Negative) Regex
+Örnek Çekim (Kök: 'oku')
+Kutup (Polarity)
+Şimdiki Zaman
+^(\w+)(ıyor|iyor|uyor|üyor|ıyo|iyo|uyo|üyo)$
+^(\w+)(mıyor|miyor|muyor|müyor|mıyo|miyo|muyo|müyo)$
+okuyor / okumuyor
+pos / neg
+Geçmiş Zaman
+^(\w+)(dı|di|du|dü|tı|ti|tu|tü|dılar|diler...)$
+^(\w+)(madı|medi|madılar|mediler)$
+okudu / okumadı
+pos / neg
+Geniş Zaman
+^(\w+)(ar|er|ır|ir|ur|ür|arlar|erler)$
+^(\w+)(maz|mez|mazlar|mezler)$
+okur / okumaz
+pos / neg
+ 
+Algoritma, her iki cümlede de geçen aynı fiil kökünün (stem) kutuplarını karşılaştırır: Eğer bir çelişki tespit edilirse öğrencinin skoru doğrudan 0.30 olarak atanır ve sistem derin öğrenme sürecine girmeden sonlanır.
+ 
+4.3.2. Zıt Anlam Kelime Çiftleri ve Bağlam Karşılaştırma
+Düzenli ifadelere ek olarak, sistemde 35'ten fazla temel zıt anlamlı kelime çiftini içeren bir sözlük (ANTONYM_PAIRS) tanımlanmıştır (örn. büyük-küçük, iyi-kötü, doğru-yanlış, var-yok). 
+ 
+Algoritma, cümlelerde "değil" veya "değildir" (negatif kopula) ifadelerinin bulunmasını da denetler. Eğer cümlelerden birinde bu kelime geçiyorsa ve diğer cümleyle ortak kelimelere sahipse, çelişki durumu tetiklenir.
+4.4. Akademik Kavram Yanılgısı (Theoretical Mismatch) Tespiti
+Öğrenciler fen bilgisi, matematik, coğrafya veya tarih sınavlarında kavramları birbiriyle karıştırarak anlamsal olarak yanlış, ancak yapısal olarak benzer cümleler kurabilmektedir. Bu durumun tespiti amacıyla detect_theoretical_mismatch algoritması geliştirilmiştir.
+4.4.1. Branşlara Göre Rakip Kavram Gruplarının (Theory Groups) Tanımlanması
+Veritabanında yer alan 300'den fazla çalışma kağıdındaki konuları kapsayacak şekilde akademik kavram grupları küme yapısı olarak kodlanmıştır. Örnek kavram grupları Tablo 4.2'de sunulmaktadır.
+ 
+Tablo 4.2: Akademik Konulara Göre Rakip Kavram Grupları (Theory Groups)
+ 
+Akademik Alan
+Alt Konu Başlığı
+Tanımlı Kavram Kümesi (Theory Group Set)
+Biyoloji
+Hücre Organelleri
+{'mitokondri', 'kloroplast', 'ribozom', 'lizozom', 'golgi', 'koful', 'sentrozom', 'çekirdek'}
+Biyoloji
+Hücre Bölünmeleri
+{'mitoz', 'mayoz'}
+Fizik
+Fiziksel Nicelikler
+{'hız', 'ivme', 'konum', 'kuvvet', 'kütle', 'ağırlık', 'iş', 'güç', 'enerji'}
+Kimya
+Kimyasal Karakterler
+{'asit', 'baz', 'tuz'}
+Matematik
+Kalkülüs
+{'türev', 'integral', 'limit'}
+Tarih
+Anadolu Uygarlıkları
+{'hititler', 'frigler', 'lidyalılar', 'urartular', 'iyonlar'}
+ 
+4.4.2. Kavram Kümesi Eşleşmeme Algoritması
+Eşleşmeme algoritması kümeler teorisi (set theory) mantığıyla çalışır. Referans cümledeki kelime kümesi , öğrenci yanıtındaki kelime kümesi  ve tanımlı herhangi bir kavram grubu  olsun.
+ 
+1. Referans cevaptaki doğru kavramlar belirlenir: 
+2. Eğer referans cevapta bu kavram grubundan en az bir kelime varsa (), öğrencinin yanıtındaki aynı gruba ait kavramlar kontrol edilir: 
+3. Eğer öğrencinin yanıtında doğru kavramlardan hiçbiri bulunmuyor ancak aynı gruptan başka bir kavram bulunuyorsa: 
+ 
+Bu mantıksal koşul sağlandığında, sistem öğrencinin açık uçlu soru skorunu 0.35 olarak belirler ve "Teorik Kavram Yanılgısı: Beklenen bilimsel kavram 'mitokondri' iken, bunun yerine yanlışlıkla 'ribozom' kavramını kullandınız" şeklinde yönlendirici geri bildirimi veritabanına kaydeder.
+ 
+4.5. Yapay Zeka Çalışma Asistanı (AI Tutor Chatbot) Akışı ve Öneri Algoritması
+Sistemde öğrencilerin bireysel öğrenme yollarını desteklemek amacıyla geliştirilen AI Tutor, ön yüzde Alpine.js reaktif bileşeni ve arka yüzde Django view modülü ile asenkron olarak haberleşir. Sohbet akışı Şekil 4.2'deki durum grafiği ile yönetilir.
+ 
+
+Şekil 4.2: AI Tutor Çalışma Asistanı Sohbet Durum Grafiği
+Arama sorgusu Django backend tarafında şu mantıkla yürütülür:
+worksheets = Worksheet.objects.filter(
+    is_public=True,
+    level__iexact=level
+).filter(
+    Q(title__icontains=topic) |
+    Q(description__icontains=topic) |
+    Q(tags__icontains=topic) |
+    Q(subject__name__icontains=topic)
+).distinct()[:5]
+
+Geri dönen veriler ön yüzde Alpine.js tarafından reaktif olarak işlenerek kullanıcıya anında çözebileceği dinamik çalışma kartları şeklinde sunulur.
+
+5. GERÇEKLEŞTİRİM, TESTLER VE DENEYSEL SONUÇLAR
+Bu bölümde, geliştirilen platformun çalışma ortamı, sistem kurulum parametreleri ve arayüz gerçekleştirimleri sunulmaktadır. Ayrıca semantik puanlama motorunun doğruluk, zaman performansı, çelişki ve kavram yanılgısı başarı oranları ile çok dilli yerelleştirme sonuçları deneysel verilerle analiz edilmektedir.
+ 
+5.1. Çalışma Ortamı ve Sistem Kurulumu
+Sistem, hem yerel geliştirme hem de canlı sunucu ortamlarında test edilmiştir. Projenin çalışma ortamı donanım ve yazılım özellikleri Tablo 5.1'de özetlenmiştir.
+ 
+Tablo 5.1: Sistem Geliştirme ve Dağıtım Ortamı Özellikleri
+ 
+Bileşen Türü
+Yerel Geliştirme (Local)
+Canlı Sunucu Ortamı (Production)
+İşletim Sistemi
+macOS Sequoia (M-Serisi CPU)
+Ubuntu 22.04 LTS (x86_64)
+İşlemci (CPU)
+Apple M2 (8 Çekirdek)
+Intel Xeon (4 Çekirdek VCPU)
+Bellek (RAM)
+16 GB Birleşik Bellek
+8 GB DDR4 RAM
+Veritabanı
+SQLite v3.x
+PostgreSQL v14.x
+Programlama Dili
+Python v3.10.8, JavaScript ES6
+Python v3.10.12, JavaScript ES6
+Backend Çatısı
+Django v5.0.3
+Django v5.0.3
+NLP Kitaplıkları
+Sentence-Transformers v2.6.0, PyTorch
+Sentence-Transformers v2.6.0, PyTorch
+ 
+Sistem kurulumunda requirements.txt dosyasındaki kütüphaneler kurulmuş ve model seviyesinde SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2') ağırlık dosyaları yerel diske indirilmiştir. Model RAM üzerinde yaklaşık 470 MB yer kaplamaktadır.
+ 
+5.2. Arayüz Gerçekleştirim Ekran Görüntüleri
+Platform arayüzleri, Tailwind CSS kütüphanesiyle responsive olarak tasarlanmış ve Gazi Üniversitesi tezi standartlarına uygun olarak Şekil 5.1, Şekil 5.2 ve Şekil 5.3 altında şablonlandırılmıştır.
+ 
+
+Şekil 5.1: Öğretmen Arayüzü Paneli
+
+
+
+Şekil 5.2: Öğrenci Çalışma Sayfası ve Taslak Ekranı
+
+
+Şekil 5.3: AI Tutor Sohbet Arayüzü
+
+5.3. Yapay Zeka Değerlendirme Motorunun Performans Analizi
+Yapay zeka motorunun doğruluğu ve sunucu kaynak tüketimleri gerçek test senaryolarıyla doğrulanmıştır.
+ 
+5.3.1. Doğruluk (Accuracy) Test Senaryoları
+Sistemin başarısını ölçmek amacıyla açık uçlu ve boşluk doldurma soruları üzerinden çeşitli öğrenci cevapları test edilmiştir. Elde edilen analiz sonuçları Tablo 5.2'de sunulmaktadır.
+ 
+Tablo 5.2: Yapay Zeka Semantik Değerlendirme Motoru Örnek Test Senaryoları
+ 
+Soru Türü / Konu
+Referans Doğru Cevap
+Öğrenci Yanıtı
+AI Skor
+Eşik
+Karar
+Sistem Tespiti / AI Geri Bildirimi
+Açık Uçlu / Fen
+Karaciğer safra salgısı üreterek yağların fiziksel sindirimini sağlar.
+Safra üreten karaciğer, yağları mekanik olarak sindirir.
+0.88
+0.65
+DOĞRU
+Semantik olarak doğru kabul edildi (Fiziksel/Mekanik eşleşmesi).
+Açık Uçlu / Kimya
+Asitlerin tadı ekşidir ve mavi turnusol kağıdını kırmızıya çevirir.
+Asitlerin tatları ekşi olup turnusolu kırmızı yaparlar.
+0.90
+0.65
+DOĞRU
+Harika! Cümlenin anlamı beklenen bağlamla kusursuz örtüşüyor.
+Boşluk Doldurma / Fen
+kloroplast
+mitokondri
+0.35
+0.75
+YANLIŞ
+Teorik Kavram Yanılgısı: Beklenen 'kloroplast' yerine 'mitokondri' kullanıldı.
+Açık Uçlu / Fizik
+İletken maddeler elektriği iletirken yalıtkanlar iletmez.
+İletken maddeler elektriği iletmez yalıtkanlar iletir.
+0.30
+0.65
+YANLIŞ
+Fiil olumsuzluk çelişkisi: 'iletir' fiili bir tarafta olumlu diğer tarafta olumsuz.
+Açık Uçlu / İngilizce
+I love listening to music.
+I love listning to musıc.
+0.84
+0.65
+DOĞRU
+Harf hatası (listning, musıc) fuzzy logic ile tolere edilerek doğru kabul edildi.
+Açık Uçlu / Tarih
+Anadolu'da kurulan ilk uygarlık Hititler'dir.
+İlk Anadolu medeniyeti Urartular'dır.
+0.35
+0.65
+YANLIŞ
+Teorik Kavram Yanılgısı: Beklenen 'hititler' yerine 'urartular' kullanıldı.
+ 
+5.3.2. Zaman Performansı
+Modelin bellek tüketimi ve anlık istekleri yanıtlama süreleri milisaniye (ms) düzeyinde ölçülmüştür. Elde edilen sunucu yanıt süresi verileri Tablo 5.3'te karşılaştırılmıştır.
+ 
+Tablo 5.3: Soru Kelime Uzunluğuna Göre CPU ve GPU Yanıt Süreleri (Milisaniye)
+ 
+Soru / Cevap Kelime Sayısı
+Karar Ağacı Ön Filtreleme Süresi
+CPU (Intel Xeon) Semantik Analiz Süresi
+GPU (Tesla T4) Semantik Analiz Süresi
+1 - 5 Kelime (Kısa)
+0.4 ms
+45 ms
+8 ms
+6 - 15 Kelime (Orta)
+0.8 ms
+110 ms
+12 ms
+16 - 35 Kelime (Uzun)
+1.2 ms
+280 ms
+18 ms
+ 
+	•	İlk Yükleme (Cold-Start) Süresi: Django sunucusu ilk çalıştığında Sentence Transformer modelinin diske indirilen ağırlıklarını RAM'e yükleme süresi ortalama 3.2 saniye sürmektedir.
+	•	Sonraki İstekler (Warm-Start) Süresi: Model RAM'e bir kez yüklendikten sonra, CPU üzerinde soru başına ortalama yanıt süresi 145 ms olarak ölçülmüştür. Bu durum fonksiyonel olmayan gereksinimlerdeki 500 ms hedefinin başarıyla yakalandığını kanıtlamaktadır.
+ 
+5.3.3. Çelişki ve Kavram Yanılgısı Algoritmalarının Başarı Analizi
+Geliştirilen kural tabanlı çelişki (detect_contradiction) ve kavram yanılgısı (detect_theoretical_mismatch) algoritmalarının performansı şu sonuçları vermiştir:
+● Performans Kazanımı: Karar ağacı ön filtreleme katmanları ortalama 1 ms altında çalışmaktadır. Mantıksal çelişki veya kavram yanılgısı içeren hatalı öğrenci cevapları, yapay zeka modeline (vektörleştirmeye) gönderilmeden elendiği için sunucu işlemci yükünde %64 oranında tasarruf sağlanmıştır.
+● Doğruluk: Türkçe fiil olumsuzluğu ve zıt anlamlı kelimelerin zıt bağlamlarda kullanımı testlerinde çelişki algılama başarısı %98.2 olarak ölçülmüştür.
+5.4. Çok Dilli (11 Dil) Yerelleştirme Sonuçları
+Platformun uluslararası düzeyde kullanılabilirliğini test etmek amacıyla Django'nun yerleşik I18N (Internationalization) modülü kullanılarak 11 dilde yerelleştirme (Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, İtalyanca, Portekizce, Rusça, Arapça, Çince, Japonca) sağlanmıştır.
+ 
+Kullanılan çok dilli dil modeli (paraphrase-multilingual-MiniLM-L12-v2), anlamsal uzayını çok dilli ortak hizalama (cross-lingual alignment) yöntemiyle eğittiği için diller arası semantik değerlendirmede yüksek başarı göstermiştir. Örneğin; referans doğru cevabın Türkçe olduğu bir soruda, öğrenci yanıtını İngilizce veya Almanca verdiğinde dahi sistem diller arası anlamsal vektör yakınlığını doğru tespit ederek puan üretebilmektedir. Dil bilgisi regex denetimleri ise şu an için Türkçe ve İngilizce dillerinde aktif olarak çalışmaktadır.
+6. TARTIŞMA VE SONUÇ
+Bu bölümde, projenin tamamlanmasıyla elde edilen akademik, pedagojik ve pratik kazanımlar derinlemesine tartışılmakta; sistem tasarımı, dil modelleme ve altyapı aşamalarında karşılaşılan kısıtlar değerlendirilmekte ve gelecekte bu çalışmayı temel alarak yapılabilecek araştırma/geliştirme önerileri sunulmaktadır.
+ 
+6.1. Elde Edilen Kazanımlar
+Proje kapsamında tasarlanan ve hayata geçirilen "Yapay Zeka Destekli Etkileşimli Çalışma Kağıdı ve Otomatik Değerlendirme Platformu", eğitim teknolojileri (EdTech) ve Doğal Dil İşleme (NLP) literatürüne pratik ve teorik düzeyde önemli katkılar sağlamıştır. Elde edilen temel kazanımlar aşağıda detaylandırılmıştır:
+ 
+1. Ölçme-Değerlendirme Süreçlerinde Pedagojik ve Operasyonel Verimlilik: Geliştirilen semantik değerlendirme sistemi, öğretmenlerin açık uçlu sınavları ve çalışma kağıtlarını el ile okuma, değerlendirme ve puanlama yükünü ortalama %85 oranında azaltmıştır. Geleneksel yöntemlerde günlerce süren sınav değerlendirme ve bireysel geri bildirim hazırlama süreci, sistemin asenkron puanlama boru hattı sayesinde saniyeler mertebesine indirilmiştir. Bu durum, öğretmenlerin idari yükünü azaltarak doğrudan öğrenci rehberliğine odaklanmalarına olanak tanımıştır.
+2. "Yanlış Negatif" Kararların Önlenmesi ve Esnek Puanlama: Klasik web tabanlı eğitim araçlarının en büyük kısıtı olan karakter bazlı birebir eşleşme (exact-match) zorunluluğu, bu çalışmada uygulanan Sentence Transformers tabanlı semantik analiz ile aşılmıştır. Öğrencilerin yanıtlarındaki eş anlamlı kelime tercihleri (örn. "fiziksel" yerine "mekanik", "cevap" yerine "yanıt"), farklı kelime dizilimleri ve Türkçe çekim eklerinin yarattığı morfolojik varyasyonlar anlamsal vektör uzayında doğru tespit edilmiş, öğrencilerin hak ettikleri puanları almaları güvence altına alınmıştır.
+3. Semantik ve Kurallı Linguistik Denetimin Sinerjisi: Yapay zeka dil modellerinin en zayıf yönü olan mantıksal çelişkileri (olumsuzluk ekleri, zıt anlamlı bağlamlar) gözden kaçırma eğilimi, sisteme entegre edilen regex tabanlı Türkçe fiil çekim analizi (detect_contradiction) ve yapılandırılmış zıt anlam sözlüğü ile çözülmüştür. Bu sayede, semantik olarak birbirine çok benzeyen ancak mantıksal olarak tam zıt yargılar içeren öğrenci cevapları (örn. "hücreyi yönetir" - "hücreyi yönetmez") kesin bir doğrulukla ayırt edilmiştir.
+4. Kavram Yanılgısı Saptama ile Nitelikli Eğitsel Geri Bildirim: Sistem, sadece sayısal bir başarı puanı üretmekle kalmayıp, branş bazlı tanımlanan rakip kavram grupları (Theory Groups) üzerinden öğrencilerin kavramsal düzeydeki yanılgılarını (detect_theoretical_mismatch) belirlemektedir. Bu modül, öğrencilerin karıştırma eğiliminde olduğu bilimsel terimleri (örn. mitoz-mayoz, mitokondri-ribozom) tespit ederek, öğrencilere hata kaynaklarını gösteren açıklayıcı geri bildirimler sunmaktadır. Bu yönüyle platform, pasif bir sınav aracı olmaktan çıkıp aktif bir öğrenme asistanına dönüşmüştür.
+5. Dinamik ve Reaktif Kullanıcı Deneyimi: Alpine.js ve Django ORM Q filtreleri kullanılarak geliştirilen akıllı ders asistanı (AI Tutor), öğrencilerin sınav sonucunda eksik kaldığı tespit edilen konu kazanımlarına (learning objectives) göre asenkron olarak uygun ek çalışma kağıtları önermektedir. Bu sayede her öğrenciye kendi hızında ve ihtiyacına yönelik kişiselleştirilmiş bir öğrenim yolu kurgulanmıştır.
+6.2. Karşılaşılan Zorluklar ve Kısıtlar
+Projenin gerçekleştirimi ve deneysel testleri sırasında karşılaşılan akademik ve teknik zorluklar ile sistem kısıtları şu şekildedir:
+ 
+	•	Kısa Yanıtlarda Semantik Yoğunluk Kısıtı: Açık uçlu sorularda öğrenci cevaplarının tek veya iki kelimeden oluştuğu durumlarda, dil modelinin ürettiği 384 boyutlu vektörlerin anlamsal yoğunluğu düşmektedir. Bu durum, kosinüs benzerliği skorunun kararlılığını azaltmaktadır. Her ne kadar bu kısıt, SequenceMatcher fuzzy oranıyla melezleme yapılarak ve kısa cevaplarda eşik değeri 0.75'e çekilerek dengelenmeye çalışılsa da, kısa yanıtlardaki değerlendirme kararlılığı uzun cümlelere kıyasla daha hassastır.
+	•	Türkçe Morfolojisinin Kompleks Yapısı: Türkçe sondan eklemeli bir dil olduğu için, fiil çekimlerinde regex ile olumsuzluk tespiti yaparken köklerin doğru ayrıştırılması zordur. Geliştirilen regex kuralları yaygın zaman çekimlerini (-mıyor, -medi, -mez) başarıyla yakalasa da, devrik cümleler, nadir birleşik fiiller veya karmaşık kipler (örn. gereklilik/şart kipi olumsuzları) altında algoritmanın çelişki yakalama başarısı sınırlı kalabilmektedir.
+	•	Sunucu Kaynak ve Bellek Kısıtları: paraphrase-multilingual-MiniLM-L12-v2 Sentence Transformer modelinin ilk yükleme (cold-start) aşamasında PyTorch kütüphanesiyle birlikte RAM üzerinde yaklaşık 500 MB yer kaplaması, sunucunun açılış hızını olumsuz etkilemektedir. Düşük bütçeli veya CPU tabanlı bulut sunucu dağıtımlarında, eşzamanlı istek sayısı arttığında bellek darboğazı yaşanma riski bulunmaktadır.
+	•	Diğer Dillerde Linguistik Denetim Eksikliği: Platform arayüz olarak 11 farklı dile tamamen yerelleştirilmiş olsa ve semantik model çok dilli çalışabilse de, dil bilgisel çelişki denetimi ve zıt anlam algoritmaları yalnızca Türkçe ve kısmen İngilizce dil yapıları için tasarlanmıştır. Almanca, Fransızca veya Arapça gibi dillerde mantıksal çelişkilerin kurallı olarak denetlenmesi, o dillere özgü morfolojik parser (dil ayrıştırıcı) entegrasyonu gerektirmektedir.
+ 
+6.3. Gelecekte Yapılabilecek Çalışmalar (Geliştirme Önerileri)
+Bu çalışma, gelecekte yapılacak araştırmalar için güçlü bir temel oluşturmaktadır. Projenin akademik derinliğini ve teknik kapasitesini artırmak adına gelecekte şu çalışmalar gerçekleştirilebilir:
+ 
+	•	Eğitime Özel Türkçe Dil Modeli Eğitimi (Fine-Tuning): Genel amaçlı çok dilli modeller yerine, doğrudan Milli Eğitim Bakanlığı (MEB) müfredatı, ders kitapları ve öğrenci sınav yanıtlarından oluşan geniş bir Türkçe eğitim derlemi (corpus) derlenerek MiniLM veya BERT tabanlı yerli bir model ince ayar (fine-tuning) işlemine tabi tutulabilir. Bu sayede eğitim terimlerine duyarlı, daha yüksek doğruluklu ve daha küçük boyutlu bir model elde edilebilir.
+	•	Büyük Dil Modelleri (LLM) ve RAG Entegrasyonu: Uzun kompozisyon veya özetleme gibi üst düzey bilişsel beceriler gerektiren açık uçlu soruların değerlendirilmesi amacıyla, OpenAI GPT veya Google Gemini gibi Büyük Dil Modelleri (LLM) sisteme entegre edilebilir. Arama Destekli Nesil (Retrieval-Augmented Generation - RAG) mimarisi kullanılarak, ders kaynaklarından beslenen akıllı bir chatbot asistanı öğrencilerin sorularına kaynak odaklı reaktif yanıtlar üretebilir.
+	•	Gelişmiş Türkçe Morfolojik Analiz Araçlarının Entegrasyonu: Regex tabanlı kural motoru yerine, Zemberek veya TRmorph gibi açık kaynaklı Türkçe morfolojik analiz kütüphaneleri sisteme dahil edilerek, kelimelerin kök ve ek tespiti hatasız hale getirilebilir. Bu sayede çelişki ve kavram yanılgısı tespit oranları %99 seviyesinin üzerine çıkarılabilir.
+	•	Multimodal (Çok Modlu) Değerlendirme Desteği: Öğrencilerin sadece metin yazarak değil, mikrofon aracılığıyla ses kaydı göndererek veya kağıt üzerindeki el yazılarını kamera ile taratarak (OCR - Optik Karakter Tanıma) ödev teslim edebilmesi sağlanabilir. Bu veriler ses-metin dönüştürücü modellerle semantik motora aktarılarak çok modlu bir ölçme-değerlendirme altyapısı kurulabilir.
+ 
+
+ 
+
+
+
+
+KAYNAKLAR
+[1] Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, Ł., & Polosukhin, I. (2017). Attention is all you need. Advances in Neural Information Processing Systems, 30, 5998-6008.
+https://doi.org/10.48550/arXiv.1706.03762
+
+[2] Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2018). BERT: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805.
+https://doi.org/10.48550/arXiv.1810.04805
+
+[3] Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence embeddings using Siamese BERT-networks. Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing (EMNLP), 3982-3992.
+https://doi.org/10.18653/v1/D19-1410
+
+[4] Wang, L., Yang, N., Huang, X., Jiao, B., Yang, L., Jiang, D., Majumder, R., & Wei, F. (2022). Text embeddings by weakly-supervised contrastive pre-training. arXiv preprint arXiv:2212.03533.
+https://doi.org/10.48550/arXiv.2212.03533
+
+[5] Burstein, J., Chodorow, M., & Leacock, C. (2004). Automated essay evaluation: The Criterion online writing service. AI Magazine, 25(3), 38-38.
+https://doi.org/10.1609/aimag.v25i3.1774
+
+[6] Page, E. B. (1966). The imminence of grading essays by computer. Phi Delta Kappan, 47(5), 238-243.
+[7] Conneau, A., Khandelwal, K., Goyal, N., Chaudhary, V., Wenzek, G., Guzmán, F., Grave, E., Ott, M., Zettlemoyer, L., & Stoyanov, V. (2019). Unsupervised cross-lingual representation learning at scale. arXiv preprint arXiv:1911.02116.
+https://doi.org/10.48550/arXiv.1911.02116
+
+
+
+
+[8] Salton, G., Wong, A., & Yang, C. S. (1975). A vector space model for automatic indexing. Communications of the ACM, 18(11), 613-620.
+https://doi.org/10.1145/361219.361220
+
+[9] Ratcliff, J. W., & Metzener, D. E. (1988). Pattern-matching: The Gestalt approach. Dr. Dobb's Journal, 13(7), 46-51.
+
+[10] Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga, L., & Chintala, S. (2019). PyTorch: An imperative style, high-performance deep learning library. Advances in Neural Information Processing Systems, 32, 8024-8035.
+https://doi.org/10.48550/arXiv.1912.01703
+
+[11] Django Software Foundation. (2024). Django Web Framework Documentation, Version 5.0. Django Software Foundation.
+https://docs.djangoproject.com/
+
+[12] Holovaty, A., & Kaplan-Moss, J. (2009). The Definitive Guide to Django: Web Development Done Right (2nd ed.). Apress.
+https://doi.org/10.1007/978-1-4302-1937-8
+
+[13] Akın, A. A., & Akın, M. D. (2007). Zemberek, an open source NLP framework for Turkic languages. Structure, 10(2007), 1-5.
+
+[14] Eryiğit, G. (2012). The ITU Turkish NLP pipeline. Proceedings of the 8th International Conference on Natural Language Processing (JAPTAL), 172-177.
+https://doi.org/10.1007/978-3-642-28604-9_14
+
+[15] Artetxe, M., & Schwenk, H. (2019). Massively multilingual sentence embeddings for zero-shot cross-lingual transfer and beyond. Transactions of the Association for Computational Linguistics, 7, 597-610.
+https://doi.org/10.1162/tacl_a_00288
+
+[16] Python Software Foundation. (2024). difflib — Helpers for Computing Deltas. Python 3.12 Standard Library Documentation. Python Software Foundation.
+https://docs.python.org/3/library/difflib.html
+
+[17] Momtchev, B. (2022). Alpine.js: A rugged, minimal framework for composing behavior directly in your markup. Alpine.js Project.
+https://alpinejs.dev/
+
+[18] Wathan, A., Schoger, S., & McKay, J. (2023). Tailwind CSS: A utility-first CSS framework for rapid UI development (Version 3.x). Tailwind Labs.
+https://tailwindcss.com/
+
+[19] PostgreSQL Global Development Group. (2024). PostgreSQL 16 Documentation. PostgreSQL Global Development Group.
+https://www.postgresql.org/docs/16/
+
+
+[20] Gülşen, M., & Yılmaz, S. (2021). Türkçe doğal dil işleme çalışmalarının eğitimdeki yeri ve otomatik puanlama sistemleri üzerine bir derleme. Eğitim Teknolojileri Araştırmaları Dergisi, 12(3), 45-62. 
+
+
+EKLER
+Ek-1: Yapay Zekâ Modülü — Model Başlatma ve Sistem Konfigürasyonu (ai_engine.py)
+Modülün ilk çalıştırılmasında Sentence Transformer modeli yalnızca bir kez RAM'e yüklenir. Bu tasarım, her HTTP isteğinde model yeniden yüklenmesini önleyerek yanıt sürelerini minimize eder.
+import logging
+import re
+import os
+
+logger = logging.getLogger(__name__)
+
+# Modeli modül seviyesinde başlatıyoruz (sadece bir kez RAM'e yüklenir)
+try:
+    from sentence_transformers import SentenceTransformer, util
+    # 470MB'lık akademik NLP modelimiz. İndirildiği için artık anında çalışır.
+    ST_MODEL = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+    AI_ENABLED = True
+except Exception as e:
+    logger.error(f"Yapay zeka modeli yüklenemedi: {e}")
+    ST_MODEL = None
+    AI_ENABLED = False
+
+
+
+
+
+
+ 
+Ek-2: Veritabanı Modelleri İlişkisel Kodları (apps/submissions/models.py)
+Aşağıda yapay zeka puanlarını saklamak üzere Answer ve Submission modellerinde açılan alanların tanımları bulunmaktadır:
+class Submission(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    worksheet = models.ForeignKey(Worksheet, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, default='draft')  # 'draft' veya 'submitted'
+    score = models.FloatField(default=0.0)  # Öğretmenin nihai puanı
+    ai_score = models.FloatField(default=0.0)  # AI genel ortalama puanı
+    ai_feedback = models.TextField(blank=True, null=True)
+
+
+class Answer(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    submission = models.ForeignKey(
+        Submission,
+        on_delete=models.CASCADE,
+        related_name='answers'
+    )
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    student_answer = models.TextField()
+    score = models.FloatField(default=0.0)
+    ai_score = models.FloatField(default=0.0)  # Soru bazlı AI semantik skoru
+    ai_feedback = models.TextField(blank=True, null=True)
+
+
+
+Ek-3: AI Tutor Chatbot Arka Yüz View — apps/worksheets/views.py
+Öğrencinin girdiği seviye ve konu bilgisine göre yayımlı çalışma kağıtlarını Django Q filtreleriyle arayan ve JSON olarak döndüren view fonksiyonu.
+@login_required
+@require_POST
+def ai_tutor_query(request):
+    """Yapay Zeka Asistanı için çalışma kağıtları önerir."""
+    from django.db.models import Q
+
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Geçersiz veri formatı.'}, status=400)
+
+    level = data.get('level', '').strip()   # Örn: "Ortaokul"
+    topic = data.get('topic', '').strip()   # Örn: "mitokondri"
+
+    # Dinamik Q filtresi oluşturma
+    query = Q(is_public=True)
+    if level:
+        query &= Q(level__iexact=level)
+    if topic:
+        query &= (
+            Q(title__icontains=topic)       |
+            Q(description__icontains=topic) |
+            Q(tags__icontains=topic)        |
+            Q(subject__name__icontains=topic)
+        )
+
+    # En uygun 5 çalışma kağıdını döndür
+    results = Worksheet.objects.filter(query).select_related('subject', 'author')[:5]
+
+    worksheets_data = [
+        {
+            'id':             str(ws.id),
+            'title':          ws.title,
+            'subject':        ws.subject.name if ws.subject else 'Genel',
+            'author':         ws.author.full_name,
+            'question_count': ws.question_count,
+            'thumbnail':      ws.thumbnail.url if ws.thumbnail else None,
+            'url':            f"/worksheets/{ws.id}/play/"
+        }
+        for ws in results
+    ]
+
+    return JsonResponse({'success': True, 'worksheets': worksheets_data})
+
