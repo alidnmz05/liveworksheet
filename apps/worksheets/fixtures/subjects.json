@@ -1,0 +1,13 @@
+[
+  {"model": "worksheets.subject", "pk": 1, "fields": {"name": "Matematik", "icon": "fas fa-calculator"}},
+  {"model": "worksheets.subject", "pk": 2, "fields": {"name": "İngilizce", "icon": "fas fa-language"}},
+  {"model": "worksheets.subject", "pk": 3, "fields": {"name": "Türkçe", "icon": "fas fa-pen"}},
+  {"model": "worksheets.subject", "pk": 4, "fields": {"name": "Fen Bilgisi", "icon": "fas fa-flask"}},
+  {"model": "worksheets.subject", "pk": 5, "fields": {"name": "Sosyal Bilgiler", "icon": "fas fa-globe"}},
+  {"model": "worksheets.subject", "pk": 6, "fields": {"name": "Almanca", "icon": "fas fa-language"}},
+  {"model": "worksheets.subject", "pk": 7, "fields": {"name": "Fransızca", "icon": "fas fa-language"}},
+  {"model": "worksheets.subject", "pk": 8, "fields": {"name": "Tarih", "icon": "fas fa-landmark"}},
+  {"model": "worksheets.subject", "pk": 9, "fields": {"name": "Coğrafya", "icon": "fas fa-map"}},
+  {"model": "worksheets.subject", "pk": 10, "fields": {"name": "Müzik", "icon": "fas fa-music"}},
+  {"model": "worksheets.subject", "pk": 11, "fields": {"name": "Resim/Sanat", "icon": "fas fa-palette"}}
+]

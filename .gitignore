@@ -1,0 +1,19 @@
+venv/
+venv 2
+.env
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+static/
+staticfiles/
+.vscode/
+.DS_Store
+workspace_server.log
+runserver.log
+*.log
+tez/
+TEZson.docx
+TEZson.txt
+
+.claude/settings.local.json
